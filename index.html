@@ -521,12 +521,22 @@ const KEY="carbonos_dash_v4";
 function migrateItems(){items.forEach(it=>{if(it.prd===undefined)it.prd=null;if(it.owner===undefined)it.owner="";});}
 function seedOwnersFromItems(){const set=new Set(DEFAULT_OWNERS);items.forEach(it=>{if(it.owner)it.owner.split(",").map(s=>s.trim()).filter(Boolean).forEach(o=>set.add(o));});owners=Array.from(set);}
 
+function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
+  meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();}
 async function load(){
-  try{if(window.storage){const r=await window.storage.get(KEY);if(r&&r.value){const d=JSON.parse(r.value);items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
-    meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();return;}}}catch(e){}
+  // 1) Claude artifact storage, when running inside the Claude app
+  try{if(window.storage){const r=await window.storage.get(KEY);if(r&&r.value){applyState(JSON.parse(r.value));return;}}}catch(e){}
+  // 2) browser localStorage — persists edits on GitHub Pages / any static host
+  try{const raw=localStorage.getItem(KEY);if(raw){applyState(JSON.parse(raw));return;}}catch(e){}
+  // 3) first run anywhere — seed from the built-in roadmap
   items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();migrateItems();seedOwnersFromItems();await save(true);
 }
-async function save(silent){try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners}));}}catch(e){}if(!silent)flash("Saved");}
+async function save(silent){
+  const payload=JSON.stringify({items,meth,calls,builds,owners});let ok=false;
+  try{if(window.storage){await window.storage.set(KEY,payload);ok=true;}}catch(e){}
+  if(!ok){try{localStorage.setItem(KEY,payload);}catch(e){}}
+  if(!silent)flash("Saved");
+}
 
 const statusMeta=(k)=>STATUSES.find(s=>s.k===k)||STATUSES[0];
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
