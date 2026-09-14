@@ -521,21 +521,62 @@ const KEY="carbonos_dash_v4";
 function migrateItems(){items.forEach(it=>{if(it.prd===undefined)it.prd=null;if(it.owner===undefined)it.owner="";});}
 function seedOwnersFromItems(){const set=new Set(DEFAULT_OWNERS);items.forEach(it=>{if(it.owner)it.owner.split(",").map(s=>s.trim()).filter(Boolean).forEach(o=>set.add(o));});owners=Array.from(set);}
 
+/* ── Shared team storage (Supabase) ───────────────────────────────────────────
+   One live copy the whole team edits over the web — just open the link.
+   Fill these two values from your Supabase project (Settings ▸ API). The anon
+   key is designed to be public in client code; access is limited to the single
+   roadmap_state table by that table's row-level-security policy. Leave blank to
+   run purely on this browser's localStorage. */
+const SUPABASE_URL="";       // e.g. https://abcdxyz.supabase.co
+const SUPABASE_ANON_KEY="";  // the "anon public" key
+const REMOTE_ROW="main";
+const REMOTE_ON=/^https:\/\/.+\.supabase\.co\/?$/.test(SUPABASE_URL)&&SUPABASE_ANON_KEY.length>20;
+let remoteStamp=null;
+function supaHeaders(extra){return Object.assign({apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+SUPABASE_ANON_KEY},extra||{});}
+async function remoteLoad(){
+  const base=SUPABASE_URL.replace(/\/$/,"");
+  const r=await fetch(`${base}/rest/v1/roadmap_state?id=eq.${REMOTE_ROW}&select=data,updated_at`,{headers:supaHeaders()});
+  if(!r.ok)throw new Error("remote load "+r.status);
+  const rows=await r.json();return rows[0]||null;
+}
+async function remoteSave(){
+  const base=SUPABASE_URL.replace(/\/$/,"");const stamp=new Date().toISOString();
+  const body=[{id:REMOTE_ROW,data:{items,meth,calls,builds,owners},updated_at:stamp}];
+  const r=await fetch(`${base}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(body)});
+  if(!r.ok)throw new Error("remote save "+r.status);
+  remoteStamp=stamp;return true;
+}
+function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null;}
+async function remotePoll(){
+  if(!REMOTE_ON||editingOpen())return;
+  try{const row=await remoteLoad();if(row&&row.updated_at!==remoteStamp){remoteStamp=row.updated_at;applyState(row.data);renderAll();}}catch(e){}
+}
+
 function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();}
+function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();migrateItems();seedOwnersFromItems();}
 async function load(){
-  // 1) Claude artifact storage, when running inside the Claude app
+  // 1) shared team database (Supabase), when configured
+  if(REMOTE_ON){
+    try{const row=await remoteLoad();
+      if(row){remoteStamp=row.updated_at;applyState(row.data);try{localStorage.setItem(KEY,JSON.stringify(row.data));}catch(e){}return;}
+      seedState();try{await remoteSave();}catch(e){}try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners}));}catch(e){}return;
+    }catch(e){/* offline / misconfigured — fall back to a local copy below */}
+  }
+  // 2) Claude artifact storage, when running inside the Claude app
   try{if(window.storage){const r=await window.storage.get(KEY);if(r&&r.value){applyState(JSON.parse(r.value));return;}}}catch(e){}
-  // 2) browser localStorage — persists edits on GitHub Pages / any static host
+  // 3) browser localStorage — persists edits on GitHub Pages / any static host
   try{const raw=localStorage.getItem(KEY);if(raw){applyState(JSON.parse(raw));return;}}catch(e){}
-  // 3) first run anywhere — seed from the built-in roadmap
-  items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();migrateItems();seedOwnersFromItems();await save(true);
+  // 4) first run anywhere — seed from the built-in roadmap
+  seedState();await save(true);
 }
 async function save(silent){
-  const payload=JSON.stringify({items,meth,calls,builds,owners});let ok=false;
-  try{if(window.storage){await window.storage.set(KEY,payload);ok=true;}}catch(e){}
-  if(!ok){try{localStorage.setItem(KEY,payload);}catch(e){}}
-  if(!silent)flash("Saved");
+  const payload=JSON.stringify({items,meth,calls,builds,owners});
+  try{localStorage.setItem(KEY,payload);}catch(e){}   // always keep a local cache
+  let remoteOk=false;
+  if(REMOTE_ON){try{await remoteSave();remoteOk=true;}catch(e){}}
+  if(!remoteOk){try{if(window.storage)await window.storage.set(KEY,payload);}catch(e){}}
+  if(!silent)flash(REMOTE_ON?(remoteOk?"Saved — synced to team":"Saved locally · sync failed"):"Saved");
 }
 
 const statusMeta=(k)=>STATUSES.find(s=>s.k===k)||STATUSES[0];
@@ -849,7 +890,9 @@ function wire(){
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeEdit();closeCall();closeMeth();}});
   window.addEventListener("resize",()=>{if(window._view==="roadmap")positionNowLine();});
 }
-(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();await load();renderAll();switchView("roadmap");})();
+(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();await load();renderAll();switchView("roadmap");
+  if(REMOTE_ON){setInterval(remotePoll,15000);window.addEventListener("focus",remotePoll);document.addEventListener("visibilitychange",()=>{if(!document.hidden)remotePoll();});}
+})();
 </script>
 </body>
 </html>
