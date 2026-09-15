@@ -335,6 +335,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .gate-hint{font-size:11px;color:var(--ink-faint);line-height:1.45}
 /* ===== learnings v2: pain-point analytics, exec table, source links ===== */
 .pain-panel{margin-bottom:26px}
+.theme-panel{margin-bottom:26px}
 .pain-sub{font-size:12px;color:var(--ink-dim);margin:2px 0 14px;max-width:780px;line-height:1.5}
 .pain-sub b{color:var(--ink)}
 .pain-bars{display:flex;flex-direction:column;gap:9px;max-width:780px}
@@ -488,6 +489,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   <div class="strip" id="learnStrip"></div>
   <div class="learn-wrap">
     <div class="pain-panel" id="painPanel"></div>
+    <div class="theme-panel" id="themePanel"></div>
     <div>
       <div class="sec-title"><span class="kick">From the field</span><h2>Call Log</h2><span class="cnt" id="callCnt">0</span><span class="rule"></span>
         <button class="btn" id="addCallBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Log a call</button></div>
@@ -1043,8 +1045,6 @@ function renderPullPanel(){
       <div class="pull-track"><div class="pull-fill" style="width:${pct}%;background:${barCol(r)}"></div></div>
       <div class="pull-tags">${tags.join("")}</div></div>`;
   }).join("");
-  const th={};calls.forEach(c=>{const t=c.theme||"Other";th[t]=(th[t]||0)+1;});
-  const topThemes=Object.entries(th).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,n])=>`<span class="chip theme">${esc(t)} · ${n}</span>`).join("");
   const blend=hasGtm?"call signal (frequency × pain × sentiment) blended 50/50 with live GTM pipeline (deal stage + inbound)":"call frequency × pain intensity × meeting sentiment";
   let gtmLine="";
   if(hasGtm){const f=gtm.funnel||{};gtmLine=`<div class="pull-gtm"><span class="pt-lab">GTM pipeline</span> ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won · ${gtm.accountsParsed||0} accounts mapped · <span class="gtm-when">synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span></div>`;}
@@ -1052,8 +1052,22 @@ function renderPullPanel(){
     <div class="pain-sub">A <b>pull score</b> per industry — ${blend}. Strongest pull: <b>${esc(top.k)}</b>${top.calls?` — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment`:``}${top.gtmAcc?`${top.calls?'; ':' — '}${top.gtmAcc} accounts in the GTM motion`:``}.</div>
     <div class="pull-bars">${bars}</div>
     <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k"><span class="sw" style="background:var(--purple-2)"></span>Pipeline only</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">bar = pull score 0–100</span></div>
-    ${gtmLine}
-    <div class="pull-themes"><span class="pt-lab">Recurring pain themes</span>${topThemes}</div>`;
+    ${gtmLine}`;
+}
+function renderThemePanel(){
+  const el=document.getElementById("themePanel");if(!el)return;
+  if(!calls.length){el.innerHTML="";return;}
+  const th={};calls.forEach(c=>{const t=c.theme||"Other";const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";(th[t]=th[t]||{High:0,Medium:0,Low:0,total:0})[p]++;th[t].total++;});
+  const rows=Object.entries(th).map(([t,v])=>({t,...v})).sort((a,b)=>b.total-a.total||b.High-a.High);
+  const max=Math.max(...rows.map(r=>r.total),1),recurring=rows.filter(r=>r.total>=2).length,col={High:"var(--pain-high)",Medium:"var(--pain-med)",Low:"var(--pain-low)"};
+  const bars=rows.map(r=>{
+    const segs=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pseg" style="flex:${r[k]};background:${col[k]}" title="${r[k]} × ${k} pain"></span>`).join("");
+    return `<div class="pain-row"><div class="pain-lab" title="${esc(r.t)}">${esc(r.t)}</div><div class="pain-track" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</div><div class="pain-num">${r.total}</div></div>`;
+  }).join("");
+  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Recurring pain themes</h2><span class="rule"></span></div>
+    <div class="pain-sub">How many logged calls raised each theme — bar length = number of calls, coloured by pain level.${recurring>1?` <b>${recurring}</b> themes recur across 2+ calls.`:''} Updates live as calls are logged.</div>
+    <div class="pain-bars">${bars}</div>
+    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--pain-high)"></span>High pain</span><span class="k"><span class="sw" style="background:var(--pain-med)"></span>Medium</span><span class="k"><span class="sw" style="background:var(--pain-low)"></span>Low</span></div>`;
 }
 function renderCallTable(sorted){
   const wrap=document.getElementById("callTableWrap");if(!wrap)return;
@@ -1067,7 +1081,7 @@ function renderCallTable(sorted){
   }));
 }
 function renderLearnings(){
-  renderLearnStrip();renderPullPanel();document.getElementById("callCnt").textContent=calls.length;
+  renderLearnStrip();renderPullPanel();renderThemePanel();document.getElementById("callCnt").textContent=calls.length;
   const grid=document.getElementById("callGrid"),wrap=document.getElementById("callTableWrap");
   if(!calls.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls logged yet</h3><div>Capture your first customer conversation.</div></div>`;return;}
   const sorted=[...calls].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
