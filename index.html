@@ -333,6 +333,37 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .gate-card button:hover{filter:brightness(1.07)}
 .gate-err{color:var(--coral);font-size:12px;font-weight:600;min-height:14px}
 .gate-hint{font-size:11px;color:var(--ink-faint);line-height:1.45}
+/* ===== learnings v2: pain-point analytics, exec table, source links ===== */
+.pain-panel{margin-bottom:26px}
+.pain-sub{font-size:12px;color:var(--ink-dim);margin:2px 0 14px;max-width:780px;line-height:1.5}
+.pain-sub b{color:var(--ink)}
+.pain-bars{display:flex;flex-direction:column;gap:9px;max-width:780px}
+.pain-row{display:grid;grid-template-columns:150px 1fr 30px;align-items:center;gap:12px}
+.pain-lab{font-size:12px;color:var(--ink-dim);text-align:right;font-family:var(--semi);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pain-track{display:flex;height:20px;border-radius:5px;overflow:hidden;min-width:5px;box-shadow:inset 0 0 0 1px var(--line-soft)}
+.pain-track .pseg{display:block;min-width:2px}
+.pain-num{font-family:var(--mono);font-size:12px;color:var(--ink-dim);font-weight:600}
+.pain-legend{display:flex;gap:16px;margin-top:13px;font-size:11px;font-family:var(--mono);color:var(--ink-faint)}
+.pain-legend .k{display:inline-flex;align-items:center;gap:6px}
+.pain-legend .sw{width:11px;height:11px;border-radius:3px}
+.learn-table{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-bottom:22px}
+.learn-table table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:660px}
+.learn-table th{text-align:left;padding:9px 12px;background:var(--panel-2);color:var(--ink-dim);font-family:var(--semi);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--line)}
+.learn-table td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink-dim)}
+.learn-table tr:last-child td{border-bottom:0}
+.learn-table tr[data-goto]{cursor:pointer}
+.learn-table tr[data-goto]:hover td{background:var(--panel-2)}
+.learn-table .lc-cust{font-weight:600;color:var(--ink)}
+.learn-table .lc-date{font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+.notes-link{color:var(--purple);text-decoration:none;font-weight:600;white-space:nowrap}
+.notes-link:hover{text-decoration:underline}
+.chip.notes{background:var(--accent-soft);color:var(--purple);text-decoration:none;border-color:transparent}
+.chip.notes:hover{text-decoration:underline}
+.call-card{scroll-margin-top:100px}
+.call-card.flash{box-shadow:0 0 0 2px var(--purple)}
+.paste-parse{background:var(--lav);border:1px dashed var(--line);border-radius:9px;padding:11px}
+.paste-parse textarea{min-height:66px}
+.paste-parse .btn{align-self:flex-start;margin-top:8px}
 
 @media (max-width:760px){
   .topbar{flex-wrap:wrap;padding:14px 16px;gap:10px}
@@ -351,6 +382,8 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   :root{--namew:150px}
   .stat{padding:12px 16px;min-width:96px}
   .namecell .nm{font-size:14px}
+  .pain-row{grid-template-columns:84px 1fr 24px;gap:8px}
+  .pain-lab{font-size:11px}
 }
 </style>
 </head>
@@ -435,14 +468,12 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 <section class="view" id="view-learnings">
   <div class="strip" id="learnStrip"></div>
   <div class="learn-wrap">
+    <div class="pain-panel" id="painPanel"></div>
     <div>
       <div class="sec-title"><span class="kick">From the field</span><h2>Call Log</h2><span class="cnt" id="callCnt">0</span><span class="rule"></span>
         <button class="btn" id="addCallBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Log a call</button></div>
+      <div class="learn-table-wrap" id="callTableWrap"></div>
       <div class="call-grid" id="callGrid"></div>
-    </div>
-    <div>
-      <div class="sec-title"><span class="kick">Decisions</span><h2>What We'll Build</h2><span class="cnt" id="buildCnt">0</span><span class="rule"></span></div>
-      <div class="build-table" id="buildTable"></div>
     </div>
   </div>
 </section>
@@ -501,12 +532,17 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 <div class="drawer" id="callDrawer">
   <div class="dh"><div><h2 id="callTitle">Log a call</h2></div><button class="x" id="closeCall">×</button></div>
   <div class="db">
+    <div class="field paste-parse"><label>Auto-fill from meeting notes <span class="hint">— paste the notes text (and/or the PressPlay link)</span></label>
+      <textarea id="cPaste" placeholder="Paste the full meeting notes here, then click Auto-fill…"></textarea>
+      <button type="button" class="btn" id="cParseBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5z"/></svg>Auto-fill from notes</button>
+    </div>
     <div class="two"><div class="field"><label>Customer</label><input id="cCustomer" placeholder="e.g. Varuna" autocomplete="off"></div><div class="field"><label>Date</label><input id="cDate" type="date"></div></div>
     <div class="field"><label>Attendees / role <span class="hint">— optional</span></label><input id="cAttendees" placeholder="e.g. Head of ESG (Priya)" autocomplete="off"></div>
     <div class="two"><div class="field"><label>Call type</label><select id="cType"></select></div><div class="field"><label>Theme</label><select id="cTheme"></select></div></div>
     <div class="field"><label>What they said <span class="hint">— verbatim or paraphrase</span></label><textarea id="cQuote" placeholder="&quot;We can't see scope split at a glance…&quot;"></textarea></div>
     <div class="field"><label>Learning / insight</label><textarea id="cInsight" placeholder="What this tells us to do."></textarea></div>
     <div class="two"><div class="field"><label>Pain level</label><select id="cPain"></select></div><div class="field"><label>Priority</label><select id="cPrio"></select></div></div>
+    <div class="field"><label>Meeting notes link <span class="hint">— PressPlay / doc URL</span></label><input id="cSource" type="url" placeholder="https://pressplay.vastoo.co/…" autocomplete="off"></div>
     <div class="field"><label>Linked build <span class="hint">— optional roadmap item</span></label><select id="cLink"></select></div>
   </div>
   <div class="df"><button class="del-link" id="delCallBtn">Delete call</button><div style="display:flex;gap:9px"><button class="btn" id="cancelCall">Cancel</button><button class="btn primary" id="saveCall">Save</button></div></div>
@@ -945,38 +981,102 @@ async function delMeth(){if(!editingMeth)return;meth=meth.filter(m=>m.id!==editi
 /* LEARNINGS */
 function renderLearnStrip(){
   const nCalls=calls.length,customers=new Set(calls.map(c=>c.customer).filter(Boolean)).size;
-  const highPain=calls.filter(c=>c.pain==="High").length,linked=calls.filter(c=>c.link).length;
-  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:highPain,l:"High pain",accent:true},{n:builds.length,l:"Build items",purple:true},{n:linked,l:"Linked to build"}];
+  const highPain=calls.filter(c=>c.pain==="High").length;
+  const themeCount={};calls.forEach(c=>{const t=c.theme||"Other";themeCount[t]=(themeCount[t]||0)+1;});
+  const recurring=Object.values(themeCount).filter(n=>n>=2).length;
+  const withNotes=calls.filter(c=>c.sourceUrl).length;
+  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:withNotes,l:"With notes"}];
   document.getElementById("learnStrip").innerHTML=cells.map(c=>`<div class="stat"><span class="n ${c.accent?'accent':''} ${c.purple?'purple':''}">${c.n}</span><span class="l">${c.l}</span></div>`).join("");
 }
 function itemName(id){const it=items.find(i=>i.id===id);return it?it.name:id;}
+function renderPainPanel(){
+  const el=document.getElementById("painPanel");if(!el)return;
+  if(!calls.length){el.innerHTML="";return;}
+  const th={};calls.forEach(c=>{const t=c.theme||"Other";const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";(th[t]=th[t]||{High:0,Medium:0,Low:0,total:0})[p]++;th[t].total++;});
+  const rows=Object.entries(th).map(([t,v])=>({t,...v})).sort((a,b)=>b.total-a.total||b.High-a.High);
+  const max=Math.max(...rows.map(r=>r.total),1),top=rows[0],recurring=rows.filter(r=>r.total>=2).length;
+  const col={High:"var(--pain-high)",Medium:"var(--pain-med)",Low:"var(--pain-low)"};
+  const bars=rows.map(r=>{
+    const segs=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pseg" style="flex:${r[k]};background:${col[k]}" title="${r[k]} × ${k} pain"></span>`).join("");
+    return `<div class="pain-row"><div class="pain-lab" title="${esc(r.t)}">${esc(r.t)}</div><div class="pain-track" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</div><div class="pain-num">${r.total}</div></div>`;
+  }).join("");
+  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Pain points across customers</h2><span class="rule"></span></div>
+    <div class="pain-sub">How many logged calls raised each theme — bar length is the number of customers, coloured by pain level.${top?` <b>${esc(top.t)}</b> is the most common (${top.total} call${top.total>1?'s':''})${recurring>1?`, and ${recurring} themes recur across 2+ customers`:''}.`:''}</div>
+    <div class="pain-bars">${bars}</div>
+    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--pain-high)"></span>High pain</span><span class="k"><span class="sw" style="background:var(--pain-med)"></span>Medium</span><span class="k"><span class="sw" style="background:var(--pain-low)"></span>Low</span></div>`;
+}
+function renderCallTable(sorted){
+  const wrap=document.getElementById("callTableWrap");if(!wrap)return;
+  wrap.innerHTML=`<div class="learn-table"><table><thead><tr><th>Customer</th><th>Date</th><th>Type</th><th>Theme</th><th>Pain</th><th>Prio</th><th>Notes</th></tr></thead><tbody>`+
+    sorted.map(c=>`<tr data-goto="${c.id}"><td class="lc-cust">${esc(c.customer||'—')}</td><td class="lc-date">${esc(c.date||'')}</td><td>${esc(c.type||'')}</td><td>${esc(c.theme||'')}</td><td>${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)}</span>`:'—'}</td><td>${esc(c.prio||'')}</td><td>${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:'—'}</td></tr>`).join("")+
+    `</tbody></table></div>`;
+  wrap.querySelectorAll("[data-goto]").forEach(tr=>tr.addEventListener("click",e=>{
+    if(e.target.closest("a"))return;
+    const card=document.getElementById("call-"+tr.getAttribute("data-goto"));
+    if(card){card.scrollIntoView({behavior:"smooth",block:"center"});card.classList.add("flash");setTimeout(()=>card.classList.remove("flash"),1400);}
+  }));
+}
 function renderLearnings(){
-  renderLearnStrip();document.getElementById("callCnt").textContent=calls.length;
-  const grid=document.getElementById("callGrid");
-  if(!calls.length){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls logged yet</h3><div>Capture your first customer conversation.</div></div>`;}
-  else{
-    const sorted=[...calls].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-    grid.innerHTML=sorted.map(c=>{
-      const link=c.link?`<span class="chip link" data-goitem="${c.link}">→ ${esc(itemName(c.link))}</span>`:"";
-      return `<div class="call-card" data-call="${c.id}"><div class="topaccent"></div>
-        <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
-        ${c.attendees?`<div style="font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:-4px">${esc(c.attendees)}</div>`:''}
-        ${c.quote?`<div class="quote">${esc(c.quote)}</div>`:''}
-        ${c.insight?`<div class="insight"><b>Insight:</b> ${esc(c.insight)}</div>`:''}
-        <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${c.theme?`<span class="chip theme">${esc(c.theme)}</span>`:''}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${link}</div></div>`;
-    }).join("");
-    grid.querySelectorAll("[data-call]").forEach(el=>el.addEventListener("click",e=>{if(e.target.hasAttribute("data-goitem")){switchView("roadmap");setTimeout(()=>openEdit(e.target.getAttribute("data-goitem")),80);return;}openCall(el.getAttribute("data-call"));}));
-  }
-  const askByItem={};calls.forEach(c=>{if(c.link)askByItem[c.link]=(askByItem[c.link]||0)+1;});
-  builds.forEach(b=>{if(b.asks!=null&&!askByItem[b.buildId])askByItem[b.buildId]=b.asks;});
-  const ids=Array.from(new Set([...builds.map(b=>b.buildId),...Object.keys(askByItem)]));
-  const rows=ids.map(id=>{const it=items.find(i=>i.id===id);if(!it)return null;return {id,name:it.name,why:it.notes,status:it.status,target:it.end,asks:askByItem[id]||0};}).filter(Boolean).sort((a,b)=>b.asks-a.asks);
-  document.getElementById("buildCnt").textContent=rows.length;
-  const bt=document.getElementById("buildTable");
-  if(!rows.length){bt.innerHTML=`<div class="empty"><h3>Nothing linked yet</h3><div>Link a call to a roadmap item to populate this.</div></div>`;}
-  else{bt.innerHTML=`<table><thead><tr><th>What we'll build</th><th>Why (from learnings)</th><th>Asks</th><th>Status</th><th>Target</th></tr></thead><tbody>`+
-    rows.map(r=>{const sm=statusMeta(r.status);return `<tr data-goitem2="${r.id}" style="cursor:pointer"><td class="bname">${esc(r.name)}</td><td class="bwhy">${esc(r.why||'—')}</td><td><span class="askcount">${r.asks||'—'}</span></td><td><span class="mstat" style="background:color-mix(in srgb,${sm.c} 15%,transparent);color:${sm.c};padding:2px 8px;border-radius:5px;font-family:var(--semi);font-weight:600;font-size:9.5px;text-transform:uppercase">${esc(r.status)}</span></td><td style="font-family:var(--mono);font-size:11.5px;color:var(--ink-dim)">${esc(fmtDate(r.target))}</td></tr>`;}).join("")+`</tbody></table>`;
-    bt.querySelectorAll("[data-goitem2]").forEach(el=>el.addEventListener("click",()=>{switchView("roadmap");setTimeout(()=>openEdit(el.getAttribute("data-goitem2")),80);}));}
+  renderLearnStrip();renderPainPanel();document.getElementById("callCnt").textContent=calls.length;
+  const grid=document.getElementById("callGrid"),wrap=document.getElementById("callTableWrap");
+  if(!calls.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls logged yet</h3><div>Capture your first customer conversation.</div></div>`;return;}
+  const sorted=[...calls].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  renderCallTable(sorted);
+  grid.innerHTML=sorted.map(c=>{
+    const link=c.link?`<span class="chip link" data-goitem="${c.link}">→ ${esc(itemName(c.link))}</span>`:"";
+    const notes=c.sourceUrl?`<a class="chip notes" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:"";
+    return `<div class="call-card" id="call-${c.id}" data-call="${c.id}"><div class="topaccent"></div>
+      <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
+      ${c.attendees?`<div style="font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:-4px">${esc(c.attendees)}</div>`:''}
+      ${c.quote?`<div class="quote">${esc(c.quote)}</div>`:''}
+      ${c.insight?`<div class="insight"><b>Insight:</b> ${esc(c.insight)}</div>`:''}
+      <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${c.theme?`<span class="chip theme">${esc(c.theme)}</span>`:''}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${link}${notes}</div></div>`;
+  }).join("");
+  grid.querySelectorAll("[data-call]").forEach(el=>el.addEventListener("click",e=>{
+    if(e.target.closest("a"))return;
+    if(e.target.hasAttribute("data-goitem")){switchView("roadmap");setTimeout(()=>openEdit(e.target.getAttribute("data-goitem")),80);return;}
+    openCall(el.getAttribute("data-call"));}));
+}
+/* --- parse pasted meeting notes into a draft call (best-effort, offline) --- */
+function cleanNote(s){return (s||"").replace(/\s*\d+\s*$/,"").replace(/\s+/g," ").trim();}
+function guessCustomer(title){
+  if(!title)return"";let parts=[title];
+  [/<>/,/\sx\s/i,/:/,/\s-\s/,/–/,/—/].forEach(sep=>{parts=parts.flatMap(p=>p.split(sep));});
+  parts=parts.map(p=>p.trim()).filter(Boolean).filter(p=>!/climes/i.test(p));
+  let cand=parts[0]||title;
+  cand=cand.replace(/\b(carbon.*|GHG.*|SBTi.*|CBAM.*|CCTS.*|meeting.*|call.*|demo.*|migration.*|exploration.*|technical.*|net[- ]?zero.*|initiative.*|platform.*|chapter.*)$/i,"").trim();
+  return cand||title;
+}
+function parseNotes(raw){
+  raw=(raw||"").replace(/\r/g,"");const out={},low=raw.toLowerCase();
+  const um=raw.match(/https?:\/\/[^\s"')]+/);if(um)out.sourceUrl=um[0];
+  let lines=raw.split("\n").map(s=>s.trim()).filter(Boolean)
+    .filter(l=>!/^(URL:|Source element:|---|Made with PressPlay|Because|Get PressPlay|Share notes)/i.test(l)&&!/^https?:/i.test(l));
+  let title=(lines[0]||"").replace(/^Title:\s*/i,"").replace(/^PressPlay:\s*/i,"").trim();
+  out.customer=guessCustomer(title);
+  const dm=raw.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s*(\d{4})\b/);
+  if(dm){const mo=["january","february","march","april","may","june","july","august","september","october","november","december"].indexOf(dm[1].toLowerCase())+1;out.date=`${dm[3]}-${String(mo).padStart(2,"0")}-${String(+dm[2]).padStart(2,"0")}`;}
+  else if(/\byesterday\b/i.test(raw)){const d=new Date();d.setDate(d.getDate()-1);out.date=d.toISOString().slice(0,10);}
+  else if(/\btoday\b/i.test(raw)){out.date=new Date().toISOString().slice(0,10);}
+  const tl=raw.match(/TL;?DR[:\s]*([\s\S]*?)(?:\n\s*\n|\n[A-Z][^\n]{2,60}\n)/i);
+  if(tl)out.insight=cleanNote(tl[1]);else{const i=lines.findIndex(l=>/^TL;?DR/i.test(l));if(i>=0&&lines[i+1])out.insight=cleanNote(lines[i+1]);}
+  const qm=raw.match(/["“”]([^"“”]{12,220})["“”]/);if(qm)out.quote=cleanNote(qm[1]);
+  out.type=/\bdemo\b|demonstrat/.test(low)?"Demo":/migrat|onboard/.test(low)?"Onboarding":/renewal/.test(low)?"Renewal":/\bfeedback\b/.test(low)?"Feedback":/proposal|pricing|\bmou\b|sales/.test(low)?"Sales":"Discovery";
+  out.theme=/cbam|ccts|brsr|compliance|report|disclos/.test(low)?"Reporting":/sbti|science[- ]based/.test(low)?"SBTi":/benchmark|dashboard/.test(low)?"Dashboards":/\bapi\b|integrat|migrat/.test(low)?"Integrations":/excel|upload|data collection|activity data/.test(low)?"Data upload":/pricing|\bcost\b/.test(low)?"Pricing":"Other";
+  out.pain=/(on hold|urgent|obstacle|time consuming|big problem|calamity|blocker)/.test(low)?"High":/(no pressure|not that complex|already ahead|no urgency|no immediate|good to have)/.test(low)?"Low":"Medium";
+  out.prio="P1";
+  return out;
+}
+function applyParsedNotes(){
+  const raw=document.getElementById("cPaste").value;if(!raw.trim()){flash("Paste the notes first");return;}
+  const p=parseNotes(raw);
+  const set=(id,v)=>{if(v)document.getElementById(id).value=v;};
+  set("cCustomer",p.customer);set("cDate",p.date);set("cQuote",p.quote);set("cInsight",p.insight);set("cSource",p.sourceUrl);
+  if(p.type)fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);
+  if(p.theme)fillSelect(document.getElementById("cTheme"),THEMES,p.theme);
+  if(p.pain)fillSelect(document.getElementById("cPain"),PAINS,p.pain);
+  if(p.prio)fillSelect(document.getElementById("cPrio"),PRIOS,p.prio);
+  flash("Auto-filled — review & save");
 }
 
 /* roadmap editor */
@@ -1081,6 +1181,7 @@ function openCall(id){
   const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",theme:"Dashboards",pain:"Medium",prio:"P1",link:""};
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
   document.getElementById("delCallBtn").style.display=c?"block":"none";
+  document.getElementById("cPaste").value="";document.getElementById("cSource").value=d.sourceUrl||"";
   document.getElementById("cCustomer").value=d.customer||"";document.getElementById("cDate").value=d.date||"";document.getElementById("cAttendees").value=d.attendees||"";document.getElementById("cQuote").value=d.quote||"";document.getElementById("cInsight").value=d.insight||"";
   fillSelect(document.getElementById("cType"),CALL_TYPES,d.type);fillSelect(document.getElementById("cTheme"),THEMES,d.theme);fillSelect(document.getElementById("cPain"),PAINS,d.pain);fillSelect(document.getElementById("cPrio"),PRIOS,d.prio);
   document.getElementById("cLink").innerHTML=`<option value="">— none —</option>`+items.map(it=>`<option value="${it.id}" ${it.id===d.link?'selected':''}>${esc(it.name)}</option>`).join("");
@@ -1089,7 +1190,7 @@ function openCall(id){
 function closeCall(){document.getElementById("scrim2").classList.remove("open");document.getElementById("callDrawer").classList.remove("open");editingCall=null;}
 async function saveCall(){
   const customer=document.getElementById("cCustomer").value.trim();if(!customer){document.getElementById("cCustomer").focus();flash("Customer required");return;}
-  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,theme:document.getElementById("cTheme").value,quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value};
+  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,theme:document.getElementById("cTheme").value,quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value,sourceUrl:document.getElementById("cSource").value.trim()};
   if(editingCall){const i=calls.findIndex(x=>x.id===editingCall);calls[i]=rec;}else calls.push(rec);
   await save();closeCall();renderLearnings();
 }
@@ -1124,6 +1225,7 @@ function wire(){
   document.getElementById("saveMeth").addEventListener("click",saveMeth);document.getElementById("delMethBtn").addEventListener("click",delMeth);
   document.getElementById("closeCall").addEventListener("click",closeCall);document.getElementById("cancelCall").addEventListener("click",closeCall);document.getElementById("scrim2").addEventListener("click",closeCall);
   document.getElementById("saveCall").addEventListener("click",saveCall);document.getElementById("delCallBtn").addEventListener("click",deleteCall);
+  document.getElementById("cParseBtn").addEventListener("click",applyParsedNotes);
   document.getElementById("whoBtn").addEventListener("click",()=>{const n=prompt("Your name — shown on tasks you add or edit:",currentUser||"");if(n!==null)setUser(n);});
   document.getElementById("exportBtn").addEventListener("click",exportJSON);
   document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("fileInput").click());
