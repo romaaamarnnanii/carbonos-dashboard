@@ -256,6 +256,14 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
 .field input,.field select,.field textarea{background:var(--lav);border:1px solid var(--line);color:var(--ink);padding:9px 11px;border-radius:7px;font-size:13px;width:100%}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--purple)}
 .field textarea{resize:vertical;min-height:64px;line-height:1.5}
+.audit-block{background:var(--lav);border:1px solid var(--line);border-radius:7px;padding:9px 11px;display:flex;flex-direction:column;gap:3px;font-size:11px;line-height:1.5;color:var(--ink-dim)}
+.audit-block .ak{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin-right:2px}
+.audit-block b{color:var(--ink);font-weight:600}
+.audit-block .am{color:var(--ink-faint)}
+.audit-hint{font-family:var(--mono);font-size:9px;color:var(--ink-faint);white-space:nowrap;display:inline-flex;align-items:center}
+.btn.who{gap:6px}
+.btn.who .who-dot{width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;font-family:var(--semi);background:var(--ink-faint)}
+.btn.who.set #whoLabel{font-weight:600;color:var(--ink)}
 .field .hint{font-size:10.5px;color:var(--ink-faint);text-transform:none;letter-spacing:0;font-family:var(--sans)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .x{background:none;border:0;color:var(--ink-faint);font-size:22px;line-height:1;padding:0 4px}
@@ -293,6 +301,7 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
   </nav>
   <div class="spacer"></div>
   <div class="toolbar">
+    <button class="btn who" id="whoBtn" title="Set the name shown on tasks you add or edit"><span class="who-dot" id="whoDot"></span><span id="whoLabel">Set your name</span></button>
     <button class="btn" id="importBtn" title="Load a backup file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Import</button>
     <button class="btn" id="exportBtn" title="Download a backup file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9m0 0l-4 4m4-4l4 4M4 7V5a2 2 0 012-2h12a2 2 0 012 2v2"/></svg>Export</button>
     <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg><span id="addLabel">Add item</span></button>
@@ -366,6 +375,7 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
         <div class="prd-body" id="prdBody"></div>
       </div>
     </div>
+    <div class="audit-block" id="fAudit" style="display:none"></div>
   </div>
   <div class="df"><button class="del-link" id="deleteBtn">Delete item</button><div style="display:flex;gap:9px"><button class="btn" id="cancelBtn">Cancel</button><button class="btn primary" id="saveBtn">Save</button></div></div>
 </div>
@@ -529,38 +539,68 @@ function seedOwnersFromItems(){const set=new Set(DEFAULT_OWNERS);items.forEach(i
    run purely on this browser's localStorage. */
 const SUPABASE_URL="https://vrhxzcntqvbfwvekikhc.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyaHh6Y250cXZiZnd2ZWtpa2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NTg0NTAsImV4cCI6MjEwNTAzNDQ1MH0.PZ9G_KICpq9BnFbJfuoBWAyQlsmq1KSX-sftulE3-h4";
-const REMOTE_ROW="main";
+const META_ROW="meta";const TASKS="tasks";
 const REMOTE_ON=/^https:\/\/.+\.supabase\.co\/?$/.test(SUPABASE_URL)&&SUPABASE_ANON_KEY.length>20;
-let remoteStamp=null;
+const supaBase=()=>SUPABASE_URL.replace(/\/$/,"");
+let lastSig=null;
 function supaHeaders(extra){return Object.assign({apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+SUPABASE_ANON_KEY},extra||{});}
-async function remoteLoad(){
-  const base=SUPABASE_URL.replace(/\/$/,"");
-  const r=await fetch(`${base}/rest/v1/roadmap_state?id=eq.${REMOTE_ROW}&select=data,updated_at`,{headers:supaHeaders()});
-  if(!r.ok)throw new Error("remote load "+r.status);
-  const rows=await r.json();return rows[0]||null;
-}
-async function remoteSave(){
-  const base=SUPABASE_URL.replace(/\/$/,"");const stamp=new Date().toISOString();
-  const body=[{id:REMOTE_ROW,data:{items,meth,calls,builds,owners},updated_at:stamp}];
-  const r=await fetch(`${base}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(body)});
-  if(!r.ok)throw new Error("remote save "+r.status);
-  remoteStamp=stamp;return true;
-}
+
+/* who's editing — a lightweight identity (no login), stamped onto every add/edit */
+let currentUser="";try{currentUser=localStorage.getItem("carbonos_user")||"";}catch(e){}
+function setUser(n){currentUser=(n||"").trim();try{localStorage.setItem("carbonos_user",currentUser);}catch(e){}if(currentUser&&owners&&!owners.includes(currentUser))owners.push(currentUser);renderIdentity();}
+function ensureUser(){if(currentUser)return true;const n=prompt("Your name — shown on tasks you add or edit:","");if(n&&n.trim()){setUser(n.trim());return true;}return false;}
+function renderIdentity(){const l=document.getElementById("whoLabel"),d=document.getElementById("whoDot"),b=document.getElementById("whoBtn");if(!l||!b)return;
+  if(currentUser){l.textContent=currentUser;if(d){d.style.background=ownerColor(currentUser);d.textContent=initials(currentUser);}b.classList.add("set");}
+  else{l.textContent="Set your name";if(d){d.style.background="var(--ink-faint)";d.textContent="";}b.classList.remove("set");}}
+function relTime(iso){const t=pd(iso);if(!t)return"";const m=Math.round((Date.now()-t.getTime())/60000);if(m<1)return"just now";if(m<60)return m+"m ago";const h=Math.round(m/60);if(h<24)return h+"h ago";const dd=Math.round(h/24);if(dd<30)return dd+"d ago";return t.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}
+function fmtDateTime(iso){const t=pd(iso);if(!t)return"";return t.toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"});}
+
+/* per-task rows carry audit columns; the task's own fields live in the `data` column */
+function taskData(rec){const d=Object.assign({},rec);delete d.id;delete d._createdBy;delete d._createdAt;delete d._updatedBy;delete d._updatedAt;return d;}
+function rowToItem(row){return Object.assign({},row.data,{id:row.id,_createdBy:row.created_by,_createdAt:row.created_at,_updatedBy:row.updated_by,_updatedAt:row.updated_at});}
+async function remoteLoadTasks(){const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?select=id,data,created_by,created_at,updated_by,updated_at`,{headers:supaHeaders()});if(!r.ok)throw new Error("tasks load "+r.status);return (await r.json()).map(rowToItem);}
+async function remoteLoadMeta(){const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?id=eq.${META_ROW}&select=data,updated_at`,{headers:supaHeaders()});if(!r.ok)throw new Error("meta load "+r.status);const rows=await r.json();return rows[0]||null;}
+async function remoteInsertTask(rec){const now=new Date().toISOString();
+  rec._createdBy=rec._createdBy||currentUser||"—";rec._createdAt=rec._createdAt||now;rec._updatedBy=currentUser||rec._createdBy;rec._updatedAt=now;
+  const body=[{id:rec.id,data:taskData(rec),created_by:rec._createdBy,created_at:rec._createdAt,updated_by:rec._updatedBy,updated_at:rec._updatedAt}];
+  const r=await fetch(`${supaBase()}/rest/v1/${TASKS}`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("task insert "+r.status);}
+async function remoteUpdateTask(rec){const now=new Date().toISOString();rec._updatedBy=currentUser||rec._updatedBy||"—";rec._updatedAt=now;
+  const body={data:taskData(rec),updated_by:rec._updatedBy,updated_at:rec._updatedAt};
+  const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(rec.id)}`,{method:"PATCH",headers:supaHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("task update "+r.status);}
+async function remoteDeleteTask(id){const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(id)}`,{method:"DELETE",headers:supaHeaders({Prefer:"return=minimal"})});if(!r.ok)throw new Error("task delete "+r.status);}
+async function remoteSaveMeta(){const stamp=new Date().toISOString();const body=[{id:META_ROW,data:{meth,calls,builds,owners},updated_at:stamp}];
+  const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("meta save "+r.status);}
+async function remoteSeedTasks(){const now=new Date().toISOString();
+  const rows=items.map(it=>({id:it.id,data:taskData(it),created_by:it._createdBy||"Seed",created_at:it._createdAt||now,updated_by:it._updatedBy||"Seed",updated_at:it._updatedAt||now}));
+  const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(rows)});if(!r.ok)throw new Error("seed "+r.status);await remoteSaveMeta();}
+async function remoteReplaceAllTasks(){const now=new Date().toISOString();
+  const rows=items.map(it=>({id:it.id,data:taskData(it),created_by:it._createdBy||currentUser||"import",created_at:it._createdAt||now,updated_by:currentUser||"import",updated_at:now}));
+  await fetch(`${supaBase()}/rest/v1/${TASKS}?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(rows)});
+  try{const keep=new Set(items.map(i=>i.id));const existing=await remoteLoadTasks();for(const ex of existing){if(!keep.has(ex.id)){try{await remoteDeleteTask(ex.id);}catch(e){}}}}catch(e){}
+  await remoteSaveMeta();}
+function sigOf(tasks,metaRow){return tasks.map(t=>t.id+"@"+(t._updatedAt||"")).sort().join(",")+"|"+(metaRow?metaRow.updated_at:"");}
 function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null;}
 async function remotePoll(){
   if(!REMOTE_ON||editingOpen())return;
-  try{const row=await remoteLoad();if(row&&row.updated_at!==remoteStamp){remoteStamp=row.updated_at;applyState(row.data);renderAll();}}catch(e){}
+  try{const [tasks,metaRow]=await Promise.all([remoteLoadTasks(),remoteLoadMeta()]);
+    const sig=sigOf(tasks,metaRow);if(sig===lastSig)return;lastSig=sig;
+    items=tasks;applyMeta(metaRow?metaRow.data:null);migrateItems();cacheLocal();renderAll();
+  }catch(e){}
 }
 
 function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();}
+function applyMeta(d){d=d||{};meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
+  meth.forEach(m=>{if(m.due===undefined)m.due="";});if(!owners.length)seedOwnersFromItems();}
 function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();migrateItems();seedOwnersFromItems();}
+function cacheLocal(){try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners}));}catch(e){}}
 async function load(){
-  // 1) shared team database (Supabase), when configured
+  // 1) shared team database (Supabase) — tasks are per-row, everything else is one "meta" row
   if(REMOTE_ON){
-    try{const row=await remoteLoad();
-      if(row){remoteStamp=row.updated_at;applyState(row.data);try{localStorage.setItem(KEY,JSON.stringify(row.data));}catch(e){}return;}
-      seedState();try{await remoteSave();}catch(e){}try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners}));}catch(e){}return;
+    try{const [tasks,metaRow]=await Promise.all([remoteLoadTasks(),remoteLoadMeta()]);
+      if(tasks&&tasks.length){items=tasks;applyMeta(metaRow?metaRow.data:null);migrateItems();lastSig=sigOf(tasks,metaRow);cacheLocal();return;}
+      // empty database — seed it once from the built-in roadmap
+      seedState();try{await remoteSeedTasks();}catch(e){}cacheLocal();return;
     }catch(e){/* offline / misconfigured — fall back to a local copy below */}
   }
   // 2) Claude artifact storage, when running inside the Claude app
@@ -570,13 +610,22 @@ async function load(){
   // 4) first run anywhere — seed from the built-in roadmap
   seedState();await save(true);
 }
+// save() persists the "meta" bundle (methodology, calls, builds, owners) + a local cache.
+// Individual tasks are written per-row via persistTaskUpsert() / persistTaskDelete().
 async function save(silent){
-  const payload=JSON.stringify({items,meth,calls,builds,owners});
-  try{localStorage.setItem(KEY,payload);}catch(e){}   // always keep a local cache
-  let remoteOk=false;
-  if(REMOTE_ON){try{await remoteSave();remoteOk=true;}catch(e){}}
-  if(!remoteOk){try{if(window.storage)await window.storage.set(KEY,payload);}catch(e){}}
-  if(!silent)flash(REMOTE_ON?(remoteOk?"Saved — synced to team":"Saved locally · sync failed"):"Saved");
+  cacheLocal();
+  let ok=false;
+  if(REMOTE_ON){try{await remoteSaveMeta();ok=true;}catch(e){}}
+  else{try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners}));ok=true;}}catch(e){}}
+  if(!silent)flash(REMOTE_ON?(ok?"Saved — synced":"Saved locally · sync failed"):"Saved");
+}
+async function persistTaskUpsert(rec,isNew){
+  if(REMOTE_ON){let ok=false;try{isNew?await remoteInsertTask(rec):await remoteUpdateTask(rec);ok=true;}catch(e){}try{await remoteSaveMeta();}catch(e){}cacheLocal();flash(ok?"Saved — synced":"Saved locally · sync failed");}
+  else{await save();}
+}
+async function persistTaskDelete(id){
+  if(REMOTE_ON){let ok=false;try{await remoteDeleteTask(id);ok=true;}catch(e){}try{await remoteSaveMeta();}catch(e){}cacheLocal();flash(ok?"Deleted — synced":"Deleted locally · sync failed");}
+  else{await save();}
 }
 
 const statusMeta=(k)=>STATUSES.find(s=>s.k===k)||STATUSES[0];
@@ -632,7 +681,8 @@ function renderRow(it){
   const grid=QUARTERS.map(q=>`<span class="${q.id===CURRENT_Q?'now':''}"></span>`).join("");
   const ownerTags=parseOwners(it.owner).map(o=>`<span class="tag owner"><span class="avatar" style="background:${ownerColor(o)}">${esc(initials(o))}</span>${esc(o)}</span>`).join("");
   const prdBadge=it.prd?`<span class="prd-badge" data-prd="${it.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M13 2v7h7"/></svg>PRD</span>`:"";
-  return `<div class="row" style="${gridTemplate()}"><div class="namecell"><span class="nm" data-open="${it.id}">${esc(it.name)}</span><span class="meta"><span class="tag type">${esc(it.type)}</span>${impactTag}${ownerTags}${prdBadge}</span></div>
+  const auditHint=it._updatedBy?`<span class="audit-hint" title="Added by ${esc(it._createdBy||'—')}${it._createdAt?' · '+esc(fmtDateTime(it._createdAt)):''}\nUpdated by ${esc(it._updatedBy)}${it._updatedAt?' · '+esc(fmtDateTime(it._updatedAt)):''}">✎ ${esc(it._updatedBy)}${it._updatedAt?' · '+esc(relTime(it._updatedAt)):''}</span>`:"";
+  return `<div class="row" style="${gridTemplate()}"><div class="namecell"><span class="nm" data-open="${it.id}">${esc(it.name)}</span><span class="meta"><span class="tag type">${esc(it.type)}</span>${impactTag}${ownerTags}${prdBadge}${auditHint}</span></div>
     <div class="lane" style="grid-column:2 / span ${QN};"><div class="grid" style="grid-template-columns:repeat(${QN},1fr)">${grid}</div>
     <div class="bar" data-open="${it.id}" style="left:${leftPct}%;width:${rawW}%;background:${sm.c}" title="${esc(it.name)} · ${it.status} · ${fmtDate(it.start)} → ${fmtDate(it.end)}"><span style="overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</span><span class="eff">${it.effort}</span></div></div></div>`;
 }
@@ -813,16 +863,28 @@ function openEdit(id){
   document.getElementById("fStart").value=toISO(draft.start);document.getElementById("fEnd").value=toISO(draft.end);
   buildPick(document.getElementById("fImpactPick"),IMPACT,draft.impact,v=>draft.impact=v);buildPick(document.getElementById("fEffortPick"),EFFORT,draft.effort,v=>draft.effort=v);
   renderOwnerSelect();renderPRD();
+  const au=document.getElementById("fAudit");
+  if(it&&(it._createdBy||it._updatedBy)){au.style.display="";
+    au.innerHTML=`<span class="al"><span class="ak">Added</span> by <b>${esc(it._createdBy||"—")}</b>${it._createdAt?" · "+esc(fmtDateTime(it._createdAt)):""}</span>`+
+      `<span class="al"><span class="ak">Last updated</span> by <b>${esc(it._updatedBy||"—")}</b>${it._updatedAt?" · "+esc(relTime(it._updatedAt))+' <span class="am">('+esc(fmtDateTime(it._updatedAt))+")</span>":""}</span>`;
+  }else{au.style.display="none";au.innerHTML="";}
   document.getElementById("scrim").classList.add("open");document.getElementById("drawer").classList.add("open");setTimeout(()=>document.getElementById("fName").focus(),120);
 }
 function closeEdit(){document.getElementById("scrim").classList.remove("open");document.getElementById("drawer").classList.remove("open");editingId=null;}
 async function saveEdit(){
   const name=document.getElementById("fName").value.trim();if(!name){document.getElementById("fName").focus();flash("Name required");return;}
+  if(REMOTE_ON)ensureUser();
+  const isNew=!editingId;
   const rec={id:editingId||("R"+Date.now().toString(36)),name,notes:document.getElementById("fNotes").value.trim(),owner:draftOwners.join(", "),prd:draftPRD,type:document.getElementById("fTypeSel").value,status:document.getElementById("fStatusSel").value,impact:draft.impact,effort:draft.effort,start:document.getElementById("fStart").value,end:document.getElementById("fEnd").value};
   if(!rec.start)rec.start=toISO(TODAY);if(!rec.end)rec.end=rec.start;
   if(pd(rec.end)<pd(rec.start))rec.end=rec.start;
+  const now=new Date().toISOString();
+  if(isNew){rec._createdBy=currentUser||"—";rec._createdAt=now;}
+  else{const prev=items.find(x=>x.id===editingId);rec._createdBy=prev?prev._createdBy:(currentUser||"—");rec._createdAt=prev?prev._createdAt:now;}
+  rec._updatedBy=currentUser||"—";rec._updatedAt=now;
   if(editingId){const i=items.findIndex(x=>x.id===editingId);items[i]=rec;}else items.push(rec);
-  await save();closeEdit();renderRoadmap();
+  closeEdit();renderRoadmap();
+  await persistTaskUpsert(rec,isNew);
 }
 function openPRD(item){
   const p=item.prd;if(!p)return;
@@ -830,7 +892,7 @@ function openPRD(item){
   else if(p.type==="file"){const a=document.createElement("a");a.href=p.data;a.download=p.name;a.click();}
   else if(p.type==="text"){openEdit(item.id);setTimeout(()=>{prdTab="text";renderPRD();},60);}
 }
-async function deleteItem(){if(!editingId)return;items=items.filter(i=>i.id!==editingId);await save();closeEdit();renderRoadmap();flash("Deleted");}
+async function deleteItem(){if(!editingId)return;const id=editingId;items=items.filter(i=>i.id!==id);closeEdit();renderRoadmap();await persistTaskDelete(id);}
 
 /* call editor */
 function openCall(id){
@@ -854,7 +916,7 @@ async function deleteCall(){if(!editingCall)return;calls=calls.filter(c=>c.id!==
 
 /* import / export */
 function exportJSON(){const blob=new Blob([JSON.stringify({exported:new Date().toISOString(),items,meth,calls,builds},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`carbonos-dashboard-${new Date().toISOString().slice(0,10)}.json`;a.click();flash("Exported backup");}
-function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;}meth.forEach(m=>{if(m.due===undefined)m.due="";});await save();renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
+function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;}meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();cacheLocal();if(REMOTE_ON){try{await remoteReplaceAllTasks();}catch(e){}lastSig=null;}else{await save(true);}renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
 
 function renderFilterOptions(){
   document.getElementById("fStatus").innerHTML=`<option value="">All status</option>`+STATUSES.map(x=>`<option>${x.k}</option>`).join("");
@@ -875,6 +937,7 @@ function wire(){
   document.getElementById("saveMeth").addEventListener("click",saveMeth);document.getElementById("delMethBtn").addEventListener("click",delMeth);
   document.getElementById("closeCall").addEventListener("click",closeCall);document.getElementById("cancelCall").addEventListener("click",closeCall);document.getElementById("scrim2").addEventListener("click",closeCall);
   document.getElementById("saveCall").addEventListener("click",saveCall);document.getElementById("delCallBtn").addEventListener("click",deleteCall);
+  document.getElementById("whoBtn").addEventListener("click",()=>{const n=prompt("Your name — shown on tasks you add or edit:",currentUser||"");if(n!==null)setUser(n);});
   document.getElementById("exportBtn").addEventListener("click",exportJSON);
   document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("fileInput").click());
   document.getElementById("fileInput").addEventListener("change",e=>{if(e.target.files[0])importJSON(e.target.files[0]);e.target.value="";});
@@ -890,7 +953,7 @@ function wire(){
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeEdit();closeCall();closeMeth();}});
   window.addEventListener("resize",()=>{if(window._view==="roadmap")positionNowLine();});
 }
-(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();await load();renderAll();switchView("roadmap");
+(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();await load();renderIdentity();renderAll();switchView("roadmap");
   if(REMOTE_ON){setInterval(remotePoll,15000);window.addEventListener("focus",remotePoll);document.addEventListener("visibilitychange",()=>{if(!document.hidden)remotePoll();});}
 })();
 </script>
