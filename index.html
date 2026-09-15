@@ -336,6 +336,10 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 /* ===== learnings v2: pain-point analytics, exec table, source links ===== */
 .pain-panel{margin-bottom:26px}
 .theme-panel{margin-bottom:26px}
+.signal-row{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;margin-bottom:24px}
+.signal-row .pain-panel,.signal-row .theme-panel{margin-bottom:0;min-width:0}
+.signal-row .pain-bars,.signal-row .pull-bars,.signal-row .pain-sub,.signal-row .pull-gtm,.signal-row .pain-legend,.signal-row .pull-themes{max-width:none}
+.signal-row .pull-lab,.signal-row .pain-lab{font-size:12px}
 .pain-sub{font-size:12px;color:var(--ink-dim);margin:2px 0 14px;max-width:780px;line-height:1.5}
 .pain-sub b{color:var(--ink)}
 .pain-bars{display:flex;flex-direction:column;gap:9px;max-width:780px}
@@ -404,6 +408,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   .pull-row{grid-template-columns:92px 1fr;gap:8px}
   .pull-lab{font-size:11px}
   .pull-tags{grid-column:2;justify-content:flex-start}
+  .signal-row{grid-template-columns:1fr;gap:24px}
 }
 </style>
 </head>
@@ -488,8 +493,10 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 <section class="view" id="view-learnings">
   <div class="strip" id="learnStrip"></div>
   <div class="learn-wrap">
-    <div class="pain-panel" id="painPanel"></div>
-    <div class="theme-panel" id="themePanel"></div>
+    <div class="signal-row">
+      <div class="theme-panel" id="themePanel"></div>
+      <div class="pain-panel" id="painPanel"></div>
+    </div>
     <div>
       <div class="sec-title"><span class="kick">From the field</span><h2>Call Log</h2><span class="cnt" id="callCnt">0</span><span class="rule"></span>
         <button class="btn" id="addCallBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Log a call</button></div>
