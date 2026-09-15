@@ -527,8 +527,8 @@ function seedOwnersFromItems(){const set=new Set(DEFAULT_OWNERS);items.forEach(i
    key is designed to be public in client code; access is limited to the single
    roadmap_state table by that table's row-level-security policy. Leave blank to
    run purely on this browser's localStorage. */
-const SUPABASE_URL="";       // e.g. https://abcdxyz.supabase.co
-const SUPABASE_ANON_KEY="";  // the "anon public" key
+const SUPABASE_URL="https://vrhxzcntqvbfwvekikhc.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyaHh6Y250cXZiZnd2ZWtpa2hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NTg0NTAsImV4cCI6MjEwNTAzNDQ1MH0.PZ9G_KICpq9BnFbJfuoBWAyQlsmq1KSX-sftulE3-h4";
 const REMOTE_ROW="main";
 const REMOTE_ON=/^https:\/\/.+\.supabase\.co\/?$/.test(SUPABASE_URL)&&SUPABASE_ANON_KEY.length>20;
 let remoteStamp=null;
