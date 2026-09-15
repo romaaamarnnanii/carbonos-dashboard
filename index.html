@@ -321,6 +321,18 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .pm-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:11px;font-family:var(--mono);color:var(--ink-faint)}
 .pm-legend .k{display:inline-flex;align-items:center;gap:6px}
 .pm-legend .sw{width:12px;height:12px;border-radius:3px;border:1px solid var(--line)}
+/* ===== password gate ===== */
+.gate{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#EEEBF6,#E1DAF0);display:flex;align-items:center;justify-content:center;padding:20px}
+.gate-card{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:34px 30px;width:min(380px,94vw);text-align:center;display:flex;flex-direction:column;gap:12px}
+.gate-card .glogo{height:28px;width:auto;margin:0 auto 4px}
+.gate-card h2{margin:0;font-size:17px;color:var(--blue);font-weight:700}
+.gate-card p{margin:0;font-size:13px;color:var(--ink-dim);line-height:1.5}
+.gate-card input{background:var(--lav);border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:14px;width:100%;text-align:center}
+.gate-card input:focus{outline:none;border-color:var(--purple)}
+.gate-card button{background:var(--purple);color:#fff;border:0;border-radius:9px;padding:11px;font-size:14px;font-weight:600}
+.gate-card button:hover{filter:brightness(1.07)}
+.gate-err{color:var(--coral);font-size:12px;font-weight:600;min-height:14px}
+.gate-hint{font-size:11px;color:var(--ink-faint);line-height:1.45}
 
 @media (max-width:760px){
   .topbar{flex-wrap:wrap;padding:14px 16px;gap:10px}
@@ -343,6 +355,17 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 </style>
 </head>
 <body>
+<div class="gate" id="gate" hidden>
+  <div class="gate-card">
+    <img class="glogo" id="gateLogo" alt="Climes">
+    <h2>CarbonOS · Product Dashboard</h2>
+    <p id="gateMsg">Enter the team password to continue.</p>
+    <input type="password" id="gateInput" placeholder="Password" autocomplete="current-password">
+    <button id="gateBtn">Unlock</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint" id="gateHint"></div>
+  </div>
+</div>
 <div class="topbar">
   <img class="brand-logo" id="brandLogo" alt="Climes">
   <div class="brand-div"></div>
@@ -672,6 +695,32 @@ async function remoteReplaceAllTasks(){const now=new Date().toISOString();
   await fetch(`${supaBase()}/rest/v1/${TASKS}?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(rows)});
   try{const keep=new Set(items.map(i=>i.id));const existing=await remoteLoadTasks();for(const ex of existing){if(!keep.has(ex.id)){try{await remoteDeleteTask(ex.id);}catch(e){}}}}catch(e){}
   await remoteSaveMeta();}
+/* password gate (shared team password; hash stored in the 'config' row, never plaintext) */
+async function sha256(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");}
+async function remoteLoadConfig(){try{const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?id=eq.config&select=data`,{headers:supaHeaders()});if(!r.ok)return null;const rows=await r.json();return rows[0]?rows[0].data:null;}catch(e){return null;}}
+async function remoteSaveConfig(data){const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify([{id:"config",data,updated_at:new Date().toISOString()}])});if(!r.ok)throw new Error("config save "+r.status);}
+const GATEKEY="carbonos_gate";
+function ensureGate(){return new Promise(async(resolve)=>{
+  if(!(window.crypto&&crypto.subtle)){resolve(true);return;} // failsafe: never lock out if crypto unavailable
+  const cfg=await remoteLoadConfig();const stored=cfg&&cfg.passHash;
+  let saved="";try{saved=localStorage.getItem(GATEKEY)||"";}catch(e){}
+  if(stored&&saved===stored){resolve(true);return;}
+  const gate=document.getElementById("gate"),msg=document.getElementById("gateMsg"),inp=document.getElementById("gateInput"),btn=document.getElementById("gateBtn"),err=document.getElementById("gateErr"),hint=document.getElementById("gateHint");
+  const setup=!stored;
+  msg.textContent=setup?"Set a password for this dashboard.":"Enter the team password to continue.";
+  hint.textContent=setup?"First-time setup — you're choosing the password the whole team will use. Share it with them privately.":"";
+  btn.textContent=setup?"Set password & enter":"Unlock";
+  gate.hidden=false;setTimeout(()=>inp.focus(),100);
+  async function submit(){const v=inp.value;if(!v)return;err.textContent="";
+    if(setup&&v.length<4){err.textContent="Use at least 4 characters.";return;}
+    const h=await sha256(v);
+    if(setup){try{await remoteSaveConfig({passHash:h});}catch(e){err.textContent="Couldn't save — try again.";return;}}
+    else if(h!==stored){err.textContent="Wrong password.";inp.value="";inp.focus();return;}
+    try{localStorage.setItem(GATEKEY,h);}catch(e){}
+    gate.hidden=true;resolve(true);
+  }
+  btn.onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit();};
+});}
 function sigOf(tasks,metaRow){return tasks.map(t=>t.id+"@"+(t._updatedAt||"")).sort().join(",")+"|"+(metaRow?metaRow.updated_at:"");}
 function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null;}
 async function remotePoll(){
@@ -767,9 +816,15 @@ function renderTimeline(){
   tl.style.minWidth=(240+QUARTERS.length*(COL_MIN[TIMEUNIT]||100))+"px";
   let html=`<div class="tl-head" style="${gridTemplate()}"><div class="lane-label"></div>`;
   QUARTERS.forEach(q=>{html+=`<div class="qcol ${q.now?'now':''}">${q.label}${q.sub?`<span class="yr">${q.sub}</span>`:""}</div>`;});
-  html+=`</div><div class="horizon">`;
-  list.forEach(it=>html+=renderRow(it));
   html+=`</div>`;
+  const order=["Now","Next","Later","Shipped","Parked"];
+  const dot={Now:"var(--green)",Next:"var(--purple)",Later:"var(--purple-2)",Shipped:"var(--green)",Parked:"var(--s-parked)"};
+  const by={};list.forEach(it=>{const h=horizonOf(it).k;(by[h]=by[h]||[]).push(it);});
+  order.filter(k=>by[k]).forEach(k=>{
+    html+=`<div class="horizon"><div class="horizon-label"><span class="dot" style="background:${dot[k]}"></span><span class="txt">${k}</span><span class="cnt">${by[k].length}</span><span class="rule"></span></div>`;
+    sortItems(by[k]).forEach(it=>html+=renderRow(it));
+    html+=`</div>`;
+  });
   tl.innerHTML=html;requestAnimationFrame(positionNowLine);
   tl.querySelectorAll(".prd-badge[data-prd]").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();const it=items.find(i=>i.id===el.getAttribute("data-prd"));if(it)openPRD(it);}));
   tl.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",e=>{if(e.target.closest(".prd-badge"))return;openEdit(el.getAttribute("data-open"));}));
@@ -1094,7 +1149,10 @@ function wire(){
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeEdit();closeCall();closeMeth();}});
   window.addEventListener("resize",()=>{if(window._view==="roadmap")positionNowLine();});
 }
-(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();await load();renderIdentity();renderAll();switchView("roadmap");
+(async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();
+  try{const gl=document.getElementById("gateLogo");if(gl)gl.src=LOGO;}catch(e){}
+  if(REMOTE_ON){const ok=await ensureGate();if(!ok)return;}
+  await load();renderIdentity();renderAll();switchView("roadmap");
   if(REMOTE_ON){setInterval(remotePoll,15000);window.addEventListener("focus",remotePoll);document.addEventListener("visibilitychange",()=>{if(!document.hidden)remotePoll();});}
 })();
 </script>
