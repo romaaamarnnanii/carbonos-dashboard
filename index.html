@@ -376,6 +376,10 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .chip.ind{background:var(--panel-3);color:var(--ink-dim)}
 .chip.demo{background:var(--signal-soft);color:var(--green);text-decoration:none;border-color:transparent}
 .chip.demo:hover{text-decoration:underline}
+.chip.gtm{background:color-mix(in srgb,var(--purple-2) 16%,transparent);color:var(--purple-2);border-color:transparent}
+.pull-gtm{margin-top:14px;font-size:11.5px;color:var(--ink-dim);font-family:var(--mono);max-width:840px;line-height:1.5}
+.pull-gtm .pt-lab{font-family:var(--semi);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:10px;color:var(--ink-faint);margin-right:6px}
+.pull-gtm .gtm-when{color:var(--ink-faint)}
 
 @media (max-width:760px){
   .topbar{flex-wrap:wrap;padding:14px 16px;gap:10px}
@@ -581,6 +585,8 @@ const ARCHETYPES=["Wipro","SBTi","Varuna","Jeena","YPO","Sony","Analytics","Cosm
 const INDUSTRIES=["Banking & Finance","IT Services","Automotive","Metals","Manufacturing","Chemicals","Logistics","Paper & Packaging","Consulting","Membership & Events","FMCG","Real Estate","Other"];
 const SENTIMENTS=["Positive","Neutral","Negative"];
 let roadView="timeline",sortBy="start",TIMEUNIT="quarter";
+let gtm=null; // daily GTM pipeline summary (gtm.json), refreshed by the GTM-sync GitHub Action
+async function loadGtm(){try{const r=await fetch("gtm.json?ts="+Date.now());if(r.ok)gtm=await r.json();}catch(e){}}
 const PAINS=["High","Medium","Low"];
 const PRIOS=["P0","P1","P2","P3"];
 const METH_STATUSES=[{k:"Verification",label:"Verifying",c:"var(--verify)"},{k:"Done",label:"Done",c:"var(--done)"},{k:"Drafting",label:"Drafting",c:"var(--notstart)"},{k:"Not Started",label:"Not started",c:"var(--notstart)"}];
@@ -1009,32 +1015,44 @@ function renderLearnStrip(){
 function itemName(id){const it=items.find(i=>i.id===id);return it?it.name:id;}
 function renderPullPanel(){
   const el=document.getElementById("painPanel");if(!el)return;
-  if(!calls.length){el.innerHTML="";return;}
+  if(!calls.length&&!(gtm&&gtm.byIndustry)){el.innerHTML="";return;}
   const painW={High:3,Medium:2,Low:1}, sentW={Positive:1.3,Neutral:1,Negative:0.6};
   const ind={};
-  calls.forEach(c=>{const k=c.industry||"Unspecified";
-    const o=ind[k]=ind[k]||{calls:0,pull:0,High:0,Medium:0,Low:0,Positive:0,Neutral:0,Negative:0,sent:0};
+  const ensure=k=>ind[k]=ind[k]||{calls:0,callPull:0,High:0,Medium:0,Low:0,sent:0,gtmPull:0,gtmAcc:0,replies:0};
+  calls.forEach(c=>{const o=ensure(c.industry||"Unspecified");
     const pw=painW[c.pain]||2, sw=sentW[c.sentiment]||1;
-    o.calls++;o.pull+=pw*sw;o.sent+=sw;
+    o.calls++;o.callPull+=pw*sw;o.sent+=sw;
     o[["High","Medium","Low"].includes(c.pain)?c.pain:"Medium"]++;
-    if(["Positive","Neutral","Negative"].includes(c.sentiment))o[c.sentiment]++;
   });
-  const rows=Object.entries(ind).map(([k,v])=>({k,...v,avg:v.sent/v.calls})).sort((a,b)=>b.pull-a.pull||b.calls-a.calls);
-  const max=Math.max(...rows.map(r=>r.pull),1), top=rows[0];
-  const barCol=r=>r.avg>1.12?"var(--green)":r.avg>=0.85?"var(--purple)":"var(--coral)";
+  const hasGtm=!!(gtm&&gtm.byIndustry);
+  if(hasGtm)for(const [k,v] of Object.entries(gtm.byIndustry)){const o=ensure(k);o.gtmPull=v.gtmPull||0;o.gtmAcc=v.accounts||0;o.replies=v.replies||0;}
+  const rows=Object.entries(ind).map(([k,v])=>({k,...v,avg:v.calls?v.sent/v.calls:1.0}));
+  const maxCall=Math.max(...rows.map(r=>r.callPull),0.0001), maxGtm=Math.max(...rows.map(r=>r.gtmPull),0.0001);
+  rows.forEach(r=>{r.score=hasGtm?(0.5*(r.callPull/maxCall)+0.5*(r.gtmPull/maxGtm)):(r.callPull/maxCall);});
+  rows.sort((a,b)=>b.score-a.score||b.callPull-a.callPull);
+  const maxScore=Math.max(...rows.map(r=>r.score),0.0001), top=rows[0];
+  const barCol=r=>r.calls?(r.avg>1.12?"var(--green)":r.avg>=0.85?"var(--purple)":"var(--coral)"):"var(--purple-2)";
   const domPain=r=>(r.High>=r.Medium&&r.High>=r.Low)?"High":(r.Medium>=r.Low?"Medium":"Low");
   const sLab=a=>a>1.12?"positive":a>=0.85?"mixed":"cool";
-  const bars=rows.map(r=>{const pct=Math.round(r.pull/max*100);
+  const bars=rows.map(r=>{const pct=Math.round(r.score/maxScore*100);
+    const tags=[`<span class="pull-score">${pct}</span>`];
+    if(r.calls)tags.push(`<span class="chip">${r.calls} call${r.calls>1?'s':''}</span>`);
+    if(r.gtmAcc)tags.push(`<span class="chip gtm">${r.gtmAcc} in motion</span>`);
+    if(r.calls)tags.push(`<span class="chip pain-${domPain(r)}">${domPain(r)}</span>`);
     return `<div class="pull-row"><div class="pull-lab" title="${esc(r.k)}">${esc(r.k)}</div>
       <div class="pull-track"><div class="pull-fill" style="width:${pct}%;background:${barCol(r)}"></div></div>
-      <div class="pull-tags"><span class="pull-score">${pct}</span><span class="chip">${r.calls} call${r.calls>1?'s':''}</span><span class="chip pain-${domPain(r)}">${domPain(r)}</span></div></div>`;
+      <div class="pull-tags">${tags.join("")}</div></div>`;
   }).join("");
   const th={};calls.forEach(c=>{const t=c.theme||"Other";th[t]=(th[t]||0)+1;});
   const topThemes=Object.entries(th).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,n])=>`<span class="chip theme">${esc(t)} · ${n}</span>`).join("");
+  const blend=hasGtm?"call signal (frequency × pain × sentiment) blended 50/50 with live GTM pipeline (deal stage + inbound)":"call frequency × pain intensity × meeting sentiment";
+  let gtmLine="";
+  if(hasGtm){const f=gtm.funnel||{};gtmLine=`<div class="pull-gtm"><span class="pt-lab">GTM pipeline</span> ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won · ${gtm.accountsParsed||0} accounts mapped · <span class="gtm-when">synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span></div>`;}
   el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Where we have pull</h2><span class="rule"></span></div>
-    <div class="pain-sub">A <b>pull score</b> per industry, blending <b>call frequency × pain intensity × meeting sentiment</b>. Strongest pull: <b>${esc(top.k)}</b> — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment, mostly ${domPain(top).toLowerCase()} pain.</div>
+    <div class="pain-sub">A <b>pull score</b> per industry — ${blend}. Strongest pull: <b>${esc(top.k)}</b>${top.calls?` — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment`:``}${top.gtmAcc?`${top.calls?'; ':' — '}${top.gtmAcc} accounts in the GTM motion`:``}.</div>
     <div class="pull-bars">${bars}</div>
-    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">bar = pull score 0–100</span></div>
+    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k"><span class="sw" style="background:var(--purple-2)"></span>Pipeline only</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">bar = pull score 0–100</span></div>
+    ${gtmLine}
     <div class="pull-themes"><span class="pt-lab">Recurring pain themes</span>${topThemes}</div>`;
 }
 function renderCallTable(sorted){
@@ -1299,7 +1317,7 @@ function wire(){
 (async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();
   try{const gl=document.getElementById("gateLogo");if(gl)gl.src=LOGO;}catch(e){}
   if(REMOTE_ON){const ok=await ensureGate();if(!ok)return;}
-  await load();renderIdentity();renderAll();switchView("roadmap");
+  await load();await loadGtm();renderIdentity();renderAll();switchView("roadmap");
   if(REMOTE_ON){setInterval(remotePoll,15000);window.addEventListener("focus",remotePoll);document.addEventListener("visibilitychange",()=>{if(!document.hidden)remotePoll();});}
 })();
 </script>

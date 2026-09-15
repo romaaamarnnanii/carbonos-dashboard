@@ -1,0 +1,345 @@
+{
+ "generatedAt": "2026-09-15T13:58:39+00:00",
+ "snapshotLabel": "15 Sep 2026, 11:30 IST",
+ "source": "https://gtm-september.climes.io/",
+ "funnel": {
+  "contacted": 1217,
+  "replied": 16,
+  "call": 8,
+  "proposal": 1,
+  "won": 0
+ },
+ "accountsParsed": 33,
+ "byIndustry": {
+  "Metals": {
+   "accounts": 12,
+   "gtmPull": 17.0,
+   "replies": 5,
+   "stages": {
+    "QUEUED": 4,
+    "SENT": 3,
+    "REPLIED": 3,
+    "CALL": 2,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "IT Services": {
+   "accounts": 1,
+   "gtmPull": 0.5,
+   "replies": 0,
+   "stages": {
+    "QUEUED": 1,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "FMCG": {
+   "accounts": 2,
+   "gtmPull": 1.0,
+   "replies": 0,
+   "stages": {
+    "QUEUED": 2,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Paper & Packaging": {
+   "accounts": 5,
+   "gtmPull": 9.5,
+   "replies": 4,
+   "stages": {
+    "QUEUED": 1,
+    "SENT": 0,
+    "REPLIED": 3,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Automotive": {
+   "accounts": 3,
+   "gtmPull": 3.0,
+   "replies": 0,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 3,
+    "REPLIED": 0,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Chemicals": {
+   "accounts": 1,
+   "gtmPull": 1.0,
+   "replies": 0,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 1,
+    "REPLIED": 0,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Manufacturing": {
+   "accounts": 3,
+   "gtmPull": 6.0,
+   "replies": 2,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 1,
+    "REPLIED": 1,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Healthcare": {
+   "accounts": 2,
+   "gtmPull": 3.0,
+   "replies": 1,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 1,
+    "REPLIED": 1,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Banking & Finance": {
+   "accounts": 3,
+   "gtmPull": 11.0,
+   "replies": 3,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 2,
+    "PROPOSAL": 1,
+    "WON": 0
+   }
+  },
+  "Aviation": {
+   "accounts": 1,
+   "gtmPull": 3.0,
+   "replies": 1,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  }
+ },
+ "accounts": [
+  {
+   "name": "JSW Steel",
+   "stage": "QUEUED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Hindalco Industries",
+   "stage": "QUEUED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Vedanta Aluminium",
+   "stage": "QUEUED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Jindal Stainless",
+   "stage": "QUEUED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "TCS",
+   "stage": "QUEUED",
+   "framework": "SBTI",
+   "industry": "IT Services"
+  },
+  {
+   "name": "Nestle India",
+   "stage": "QUEUED",
+   "framework": "SBTI",
+   "industry": "FMCG"
+  },
+  {
+   "name": "Asian Paints",
+   "stage": "QUEUED",
+   "framework": "EPD",
+   "industry": "FMCG"
+  },
+  {
+   "name": "Trident",
+   "stage": "QUEUED",
+   "framework": "EUDR",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Sundram Fasteners",
+   "stage": "SENT",
+   "framework": "CBAM",
+   "industry": "Automotive"
+  },
+  {
+   "name": "Ratnamani Metals & Tubes",
+   "stage": "SENT",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Venus Pipes & Tubes",
+   "stage": "SENT",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Amarinox",
+   "stage": "SENT",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "SKF India",
+   "stage": "SENT",
+   "framework": "SBTI",
+   "industry": "Automotive"
+  },
+  {
+   "name": "Bharat Forge",
+   "stage": "SENT",
+   "framework": "CBAM",
+   "industry": "Automotive"
+  },
+  {
+   "name": "Aarti Industries",
+   "stage": "SENT",
+   "framework": "PCF",
+   "industry": "Chemicals"
+  },
+  {
+   "name": "Polycab India",
+   "stage": "SENT",
+   "framework": "EPD",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Apollo Hospitals",
+   "stage": "SENT",
+   "framework": "PCF",
+   "industry": "Healthcare"
+  },
+  {
+   "name": "Centravis",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Aperam",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "JK Paper",
+   "stage": "REPLIED",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Andhra Paper",
+   "stage": "REPLIED",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Pakka",
+   "stage": "REPLIED",
+   "framework": "PCF",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Suzlon",
+   "stage": "REPLIED",
+   "framework": "EPD",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Zydus Lifesciences",
+   "stage": "REPLIED",
+   "framework": "SBTI",
+   "industry": "Healthcare"
+  },
+  {
+   "name": "Viraj Profiles",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Bajaj Finserv",
+   "stage": "CALL",
+   "framework": "PCAF",
+   "industry": "Banking & Finance"
+  },
+  {
+   "name": "Satia Industries",
+   "stage": "CALL",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Gulf Extrusions",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Tata AIG",
+   "stage": "CALL",
+   "framework": "PCAF",
+   "industry": "Banking & Finance"
+  },
+  {
+   "name": "LATAM Airlines",
+   "stage": "CALL",
+   "framework": "GHG",
+   "industry": "Aviation"
+  },
+  {
+   "name": "Pradeep Metals",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Nororbis Itus",
+   "stage": "CALL",
+   "framework": "GHG",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Saudi Awwal Bank",
+   "stage": "PROPOSAL",
+   "framework": "PCAF",
+   "industry": "Banking & Finance"
+  }
+ ]
+}

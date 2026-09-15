@@ -1,0 +1,41 @@
+name: GTM sync
+
+# Refreshes gtm.json daily from the GTM War Room dashboard so the Learnings
+# "Where we have pull" panel can blend pipeline signal into the Pull score.
+on:
+  schedule:
+    - cron: "15 6 * * *"   # 06:15 UTC ≈ 11:45 IST, just after the GTM board's 11:30 IST refresh
+  workflow_dispatch: {}     # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gtm-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright + Chromium
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Scrape GTM dashboard
+        run: python scripts/scrape_gtm.py
+      - name: Commit gtm.json if changed
+        run: |
+          if git diff --quiet -- gtm.json; then
+            echo "No change in gtm.json"
+          else
+            git config user.name "gtm-sync-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add gtm.json
+            git commit -m "chore: daily GTM sync"
+            git push
+          fi
