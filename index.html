@@ -1017,7 +1017,7 @@ async function delMeth(){if(!editingMeth)return;meth=meth.filter(m=>m.id!==editi
 function renderLearnStrip(){
   const nCalls=calls.length,customers=new Set(calls.map(c=>c.customer).filter(Boolean)).size;
   const highPain=calls.filter(c=>c.pain==="High").length;
-  const themeCount={};calls.forEach(c=>{const t=c.theme||"Other";themeCount[t]=(themeCount[t]||0)+1;});
+  const themeCount={};calls.forEach(c=>{(callThemes(c).length?callThemes(c):["Other"]).forEach(t=>{themeCount[t]=(themeCount[t]||0)+1;});});
   const recurring=Object.values(themeCount).filter(n=>n>=2).length;
   const withNotes=calls.filter(c=>c.sourceUrl).length;
   const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:withNotes,l:"With notes"}];
