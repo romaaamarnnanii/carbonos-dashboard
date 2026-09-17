@@ -276,6 +276,7 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
 .pick{display:flex;gap:6px;flex-wrap:wrap}
 .pick button{flex:1;background:var(--lav);border:1px solid var(--line);color:var(--ink-dim);padding:8px 0;border-radius:7px;font-size:12px;font-family:var(--mono);min-width:44px}
 .pick button.on{background:rgba(137,64,201,.12);border-color:var(--purple);color:var(--purple)}
+.pick.multi button{flex:0 1 auto;padding:7px 11px}
 .statuspick{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .statuspick button{display:flex;align-items:center;gap:7px;background:var(--lav);border:1px solid var(--line);color:var(--ink-dim);padding:9px 11px;border-radius:7px;font-size:12.5px;font-family:var(--sans);text-align:left}
 .statuspick button .d{width:9px;height:9px;border-radius:50%;flex-shrink:0}
@@ -567,10 +568,11 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
     <div class="two"><div class="field"><label>Customer</label><input id="cCustomer" placeholder="e.g. Varuna" autocomplete="off"></div><div class="field"><label>Date</label><input id="cDate" type="date"></div></div>
     <div class="field"><label>Attendees / role <span class="hint">— optional</span></label><input id="cAttendees" placeholder="e.g. Head of ESG (Priya)" autocomplete="off"></div>
     <div class="two"><div class="field"><label>Industry</label><input id="cIndustry" list="indList" placeholder="e.g. Banking & Finance" autocomplete="off"><datalist id="indList"></datalist></div><div class="field"><label>Sentiment</label><select id="cSentiment"></select></div></div>
-    <div class="two"><div class="field"><label>Call type</label><select id="cType"></select></div><div class="field"><label>Theme</label><select id="cTheme"></select></div></div>
+    <div class="two"><div class="field"><label>Call type</label><select id="cType"></select></div><div class="field"><label>Pain level</label><select id="cPain"></select></div></div>
+    <div class="field"><label>Themes / pains raised <span class="hint">— tap all that apply</span></label><div class="pick multi" id="cThemePick"></div></div>
     <div class="field"><label>What they said <span class="hint">— verbatim or paraphrase</span></label><textarea id="cQuote" placeholder="&quot;We can't see scope split at a glance…&quot;"></textarea></div>
     <div class="field"><label>Learning / insight</label><textarea id="cInsight" placeholder="What this tells us to do."></textarea></div>
-    <div class="two"><div class="field"><label>Pain level</label><select id="cPain"></select></div><div class="field"><label>Priority</label><select id="cPrio"></select></div></div>
+    <div class="field"><label>Priority</label><select id="cPrio"></select></div>
     <div class="two"><div class="field"><label>Demo link <span class="hint">— the demo we gave</span></label><input id="cDemo" type="url" placeholder="https://customer.climes.io/" autocomplete="off"></div><div class="field"><label>Meeting notes link</label><input id="cSource" type="url" placeholder="https://pressplay.vastoo.co/…" autocomplete="off"></div></div>
     <div class="field"><label>Linked build <span class="hint">— optional roadmap item</span></label><select id="cLink"></select></div>
   </div>
@@ -589,7 +591,7 @@ const STATUSES=[{k:"Not Started",c:"var(--s-notstarted)"},{k:"Discovery",c:"var(
 const IMPACT=["Low","Medium","High","Critical"];
 const EFFORT=["XS","S","M","L","XL"];
 const CALL_TYPES=["Discovery","Onboarding","Demo","Renewal","Support","Feedback","Sales"];
-const THEMES=["Dashboards","Methodology","Reporting","SBTi","Data upload","Integrations","Pricing","Performance","Other"];
+const THEMES=["CBAM","CCTS","PCAF","SBTi","Product LCA","EPD","Offsetting","BRSR","Data automation","Benchmarking","Dashboards","Customer engagement","Methodology","Other"];
 const ARCHETYPES=["Wipro","SBTi","Varuna","Jeena","YPO","Sony","Analytics","Cosmetic","Platform","Side quest","Other"];
 const INDUSTRIES=["Banking & Finance","IT Services","Automotive","Metals","Manufacturing","Chemicals","Logistics","Paper & Packaging","Consulting","Membership & Events","FMCG","Real Estate","Other"];
 const SENTIMENTS=["Positive","Neutral","Negative"];
@@ -1064,7 +1066,7 @@ function renderPullPanel(){
 function renderThemePanel(){
   const el=document.getElementById("themePanel");if(!el)return;
   if(!calls.length){el.innerHTML="";return;}
-  const th={};calls.forEach(c=>{const t=c.theme||"Other";const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";(th[t]=th[t]||{High:0,Medium:0,Low:0,total:0})[p]++;th[t].total++;});
+  const th={};calls.forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);(ths.length?ths:["Other"]).forEach(t=>{(th[t]=th[t]||{High:0,Medium:0,Low:0,total:0})[p]++;th[t].total++;});});
   const rows=Object.entries(th).map(([t,v])=>({t,...v})).sort((a,b)=>b.total-a.total||b.High-a.High);
   const max=Math.max(...rows.map(r=>r.total),1),recurring=rows.filter(r=>r.total>=2).length,col={High:"var(--pain-high)",Medium:"var(--pain-med)",Low:"var(--pain-low)"};
   const bars=rows.map(r=>{
@@ -1103,7 +1105,7 @@ function renderLearnings(){
       ${c.attendees?`<div style="font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:-4px">${esc(c.attendees)}</div>`:''}
       ${c.quote?`<div class="quote">${esc(c.quote)}</div>`:''}
       ${c.insight?`<div class="insight"><b>Insight:</b> ${esc(c.insight)}</div>`:''}
-      <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${c.theme?`<span class="chip theme">${esc(c.theme)}</span>`:''}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${demo}${notes}${link}</div></div>`;
+      <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${callThemes(c).map(t=>`<span class="chip theme">${esc(t)}</span>`).join('')}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${demo}${notes}${link}</div></div>`;
   }).join("");
   grid.querySelectorAll("[data-call]").forEach(el=>el.addEventListener("click",e=>{
     if(e.target.closest("a"))return;
@@ -1141,7 +1143,8 @@ function parseNotes(raw){
   if(tl)out.insight=cleanNote(tl[1]);else{const i=lines.findIndex(l=>/^TL;?DR/i.test(l));if(i>=0&&lines[i+1])out.insight=cleanNote(lines[i+1]);}
   const qm=raw.match(/["“”]([^"“”]{12,220})["“”]/);if(qm)out.quote=cleanNote(qm[1]);
   out.type=/\bdemo\b|demonstrat/.test(low)?"Demo":/migrat|onboard/.test(low)?"Onboarding":/renewal/.test(low)?"Renewal":/\bfeedback\b/.test(low)?"Feedback":/proposal|pricing|\bmou\b|sales/.test(low)?"Sales":"Discovery";
-  out.theme=/cbam|ccts|brsr|compliance|report|disclos/.test(low)?"Reporting":/sbti|science[- ]based/.test(low)?"SBTi":/benchmark|dashboard/.test(low)?"Dashboards":/\bapi\b|integrat|migrat/.test(low)?"Integrations":/excel|upload|data collection|activity data/.test(low)?"Data upload":/pricing|\bcost\b/.test(low)?"Pricing":"Other";
+  const themeRules=[["CBAM",/cbam/],["CCTS",/ccts/],["PCAF",/pcaf|financed emission/],["SBTi",/sbti|science[- ]based/],["Product LCA",/\blca\b|product carbon|\bpcf\b|life ?cycle/],["EPD",/\bepd\b/],["Offsetting",/offset|carbon credit|retire|verra|gold standard|net[- ]?zero/],["BRSR",/brsr/],["Data automation",/excel|upload|automat|activity data|data collection|migrat/],["Benchmarking",/benchmark/],["Dashboards",/dashboard|analytics|exec[- ]ready/],["Customer engagement",/customer engagement|email report/],["Methodology",/methodolog|scope 3 (confus|classif)|not applicable/]];
+  out.themes=themeRules.filter(([t,re])=>re.test(low)).map(([t])=>t);if(!out.themes.length)out.themes=["Other"];
   out.pain=/(on hold|urgent|obstacle|time consuming|big problem|calamity|blocker)/.test(low)?"High":/(no pressure|not that complex|already ahead|no urgency|no immediate|good to have)/.test(low)?"Low":"Medium";
   out.sentiment=/(amazing|excited|enthusi|leaned in|very positive|impressed|keen|exactly what|committed|got my attention)/.test(low)?"Positive":/(declined|no urgency|already ahead|hesitat|not ready|skeptic|rolled back|not that complex|no immediate pressure)/.test(low)?"Negative":"Neutral";
   out.industry=inferIndustry(out.customer,low);
@@ -1154,7 +1157,7 @@ function applyParsedNotes(){
   const set=(id,v)=>{if(v)document.getElementById(id).value=v;};
   set("cCustomer",p.customer);set("cDate",p.date);set("cQuote",p.quote);set("cInsight",p.insight);set("cSource",p.sourceUrl);set("cDemo",p.demoUrl);set("cIndustry",p.industry);
   if(p.type)fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);
-  if(p.theme)fillSelect(document.getElementById("cTheme"),THEMES,p.theme);
+  if(p.themes&&p.themes.length){draftCallThemes=p.themes.slice();renderCallThemes();}
   if(p.pain)fillSelect(document.getElementById("cPain"),PAINS,p.pain);
   if(p.prio)fillSelect(document.getElementById("cPrio"),PRIOS,p.prio);
   if(p.sentiment)fillSelect(document.getElementById("cSentiment"),SENTIMENTS,p.sentiment);
@@ -1258,23 +1261,33 @@ function openPRD(item){
 async function deleteItem(){if(!editingId)return;const id=editingId;items=items.filter(i=>i.id!==id);closeEdit();renderRoadmap();await persistTaskDelete(id);}
 
 /* call editor */
+let draftCallThemes=[];
+function callThemes(c){return (c&&c.themes&&c.themes.length)?c.themes.slice():((c&&c.theme)?[c.theme]:[]);}
+function renderCallThemes(){
+  const box=document.getElementById("cThemePick");if(!box)return;
+  box.innerHTML=THEMES.map(t=>`<button type="button" data-t="${esc(t)}" class="${draftCallThemes.includes(t)?'on':''}">${esc(t)}</button>`).join("");
+  box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const t=b.getAttribute("data-t");
+    if(draftCallThemes.includes(t))draftCallThemes=draftCallThemes.filter(x=>x!==t);else draftCallThemes.push(t);
+    b.classList.toggle("on");}));
+}
 function openCall(id){
   editingCall=id;const c=calls.find(x=>x.id===id);
-  const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",theme:"Dashboards",pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:""};
+  const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:""};
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
   document.getElementById("delCallBtn").style.display=c?"block":"none";
   document.getElementById("cPaste").value="";document.getElementById("cSource").value=d.sourceUrl||"";document.getElementById("cDemo").value=d.demoUrl||"";
   document.getElementById("cIndustry").value=d.industry||"";
   document.getElementById("indList").innerHTML=INDUSTRIES.map(x=>`<option value="${esc(x)}">`).join("");
   document.getElementById("cCustomer").value=d.customer||"";document.getElementById("cDate").value=d.date||"";document.getElementById("cAttendees").value=d.attendees||"";document.getElementById("cQuote").value=d.quote||"";document.getElementById("cInsight").value=d.insight||"";
-  fillSelect(document.getElementById("cType"),CALL_TYPES,d.type);fillSelect(document.getElementById("cTheme"),THEMES,d.theme);fillSelect(document.getElementById("cPain"),PAINS,d.pain);fillSelect(document.getElementById("cPrio"),PRIOS,d.prio);fillSelect(document.getElementById("cSentiment"),SENTIMENTS,d.sentiment||"Neutral");
+  draftCallThemes=callThemes(d);renderCallThemes();
+  fillSelect(document.getElementById("cType"),CALL_TYPES,d.type);fillSelect(document.getElementById("cPain"),PAINS,d.pain);fillSelect(document.getElementById("cPrio"),PRIOS,d.prio);fillSelect(document.getElementById("cSentiment"),SENTIMENTS,d.sentiment||"Neutral");
   document.getElementById("cLink").innerHTML=`<option value="">— none —</option>`+items.map(it=>`<option value="${it.id}" ${it.id===d.link?'selected':''}>${esc(it.name)}</option>`).join("");
   document.getElementById("scrim2").classList.add("open");document.getElementById("callDrawer").classList.add("open");setTimeout(()=>document.getElementById("cCustomer").focus(),120);
 }
 function closeCall(){document.getElementById("scrim2").classList.remove("open");document.getElementById("callDrawer").classList.remove("open");editingCall=null;}
 async function saveCall(){
   const customer=document.getElementById("cCustomer").value.trim();if(!customer){document.getElementById("cCustomer").focus();flash("Customer required");return;}
-  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,theme:document.getElementById("cTheme").value,quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value,sourceUrl:document.getElementById("cSource").value.trim(),demoUrl:document.getElementById("cDemo").value.trim(),industry:document.getElementById("cIndustry").value.trim(),sentiment:document.getElementById("cSentiment").value};
+  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,themes:draftCallThemes.slice(),theme:draftCallThemes[0]||"",quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value,sourceUrl:document.getElementById("cSource").value.trim(),demoUrl:document.getElementById("cDemo").value.trim(),industry:document.getElementById("cIndustry").value.trim(),sentiment:document.getElementById("cSentiment").value};
   if(editingCall){const i=calls.findIndex(x=>x.id===editingCall);calls[i]=rec;}else calls.push(rec);
   await save();closeCall();renderLearnings();
 }
