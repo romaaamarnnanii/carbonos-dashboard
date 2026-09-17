@@ -1,9 +1,9 @@
 {
- "generatedAt": "2026-09-16T11:26:47+00:00",
- "snapshotLabel": "15 Sep 2026, 11:30 IST",
+ "generatedAt": "2026-09-17T11:35:53+00:00",
+ "snapshotLabel": "17 Sep 2026, 14:00 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
-  "contacted": 1217,
+  "contacted": 1698,
   "replied": 16,
   "call": 8,
   "proposal": 1,
@@ -51,14 +51,14 @@
    }
   },
   "Paper & Packaging": {
-   "accounts": 5,
-   "gtmPull": 9.5,
-   "replies": 4,
+   "accounts": 4,
+   "gtmPull": 6.5,
+   "replies": 3,
    "stages": {
     "QUEUED": 1,
     "SENT": 0,
     "REPLIED": 3,
-    "CALL": 1,
+    "CALL": 0,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -90,14 +90,14 @@
    }
   },
   "Manufacturing": {
-   "accounts": 3,
-   "gtmPull": 6.0,
-   "replies": 2,
+   "accounts": 4,
+   "gtmPull": 9.0,
+   "replies": 3,
    "stages": {
     "QUEUED": 0,
     "SENT": 1,
     "REPLIED": 1,
-    "CALL": 1,
+    "CALL": 2,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -115,20 +115,33 @@
     "WON": 0
    }
   },
-  "Banking & Finance": {
-   "accounts": 3,
-   "gtmPull": 11.0,
-   "replies": 3,
+  "Aviation": {
+   "accounts": 1,
+   "gtmPull": 3.0,
+   "replies": 1,
    "stages": {
     "QUEUED": 0,
     "SENT": 0,
     "REPLIED": 0,
-    "CALL": 2,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Banking & Finance": {
+   "accounts": 2,
+   "gtmPull": 8.0,
+   "replies": 2,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 1,
     "PROPOSAL": 1,
     "WON": 0
    }
   },
-  "Aviation": {
+  "Other": {
    "accounts": 1,
    "gtmPull": 3.0,
    "replies": 1,
@@ -246,13 +259,7 @@
    "industry": "Healthcare"
   },
   {
-   "name": "Centravis",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Aperam",
+   "name": "Viraj Profiles",
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -264,10 +271,16 @@
    "industry": "Paper & Packaging"
   },
   {
-   "name": "Andhra Paper",
+   "name": "Aperam",
    "stage": "REPLIED",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Centravis",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
   },
   {
    "name": "Pakka",
@@ -282,40 +295,22 @@
    "industry": "Manufacturing"
   },
   {
+   "name": "Andhra Paper",
+   "stage": "REPLIED",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
    "name": "Zydus Lifesciences",
    "stage": "REPLIED",
    "framework": "SBTI",
    "industry": "Healthcare"
   },
   {
-   "name": "Viraj Profiles",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Bajaj Finserv",
-   "stage": "CALL",
-   "framework": "PCAF",
-   "industry": "Banking & Finance"
-  },
-  {
-   "name": "Satia Industries",
-   "stage": "CALL",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
-  },
-  {
    "name": "Gulf Extrusions",
    "stage": "CALL",
    "framework": "CBAM",
    "industry": "Metals"
-  },
-  {
-   "name": "Tata AIG",
-   "stage": "CALL",
-   "framework": "PCAF",
-   "industry": "Banking & Finance"
   },
   {
    "name": "LATAM Airlines",
@@ -333,6 +328,24 @@
    "name": "Nororbis Itus",
    "stage": "CALL",
    "framework": "GHG",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Bajaj Finserv",
+   "stage": "CALL",
+   "framework": "PCAF",
+   "industry": "Banking & Finance"
+  },
+  {
+   "name": "Balearia",
+   "stage": "CALL",
+   "framework": "GHG",
+   "industry": "Other"
+  },
+  {
+   "name": "Sona Comstar",
+   "stage": "CALL",
+   "framework": "PCF",
    "industry": "Manufacturing"
   },
   {
