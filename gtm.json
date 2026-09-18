@@ -1,25 +1,25 @@
 {
- "generatedAt": "2026-09-17T11:35:53+00:00",
- "snapshotLabel": "17 Sep 2026, 14:00 IST",
+ "generatedAt": "2026-09-18T11:08:32+00:00",
+ "snapshotLabel": "18 Sep 2026, 09:45 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
-  "contacted": 1698,
-  "replied": 16,
-  "call": 8,
+  "contacted": 1692,
+  "replied": 18,
+  "call": 9,
   "proposal": 1,
   "won": 0
  },
- "accountsParsed": 33,
+ "accountsParsed": 35,
  "byIndustry": {
   "Metals": {
-   "accounts": 12,
-   "gtmPull": 17.0,
-   "replies": 5,
+   "accounts": 13,
+   "gtmPull": 20.0,
+   "replies": 6,
    "stages": {
     "QUEUED": 4,
     "SENT": 3,
     "REPLIED": 3,
-    "CALL": 2,
+    "CALL": 3,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -115,6 +115,19 @@
     "WON": 0
    }
   },
+  "Other": {
+   "accounts": 2,
+   "gtmPull": 5.0,
+   "replies": 2,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 0,
+    "REPLIED": 1,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
   "Aviation": {
    "accounts": 1,
    "gtmPull": 3.0,
@@ -140,19 +153,6 @@
     "PROPOSAL": 1,
     "WON": 0
    }
-  },
-  "Other": {
-   "accounts": 1,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 0,
-    "REPLIED": 0,
-    "CALL": 1,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
   }
  },
  "accounts": [
@@ -163,13 +163,13 @@
    "industry": "Metals"
   },
   {
-   "name": "Hindalco Industries",
+   "name": "Vedanta Aluminium",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
   },
   {
-   "name": "Vedanta Aluminium",
+   "name": "Hindalco Industries",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -259,30 +259,6 @@
    "industry": "Healthcare"
   },
   {
-   "name": "Viraj Profiles",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "JK Paper",
-   "stage": "REPLIED",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
-  },
-  {
-   "name": "Aperam",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Centravis",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
    "name": "Pakka",
    "stage": "REPLIED",
    "framework": "PCF",
@@ -307,10 +283,34 @@
    "industry": "Healthcare"
   },
   {
-   "name": "Gulf Extrusions",
-   "stage": "CALL",
+   "name": "Viraj Profiles",
+   "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
+  },
+  {
+   "name": "Aperam",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "JK Paper",
+   "stage": "REPLIED",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Centravis",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Hurtigruten",
+   "stage": "REPLIED",
+   "framework": "GHG",
+   "industry": "Other"
   },
   {
    "name": "LATAM Airlines",
@@ -347,6 +347,18 @@
    "stage": "CALL",
    "framework": "PCF",
    "industry": "Manufacturing"
+  },
+  {
+   "name": "Gulf Extrusions",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Peekay Steels",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
   },
   {
    "name": "Saudi Awwal Bank",
