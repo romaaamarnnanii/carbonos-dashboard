@@ -188,6 +188,7 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
 .call-card .insight{font-size:12.5px;color:var(--ink-dim);line-height:1.45}
 .call-card .insight b{color:var(--purple);font-weight:600;font-style:normal}
 .call-card .cf{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:2px}
+.su-notes{font-size:12.5px;line-height:1.55;color:var(--ink-dim);white-space:pre-wrap;word-break:break-word}
 .chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;padding:2px 7px;border-radius:5px;border:1px solid var(--line);color:var(--blue);font-weight:500}
 .chip.theme{background:var(--lav)}
 .chip.pain-High{color:var(--coral);border-color:rgba(222,109,59,.4)}
@@ -433,6 +434,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
     <button data-v="roadmap" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Roadmap</button>
     <button data-v="methodology"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Methodology</button>
     <button data-v="learnings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Learnings</button>
+    <button data-v="standups"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v13a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>Standups</button>
   </nav>
   <div class="spacer"></div>
   <div class="toolbar">
@@ -506,6 +508,30 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
     </div>
   </div>
 </section>
+
+<!-- STANDUPS -->
+<section class="view" id="view-standups">
+  <div class="strip" id="standupStrip"></div>
+  <div class="learn-wrap">
+    <div>
+      <div class="sec-title"><span class="kick">Product cadence</span><h2>Standup Notes</h2><span class="cnt" id="standupCnt">0</span><span class="rule"></span>
+        <button class="btn" id="addStandupBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Add standup</button></div>
+      <div class="call-grid" id="standupGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- standup drawer -->
+<div class="scrim" id="scrim4"></div>
+<div class="drawer" id="standupDrawer">
+  <div class="dh"><div><h2 id="standupTitle">Add standup</h2></div><button class="x" id="closeStandup">×</button></div>
+  <div class="db">
+    <div class="two"><div class="field"><label>Date</label><input id="sDate" type="date"></div><div class="field"><label>Who was there <span class="hint">— optional</span></label><input id="sPresent" placeholder="e.g. Romaa, Dev, PM" autocomplete="off"></div></div>
+    <div class="field"><label>Notes <span class="hint">— paste the full standup notes here</span></label><textarea id="sNotes" placeholder="What we discussed, decisions, blockers, action items…" style="min-height:220px"></textarea></div>
+    <div class="field"><label>Notes link <span class="hint">— optional, if notes live elsewhere</span></label><input id="sSource" type="url" placeholder="https://…" autocomplete="off"></div>
+  </div>
+  <div class="df"><button class="del-link" id="delStandupBtn">Delete standup</button><div style="display:flex;gap:9px"><button class="btn" id="cancelStandup">Cancel</button><button class="btn primary" id="saveStandup">Save</button></div></div>
+</div>
 
 <!-- roadmap drawer -->
 <div class="scrim" id="scrim"></div>
@@ -705,8 +731,8 @@ const SEED_METH=[{"id":"S1-COMBUSTION-STATIONARY","scope":"Scope 1","cat":"Main"
 const SEED_CALLS=[{id:"CL1",date:"2026-08-14",customer:"Varuna",attendees:"Head of ESG (Priya)",type:"Onboarding",theme:"Dashboards",quote:"We can't see scope split at a glance — the exec team asks about it weekly.",insight:"Buyers need an exec-ready analytics view, not raw tables.",pain:"High",prio:"P0",link:"B01"}];
 const SEED_BUILD=[{buildId:"B01",asks:3},{buildId:"B02",asks:2},{buildId:"B03",asks:2},{buildId:"B04",asks:1}];
 
-let items=[],meth=[],calls=[],builds=[],owners=[];
-let editingId=null,editingCall=null,editingMeth=null,group="horizon",methFilter="all",methQ="",methDraftStatus="Verification";
+let items=[],meth=[],calls=[],builds=[],owners=[],standups=[];
+let editingId=null,editingCall=null,editingMeth=null,editingStandup=null,group="horizon",methFilter="all",methQ="",methDraftStatus="Verification";
 let draftOwner="",draftPRD=null;
 const filters={status:"",type:"",impact:"",q:""};
 const KEY="carbonos_dash_v4";
@@ -756,7 +782,7 @@ async function remoteUpdateTask(rec){const now=new Date().toISOString();rec._upd
   const body={data:taskData(rec),updated_by:rec._updatedBy,updated_at:rec._updatedAt};
   const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(rec.id)}`,{method:"PATCH",headers:supaHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("task update "+r.status);}
 async function remoteDeleteTask(id){const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(id)}`,{method:"DELETE",headers:supaHeaders({Prefer:"return=minimal"})});if(!r.ok)throw new Error("task delete "+r.status);}
-async function remoteSaveMeta(){const stamp=new Date().toISOString();const body=[{id:META_ROW,data:{meth,calls,builds,owners},updated_at:stamp}];
+async function remoteSaveMeta(){const stamp=new Date().toISOString();const body=[{id:META_ROW,data:{meth,calls,builds,owners,standups},updated_at:stamp}];
   const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("meta save "+r.status);}
 async function remoteSeedTasks(){const now=new Date().toISOString();
   const rows=items.map(it=>({id:it.id,data:taskData(it),created_by:it._createdBy||"Seed",created_at:it._createdAt||now,updated_by:it._updatedBy||"Seed",updated_at:it._updatedAt||now}));
@@ -793,7 +819,7 @@ function ensureGate(){return new Promise(async(resolve)=>{
   btn.onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit();};
 });}
 function sigOf(tasks,metaRow){return tasks.map(t=>t.id+"@"+(t._updatedAt||"")).sort().join(",")+"|"+(metaRow?metaRow.updated_at:"");}
-function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null;}
+function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null||editingStandup!==null;}
 async function remotePoll(){
   if(!REMOTE_ON||editingOpen())return;
   try{const [tasks,metaRow]=await Promise.all([remoteLoadTasks(),remoteLoadMeta()]);
@@ -802,12 +828,12 @@ async function remotePoll(){
   }catch(e){}
 }
 
-function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
+function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();}
-function applyMeta(d){d=d||{};meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];if(!meth.length)meth=SEED_METH.slice();
+function applyMeta(d){d=d||{};meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});if(!owners.length)seedOwnersFromItems();}
-function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();migrateItems();seedOwnersFromItems();}
-function cacheLocal(){try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners}));}catch(e){}}
+function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();standups=[];migrateItems();seedOwnersFromItems();}
+function cacheLocal(){try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners,standups}));}catch(e){}}
 async function load(){
   // 1) shared team database (Supabase) — tasks are per-row, everything else is one "meta" row
   if(REMOTE_ON){
@@ -830,7 +856,7 @@ async function save(silent){
   cacheLocal();
   let ok=false;
   if(REMOTE_ON){try{await remoteSaveMeta();ok=true;}catch(e){}}
-  else{try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners}));ok=true;}}catch(e){}}
+  else{try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners,standups}));ok=true;}}catch(e){}}
   if(!silent)flash(REMOTE_ON?(ok?"Saved — synced":"Saved locally · sync failed"):"Saved");
 }
 async function persistTaskUpsert(rec,isNew){
@@ -847,7 +873,10 @@ function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 function flash(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1400);}
 function horizonOf(it){if(it.status==="Shipped")return{k:"Shipped"};if(it.status==="Parked")return{k:"Parked"};const s=pd(it.start);if(!s)return{k:"Later"};const si=qOrd(s),ci=qOrd(TODAY);if(si<=ci)return{k:"Now"};if(si===ci+1)return{k:"Next"};return{k:"Later"};}
 
+const VIEWS=["roadmap","methodology","learnings","standups"];
+function viewFromHash(){const h=(location.hash||"").replace(/^#\/?/,"").toLowerCase();return VIEWS.includes(h)?h:"roadmap";}
 function switchView(v){
+  if(!VIEWS.includes(v))v="roadmap";
   document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.getAttribute("data-v")===v));
   document.querySelectorAll(".view").forEach(s=>s.classList.remove("on"));
   document.getElementById("view-"+v).classList.add("on");
@@ -855,7 +884,9 @@ function switchView(v){
   if(v==="roadmap"){addBtn.style.display="";addLabel.textContent="Add item";requestAnimationFrame(positionNowLine);}
   else if(v==="learnings"){addBtn.style.display="";addLabel.textContent="Log a call";}
   else if(v==="methodology"){addBtn.style.display="";addLabel.textContent="Add methodology";}
+  else if(v==="standups"){addBtn.style.display="";addLabel.textContent="Add standup";}
   window._view=v;
+  if(("#"+v)!==location.hash){try{history.replaceState(null,"","#"+v);}catch(e){location.hash=v;}}
 }
 
 /* ROADMAP */
@@ -1293,9 +1324,55 @@ async function saveCall(){
 }
 async function deleteCall(){if(!editingCall)return;calls=calls.filter(c=>c.id!==editingCall);await save();closeCall();renderLearnings();flash("Deleted");}
 
+/* standups */
+function fmtDate(iso){const t=pd(iso);return t?t.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}):(iso||"");}
+function renderStandupStrip(){
+  const n=standups.length;
+  const sorted=[...standups].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  const last=sorted[0];
+  const now=new Date(),mKey=now.toISOString().slice(0,7);
+  const thisMonth=standups.filter(s=>(s.date||"").slice(0,7)===mKey).length;
+  const withNotes=standups.filter(s=>s.sourceUrl).length;
+  const cells=[{n:n,l:"Standups logged"},{n:thisMonth,l:"This month",accent:true},{n:last?fmtDate(last.date):"—",l:"Last standup",purple:true,small:true},{n:withNotes,l:"With a link"}];
+  document.getElementById("standupStrip").innerHTML=cells.map(c=>`<div class="stat"><span class="n ${c.accent?'accent':''} ${c.purple?'purple':''} ${c.small?'small':''}">${c.small?esc(String(c.n)):c.n}</span><span class="l">${c.l}</span></div>`).join("");
+}
+function renderStandups(){
+  renderStandupStrip();document.getElementById("standupCnt").textContent=standups.length;
+  const grid=document.getElementById("standupGrid");
+  if(!standups.length){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No standups recorded yet</h3><div>Capture the notes from your product standup.</div></div>`;return;}
+  const sorted=[...standups].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  grid.innerHTML=sorted.map(s=>{
+    const notes=s.sourceUrl?`<a class="chip notes" href="${esc(s.sourceUrl)}" target="_blank" rel="noopener">Link ↗</a>`:"";
+    return `<div class="call-card" id="standup-${s.id}" data-standup="${s.id}"><div class="topaccent" style="background:var(--purple)"></div>
+      <div class="ch"><span class="cust">${esc(fmtDate(s.date))}</span><span class="date">${s.present?esc(s.present):''}</span></div>
+      ${s.notes?`<div class="su-notes">${esc(s.notes)}</div>`:'<div class="insight" style="color:var(--ink-faint)">No notes.</div>'}
+      ${notes?`<div class="cf">${notes}</div>`:''}</div>`;
+  }).join("");
+  grid.querySelectorAll("[data-standup]").forEach(el=>el.addEventListener("click",e=>{
+    if(e.target.closest("a"))return;openStandup(el.getAttribute("data-standup"));}));
+}
+function openStandup(id){
+  editingStandup=id;const s=standups.find(x=>x.id===id);
+  const d=s?{...s}:{date:new Date().toISOString().slice(0,10),present:"",notes:"",sourceUrl:""};
+  document.getElementById("standupTitle").textContent=s?"Edit standup":"Add standup";
+  document.getElementById("delStandupBtn").style.display=s?"block":"none";
+  document.getElementById("sDate").value=d.date||"";document.getElementById("sPresent").value=d.present||"";
+  document.getElementById("sNotes").value=d.notes||"";document.getElementById("sSource").value=d.sourceUrl||"";
+  document.getElementById("scrim4").classList.add("open");document.getElementById("standupDrawer").classList.add("open");setTimeout(()=>document.getElementById("sNotes").focus(),120);
+}
+function closeStandup(){document.getElementById("scrim4").classList.remove("open");document.getElementById("standupDrawer").classList.remove("open");editingStandup=null;}
+async function saveStandup(){
+  const notes=document.getElementById("sNotes").value.trim(),date=document.getElementById("sDate").value;
+  if(!notes&&!document.getElementById("sSource").value.trim()){document.getElementById("sNotes").focus();flash("Add some notes or a link");return;}
+  const rec={id:editingStandup||("SU"+Date.now().toString(36)),date,present:document.getElementById("sPresent").value.trim(),notes,sourceUrl:document.getElementById("sSource").value.trim()};
+  if(editingStandup){const i=standups.findIndex(x=>x.id===editingStandup);standups[i]=rec;}else standups.push(rec);
+  await save();closeStandup();renderStandups();
+}
+async function deleteStandup(){if(!editingStandup)return;standups=standups.filter(s=>s.id!==editingStandup);await save();closeStandup();renderStandups();flash("Deleted");}
+
 /* import / export */
-function exportJSON(){const blob=new Blob([JSON.stringify({exported:new Date().toISOString(),items,meth,calls,builds},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`carbonos-dashboard-${new Date().toISOString().slice(0,10)}.json`;a.click();flash("Exported backup");}
-function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;}meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();cacheLocal();if(REMOTE_ON){try{await remoteReplaceAllTasks();}catch(e){}lastSig=null;}else{await save(true);}renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
+function exportJSON(){const blob=new Blob([JSON.stringify({exported:new Date().toISOString(),items,meth,calls,builds,standups},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`carbonos-dashboard-${new Date().toISOString().slice(0,10)}.json`;a.click();flash("Exported backup");}
+function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;standups=d.standups||standups;}meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();cacheLocal();if(REMOTE_ON){try{await remoteReplaceAllTasks();}catch(e){}lastSig=null;}else{await save(true);}renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
 
 function renderFilterOptions(){
   const archOpts=Array.from(new Set([...ARCHETYPES,...items.map(i=>i.archetype).filter(Boolean)]));
@@ -1309,12 +1386,15 @@ function renderFilterOptions(){
 }
 function updateFilterCount(){const n=["status","type","impact","archetype"].filter(k=>filters[k]).length;const b=document.getElementById("filterBtn"),c=document.getElementById("fCount");if(!b)return;c.textContent=n;b.classList.toggle("has",n>0);}
 function renderRoadmap(){renderStrip();if(roadView==="priority")renderPriority();else renderTimeline();}
-function renderAll(){renderRoadmap();renderMethodology();renderLearnings();}
+function renderAll(){renderRoadmap();renderMethodology();renderLearnings();renderStandups();}
 
 function wire(){
   document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>switchView(b.getAttribute("data-v"))));
-  document.getElementById("addBtn").addEventListener("click",()=>{if(window._view==="learnings")openCall(null);else if(window._view==="methodology")openMeth(null);else openEdit(null);});
+  document.getElementById("addBtn").addEventListener("click",()=>{if(window._view==="learnings")openCall(null);else if(window._view==="methodology")openMeth(null);else if(window._view==="standups")openStandup(null);else openEdit(null);});
   document.getElementById("addCallBtn").addEventListener("click",()=>openCall(null));
+  document.getElementById("addStandupBtn").addEventListener("click",()=>openStandup(null));
+  document.getElementById("closeStandup").addEventListener("click",closeStandup);document.getElementById("cancelStandup").addEventListener("click",closeStandup);document.getElementById("scrim4").addEventListener("click",closeStandup);
+  document.getElementById("saveStandup").addEventListener("click",saveStandup);document.getElementById("delStandupBtn").addEventListener("click",deleteStandup);
   document.getElementById("addMethBtn").addEventListener("click",()=>openMeth(null));
   document.getElementById("closeDrawer").addEventListener("click",closeEdit);document.getElementById("cancelBtn").addEventListener("click",closeEdit);document.getElementById("scrim").addEventListener("click",closeEdit);
   document.getElementById("saveBtn").addEventListener("click",saveEdit);document.getElementById("deleteBtn").addEventListener("click",deleteItem);
@@ -1345,13 +1425,14 @@ function wire(){
   document.addEventListener("click",()=>{if(!fpop.hidden)fpop.hidden=true;});
   document.querySelectorAll("#methSeg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#methSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");methFilter=b.getAttribute("data-f");renderMethodology();}));
   document.getElementById("methSearch").addEventListener("input",e=>{methQ=e.target.value;renderMethodology();});
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeEdit();closeCall();closeMeth();}});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeEdit();closeCall();closeMeth();closeStandup();}});
+  window.addEventListener("hashchange",()=>{const v=viewFromHash();if(v!==window._view)switchView(v);});
   window.addEventListener("resize",()=>{if(window._view==="roadmap")positionNowLine();});
 }
 (async function(){window._view="roadmap";renderFilterOptions();renderLegend();wire();
   try{const gl=document.getElementById("gateLogo");if(gl)gl.src=LOGO;}catch(e){}
   if(REMOTE_ON){const ok=await ensureGate();if(!ok)return;}
-  await load();await loadGtm();renderIdentity();renderAll();switchView("roadmap");
+  await load();await loadGtm();renderIdentity();renderAll();switchView(viewFromHash());
   if(REMOTE_ON){setInterval(remotePoll,15000);window.addEventListener("focus",remotePoll);document.addEventListener("visibilitychange",()=>{if(!document.hidden)remotePoll();});}
 })();
 </script>
