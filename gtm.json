@@ -1,9 +1,9 @@
 {
- "generatedAt": "2026-09-22T11:31:24+00:00",
- "snapshotLabel": "22 Sep 2026, 13:30 IST",
+ "generatedAt": "2026-09-23T11:29:10+00:00",
+ "snapshotLabel": "23 Sep 2026, 13:00 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
-  "contacted": 2036,
+  "contacted": 2069,
   "replied": 18,
   "call": 8,
   "proposal": 1,
@@ -246,6 +246,12 @@
    "industry": "Healthcare"
   },
   {
+   "name": "Tega Industries",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
    "name": "Icdas",
    "stage": "REPLIED",
    "framework": "CBAM",
@@ -253,12 +259,6 @@
   },
   {
    "name": "Aperam",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Tega Industries",
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -326,14 +326,14 @@
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
+   "framework": "GHG",
+   "industry": "Other"
   },
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Other"
+   "framework": "CBAM",
+   "industry": "Metals"
   },
   {
    "name": "Ani",
