@@ -1,9 +1,9 @@
 {
- "generatedAt": "2026-09-23T11:29:10+00:00",
- "snapshotLabel": "23 Sep 2026, 13:00 IST",
+ "generatedAt": "2026-09-24T11:40:09+00:00",
+ "snapshotLabel": "24 Sep 2026, 13:15 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
-  "contacted": 2069,
+  "contacted": 2085,
   "replied": 18,
   "call": 8,
   "proposal": 1,
@@ -246,6 +246,12 @@
    "industry": "Healthcare"
   },
   {
+   "name": "Zydus Lifesciences",
+   "stage": "REPLIED",
+   "framework": "SBTI",
+   "industry": "Healthcare"
+  },
+  {
    "name": "Tega Industries",
    "stage": "REPLIED",
    "framework": "CBAM",
@@ -268,18 +274,6 @@
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
-  },
-  {
-   "name": "Zydus Lifesciences",
-   "stage": "REPLIED",
-   "framework": "SBTI",
-   "industry": "Healthcare"
-  },
-  {
-   "name": "Suzlon",
-   "stage": "REPLIED",
-   "framework": "EPD",
-   "industry": "Manufacturing"
   },
   {
    "name": "Hurtigruten",
@@ -306,13 +300,13 @@
    "industry": "Metals"
   },
   {
-   "name": "Gulf Extrusions",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
+   "name": "Suzlon",
+   "stage": "REPLIED",
+   "framework": "EPD",
+   "industry": "Manufacturing"
   },
   {
-   "name": "Ani",
+   "name": "JK Paper",
    "stage": "CALL",
    "framework": "CCTS",
    "industry": "Paper & Packaging"
@@ -336,13 +330,19 @@
    "industry": "Metals"
   },
   {
+   "name": "1",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
    "name": "Ani",
    "stage": "CALL",
    "framework": "GHG",
    "industry": "Other"
   },
   {
-   "name": "1",
+   "name": "Aravind",
    "stage": "CALL",
    "framework": "CBAM",
    "industry": "Metals"
