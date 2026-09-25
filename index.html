@@ -29,7 +29,7 @@
   --s-progress:#7A2FB8; --s-review:#6A4A9E; --s-qa:#a9781a;
   --s-shipped:#018A65; --s-parked:#8f88a8;
   /* methodology */
-  --done:#018A65; --verify:#7A2FB8; --notstart:#8f88a8;
+  --done:#018A65; --verify:#7A2FB8; --implement:#a9781a; --notstart:#8f88a8;
   --scope1:#7A2FB8; --scope2:#6A4A9E; --scope3:#018A65;
   --pain-high:#C4551F; --pain-med:#a9781a; --pain-low:#8f88a8;
   --radius:8px;
@@ -161,6 +161,7 @@ nav.tabs button.on{background:var(--white);color:var(--purple);font-weight:600;b
 .mrow .mstat{font-family:var(--semi);font-weight:600;font-size:9.5px;letter-spacing:.03em;padding:2px 8px;border-radius:5px;flex-shrink:0;text-transform:uppercase}
 .mstat.done{background:rgba(1,167,122,.13);color:var(--green)}
 .mstat.verify{background:rgba(137,64,201,.13);color:var(--purple)}
+.mstat.implement{background:rgba(169,120,26,.14);color:var(--implement)}
 .mstat.other{background:var(--panel-3);color:var(--ink-dim)}
 .mrow .edit-hint{opacity:0;flex-shrink:0;color:var(--ink-faint);transition:.12s}
 .mrow:hover .edit-hint{opacity:1}
@@ -483,7 +484,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   <div class="meth-wrap">
     <div class="meth-controls">
       <div class="grp"><label style="font-family:var(--semi);font-weight:600;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)">Show</label>
-        <div class="seg" id="methSeg"><button data-f="all" class="on">All</button><button data-f="Verification">In verification</button><button data-f="Done">Done</button></div></div>
+        <div class="seg" id="methSeg"><button data-f="all" class="on">All</button><button data-f="Verification">In verification</button><button data-f="Implementation">Implementation</button><button data-f="Done">Done</button></div></div>
       <div class="grp mc"><input type="search" id="methSearch" placeholder="Search methodologies…"></div>
       <div class="spacer2"></div>
       <button class="btn" id="addMethBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Add methodology</button>
@@ -626,7 +627,7 @@ let gtm=null; // daily GTM pipeline summary (gtm.json), refreshed by the GTM-syn
 async function loadGtm(){try{const r=await fetch("gtm.json?ts="+Date.now());if(r.ok)gtm=await r.json();}catch(e){}}
 const PAINS=["High","Medium","Low"];
 const PRIOS=["P0","P1","P2","P3"];
-const METH_STATUSES=[{k:"Verification",label:"Verifying",c:"var(--verify)"},{k:"Done",label:"Done",c:"var(--done)"},{k:"Drafting",label:"Drafting",c:"var(--notstart)"},{k:"Not Started",label:"Not started",c:"var(--notstart)"}];
+const METH_STATUSES=[{k:"Verification",label:"Verifying",c:"var(--verify)"},{k:"Implementation",label:"Implementation",c:"var(--implement)"},{k:"Done",label:"Done",c:"var(--done)"},{k:"Drafting",label:"Drafting",c:"var(--notstart)"},{k:"Not Started",label:"Not started",c:"var(--notstart)"}];
 const DEFAULT_OWNERS=["Juhi","Dishant","Roma"];
 // avatar colour from name (brand hues)
 const OWNER_HUES=["#7A2FB8","#018A65","#6A4A9E","#C4551F","#a9781a","#3d7fce"];
@@ -971,16 +972,16 @@ function switchRoadView(v){roadView=v;
 }
 
 /* METHODOLOGY */
-function methStatusClass(s){return s==="Done"?"done":s==="Verification"?"verify":"other";}
+function methStatusClass(s){return s==="Done"?"done":s==="Verification"?"verify":s==="Implementation"?"implement":"other";}
 function methStatusLabel(s){const m=METH_STATUSES.find(x=>x.k===s);return m?m.label:s;}
-function methDotColor(s){return s==="Done"?"var(--done)":s==="Verification"?"var(--verify)":"var(--notstart)";}
+function methDotColor(s){return s==="Done"?"var(--done)":s==="Verification"?"var(--verify)":s==="Implementation"?"var(--implement)":"var(--notstart)";}
 function dueSoon(due){if(!due)return false;const d=new Date(due);const now=new Date();const diff=(d-now)/(1000*60*60*24);return diff<=30;}
 function fmtDue(due){if(!due)return"";const d=new Date(due+"T00:00");return d.toLocaleDateString(undefined,{month:'short',day:'numeric'});}
 function renderMethStrip(){
-  const total=meth.length,done=meth.filter(m=>m.status==="Done").length,verify=meth.filter(m=>m.status==="Verification").length;
+  const total=meth.length,done=meth.filter(m=>m.status==="Done").length,verify=meth.filter(m=>m.status==="Verification").length,impl=meth.filter(m=>m.status==="Implementation").length;
   const pct=total?Math.round(done/total*100):0;
   const s1=meth.filter(m=>m.scope==="Scope 1").length,s2=meth.filter(m=>m.scope==="Scope 2").length,s3=meth.filter(m=>m.scope==="Scope 3").length;
-  const cells=[{n:total,l:"Methodologies"},{n:done,l:"Done",accent:true},{n:verify,l:"In verification",purple:true},{n:pct+"%",l:"Complete"},{n:`${s1}·${s2}·${s3}`,l:"S1 · S2 · S3"}];
+  const cells=[{n:total,l:"Methodologies"},{n:done,l:"Done",accent:true},{n:verify,l:"In verification",purple:true},{n:impl,l:"Implementation"},{n:pct+"%",l:"Complete"},{n:`${s1}·${s2}·${s3}`,l:"S1 · S2 · S3"}];
   document.getElementById("methStrip").innerHTML=cells.map(c=>`<div class="stat"><span class="n ${c.accent?'accent':''} ${c.purple?'purple':''}">${c.n}</span><span class="l">${c.l}</span></div>`).join("");
 }
 function renderMethodology(){
