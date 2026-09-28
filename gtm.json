@@ -1,24 +1,24 @@
 {
- "generatedAt": "2026-09-27T11:58:00+00:00",
- "snapshotLabel": "25 Sep 2026, 11:45 IST",
+ "generatedAt": "2026-09-28T13:46:47+00:00",
+ "snapshotLabel": "28 Sep 2026, 11:45 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
-  "contacted": 2352,
-  "replied": 20,
-  "call": 9,
+  "contacted": 2379,
+  "replied": 21,
+  "call": 10,
   "proposal": 1,
   "won": 0
  },
  "accountsParsed": 37,
  "byIndustry": {
   "Metals": {
-   "accounts": 16,
-   "gtmPull": 26.0,
-   "replies": 9,
+   "accounts": 17,
+   "gtmPull": 28.0,
+   "replies": 10,
    "stages": {
     "QUEUED": 4,
     "SENT": 3,
-    "REPLIED": 6,
+    "REPLIED": 7,
     "CALL": 3,
     "PROPOSAL": 0,
     "WON": 0
@@ -90,14 +90,14 @@
    }
   },
   "Manufacturing": {
-   "accounts": 4,
-   "gtmPull": 8.0,
-   "replies": 3,
+   "accounts": 5,
+   "gtmPull": 12.0,
+   "replies": 4,
    "stages": {
     "QUEUED": 0,
     "SENT": 1,
-    "REPLIED": 2,
-    "CALL": 1,
+    "REPLIED": 1,
+    "CALL": 3,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -116,28 +116,28 @@
    }
   },
   "Other": {
-   "accounts": 4,
-   "gtmPull": 11.0,
-   "replies": 4,
+   "accounts": 2,
+   "gtmPull": 5.0,
+   "replies": 2,
    "stages": {
     "QUEUED": 0,
     "SENT": 0,
     "REPLIED": 1,
-    "CALL": 3,
+    "CALL": 1,
     "PROPOSAL": 0,
     "WON": 0
    }
   },
-  "Banking & Finance": {
+  "Aviation": {
    "accounts": 1,
-   "gtmPull": 5.0,
+   "gtmPull": 3.0,
    "replies": 1,
    "stages": {
     "QUEUED": 0,
     "SENT": 0,
     "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 1,
+    "CALL": 1,
+    "PROPOSAL": 0,
     "WON": 0
    }
   }
@@ -150,13 +150,13 @@
    "industry": "Metals"
   },
   {
-   "name": "Hindalco Industries",
+   "name": "Vedanta Aluminium",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
   },
   {
-   "name": "Vedanta Aluminium",
+   "name": "Hindalco Industries",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -246,13 +246,43 @@
    "industry": "Healthcare"
   },
   {
+   "name": "Hurtigruten",
+   "stage": "REPLIED",
+   "framework": "GHG",
+   "industry": "Other"
+  },
+  {
+   "name": "Bansal Wire",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Andhra Paper",
+   "stage": "REPLIED",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Suzlon",
+   "stage": "REPLIED",
+   "framework": "EPD",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Zydus Lifesciences",
+   "stage": "REPLIED",
+   "framework": "SBTI",
+   "industry": "Healthcare"
+  },
+  {
    "name": "Viraj Profiles",
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
   },
   {
-   "name": "Tega Industries",
+   "name": "Construction Materials Industries (CMI Oman)",
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -276,70 +306,22 @@
    "industry": "Metals"
   },
   {
-   "name": "Zydus Lifesciences",
-   "stage": "REPLIED",
-   "framework": "SBTI",
-   "industry": "Healthcare"
-  },
-  {
-   "name": "Hurtigruten",
-   "stage": "REPLIED",
-   "framework": "GHG",
-   "industry": "Other"
-  },
-  {
-   "name": "Suzlon",
-   "stage": "REPLIED",
-   "framework": "EPD",
-   "industry": "Manufacturing"
-  },
-  {
-   "name": "Bansal Wire",
+   "name": "Tega Industries",
    "stage": "REPLIED",
    "framework": "CBAM",
    "industry": "Metals"
   },
   {
-   "name": "Andhra Paper",
-   "stage": "REPLIED",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
+   "name": "LATAM Airlines",
+   "stage": "CALL",
+   "framework": "GHG",
+   "industry": "Aviation"
   },
   {
-   "name": "TR FVLS (trfvlsl.com)",
-   "stage": "REPLIED",
+   "name": "Ani",
+   "stage": "CALL",
    "framework": "PCF",
    "industry": "Manufacturing"
-  },
-  {
-   "name": "JK Paper",
-   "stage": "CALL",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Other"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Other"
-  },
-  {
-   "name": "Aravind",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
   },
   {
    "name": "Ani",
@@ -356,14 +338,32 @@
   {
    "name": "Ani",
    "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
    "framework": "GHG",
    "industry": "Other"
   },
   {
-   "name": "Saudi Awwal Bank",
-   "stage": "PROPOSAL",
-   "framework": "PCAF",
-   "industry": "Banking & Finance"
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "PCF",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
   }
  ]
 }
