@@ -1,25 +1,25 @@
 {
- "generatedAt": "2026-09-28T13:46:47+00:00",
- "snapshotLabel": "28 Sep 2026, 11:45 IST",
+ "generatedAt": "2026-09-29T12:46:16+00:00",
+ "snapshotLabel": "29 Sep 2026, 14:45 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
   "contacted": 2379,
-  "replied": 21,
-  "call": 10,
+  "replied": 24,
+  "call": 11,
   "proposal": 1,
   "won": 0
  },
- "accountsParsed": 37,
+ "accountsParsed": 38,
  "byIndustry": {
   "Metals": {
-   "accounts": 17,
-   "gtmPull": 28.0,
-   "replies": 10,
+   "accounts": 18,
+   "gtmPull": 31.0,
+   "replies": 11,
    "stages": {
     "QUEUED": 4,
     "SENT": 3,
     "REPLIED": 7,
-    "CALL": 3,
+    "CALL": 4,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -76,6 +76,19 @@
     "WON": 0
    }
   },
+  "Healthcare": {
+   "accounts": 2,
+   "gtmPull": 3.0,
+   "replies": 1,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 1,
+    "REPLIED": 1,
+    "CALL": 0,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
   "Chemicals": {
    "accounts": 1,
    "gtmPull": 1.0,
@@ -102,41 +115,15 @@
     "WON": 0
    }
   },
-  "Healthcare": {
-   "accounts": 2,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 1,
-    "REPLIED": 1,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
   "Other": {
-   "accounts": 2,
-   "gtmPull": 5.0,
-   "replies": 2,
+   "accounts": 3,
+   "gtmPull": 8.0,
+   "replies": 3,
    "stages": {
     "QUEUED": 0,
     "SENT": 0,
     "REPLIED": 1,
-    "CALL": 1,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Aviation": {
-   "accounts": 1,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 0,
-    "REPLIED": 0,
-    "CALL": 1,
+    "CALL": 2,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -228,6 +215,12 @@
    "industry": "Automotive"
   },
   {
+   "name": "Apollo Hospitals",
+   "stage": "SENT",
+   "framework": "PCF",
+   "industry": "Healthcare"
+  },
+  {
    "name": "Aarti Industries",
    "stage": "SENT",
    "framework": "PCF",
@@ -238,12 +231,6 @@
    "stage": "SENT",
    "framework": "EPD",
    "industry": "Manufacturing"
-  },
-  {
-   "name": "Apollo Hospitals",
-   "stage": "SENT",
-   "framework": "PCF",
-   "industry": "Healthcare"
   },
   {
    "name": "Hurtigruten",
@@ -258,13 +245,19 @@
    "industry": "Metals"
   },
   {
-   "name": "Andhra Paper",
+   "name": "Ensto India",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Aravind",
    "stage": "REPLIED",
    "framework": "CCTS",
    "industry": "Paper & Packaging"
   },
   {
-   "name": "Suzlon",
+   "name": "Ani",
    "stage": "REPLIED",
    "framework": "EPD",
    "industry": "Manufacturing"
@@ -306,28 +299,22 @@
    "industry": "Metals"
   },
   {
-   "name": "Tega Industries",
-   "stage": "REPLIED",
+   "name": "TR FVLS (trfvlsl.com)",
+   "stage": "CALL",
+   "framework": "PCF",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "PCF",
+   "industry": "Manufacturing"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
    "framework": "CBAM",
    "industry": "Metals"
-  },
-  {
-   "name": "LATAM Airlines",
-   "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Aviation"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Manufacturing"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Manufacturing"
   },
   {
    "name": "Ani",
@@ -364,6 +351,12 @@
    "stage": "CALL",
    "framework": "CCTS",
    "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "GHG",
+   "industry": "Other"
   }
  ]
 }
