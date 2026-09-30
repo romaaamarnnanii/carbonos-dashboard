@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-09-29T12:46:16+00:00",
- "snapshotLabel": "29 Sep 2026, 14:45 IST",
+ "generatedAt": "2026-09-30T12:28:58+00:00",
+ "snapshotLabel": "30 Sep 2026, 11:30 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
   "contacted": 2379,
   "replied": 24,
-  "call": 11,
+  "call": 12,
   "proposal": 1,
   "won": 0
  },
@@ -51,14 +51,14 @@
    }
   },
   "Paper & Packaging": {
-   "accounts": 3,
-   "gtmPull": 5.5,
-   "replies": 2,
+   "accounts": 4,
+   "gtmPull": 8.5,
+   "replies": 3,
    "stages": {
     "QUEUED": 1,
     "SENT": 0,
     "REPLIED": 1,
-    "CALL": 1,
+    "CALL": 2,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -103,14 +103,14 @@
    }
   },
   "Manufacturing": {
-   "accounts": 5,
-   "gtmPull": 12.0,
-   "replies": 4,
+   "accounts": 4,
+   "gtmPull": 9.0,
+   "replies": 3,
    "stages": {
     "QUEUED": 0,
     "SENT": 1,
     "REPLIED": 1,
-    "CALL": 3,
+    "CALL": 2,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -257,7 +257,7 @@
    "industry": "Paper & Packaging"
   },
   {
-   "name": "Ani",
+   "name": "Suzlon",
    "stage": "REPLIED",
    "framework": "EPD",
    "industry": "Manufacturing"
@@ -275,18 +275,6 @@
    "industry": "Metals"
   },
   {
-   "name": "Construction Materials Industries (CMI Oman)",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Icdas",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
    "name": "Aperam",
    "stage": "REPLIED",
    "framework": "CBAM",
@@ -299,40 +287,52 @@
    "industry": "Metals"
   },
   {
-   "name": "TR FVLS (trfvlsl.com)",
+   "name": "Icdas",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Construction Materials Industries (CMI Oman)",
+   "stage": "REPLIED",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Pakka",
+   "stage": "CALL",
+   "framework": "PCF",
+   "industry": "Paper & Packaging"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
+   "stage": "CALL",
+   "framework": "CBAM",
+   "industry": "Metals"
+  },
+  {
+   "name": "Ani",
    "stage": "CALL",
    "framework": "PCF",
    "industry": "Manufacturing"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Manufacturing"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Ani",
-   "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
   },
   {
    "name": "Ani",
@@ -343,14 +343,14 @@
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Manufacturing"
+   "framework": "CCTS",
+   "industry": "Paper & Packaging"
   },
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
+   "framework": "PCF",
+   "industry": "Manufacturing"
   },
   {
    "name": "Ani",
