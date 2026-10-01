@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-30T12:28:58+00:00",
+ "generatedAt": "2026-10-01T13:06:51+00:00",
  "snapshotLabel": "30 Sep 2026, 11:30 IST",
  "source": "https://gtm-september.climes.io/",
  "funnel": {
@@ -51,14 +51,14 @@
    }
   },
   "Paper & Packaging": {
-   "accounts": 4,
-   "gtmPull": 8.5,
-   "replies": 3,
+   "accounts": 3,
+   "gtmPull": 5.5,
+   "replies": 2,
    "stages": {
     "QUEUED": 1,
     "SENT": 0,
     "REPLIED": 1,
-    "CALL": 2,
+    "CALL": 1,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -71,19 +71,6 @@
     "QUEUED": 0,
     "SENT": 3,
     "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Healthcare": {
-   "accounts": 2,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 1,
-    "REPLIED": 1,
     "CALL": 0,
     "PROPOSAL": 0,
     "WON": 0
@@ -103,27 +90,53 @@
    }
   },
   "Manufacturing": {
-   "accounts": 4,
-   "gtmPull": 9.0,
-   "replies": 3,
+   "accounts": 5,
+   "gtmPull": 12.0,
+   "replies": 4,
    "stages": {
     "QUEUED": 0,
     "SENT": 1,
     "REPLIED": 1,
-    "CALL": 2,
+    "CALL": 3,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Healthcare": {
+   "accounts": 2,
+   "gtmPull": 3.0,
+   "replies": 1,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 1,
+    "REPLIED": 1,
+    "CALL": 0,
     "PROPOSAL": 0,
     "WON": 0
    }
   },
   "Other": {
-   "accounts": 3,
-   "gtmPull": 8.0,
-   "replies": 3,
+   "accounts": 2,
+   "gtmPull": 5.0,
+   "replies": 2,
    "stages": {
     "QUEUED": 0,
     "SENT": 0,
     "REPLIED": 1,
-    "CALL": 2,
+    "CALL": 1,
+    "PROPOSAL": 0,
+    "WON": 0
+   }
+  },
+  "Aviation": {
+   "accounts": 1,
+   "gtmPull": 3.0,
+   "replies": 1,
+   "stages": {
+    "QUEUED": 0,
+    "SENT": 0,
+    "REPLIED": 0,
+    "CALL": 1,
     "PROPOSAL": 0,
     "WON": 0
    }
@@ -137,13 +150,13 @@
    "industry": "Metals"
   },
   {
-   "name": "Vedanta Aluminium",
+   "name": "Hindalco Industries",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
   },
   {
-   "name": "Hindalco Industries",
+   "name": "Vedanta Aluminium",
    "stage": "QUEUED",
    "framework": "CBAM",
    "industry": "Metals"
@@ -215,12 +228,6 @@
    "industry": "Automotive"
   },
   {
-   "name": "Apollo Hospitals",
-   "stage": "SENT",
-   "framework": "PCF",
-   "industry": "Healthcare"
-  },
-  {
    "name": "Aarti Industries",
    "stage": "SENT",
    "framework": "PCF",
@@ -233,10 +240,10 @@
    "industry": "Manufacturing"
   },
   {
-   "name": "Hurtigruten",
-   "stage": "REPLIED",
-   "framework": "GHG",
-   "industry": "Other"
+   "name": "Apollo Hospitals",
+   "stage": "SENT",
+   "framework": "PCF",
+   "industry": "Healthcare"
   },
   {
    "name": "Bansal Wire",
@@ -299,16 +306,22 @@
    "industry": "Metals"
   },
   {
-   "name": "Pakka",
+   "name": "Hurtigruten",
+   "stage": "REPLIED",
+   "framework": "GHG",
+   "industry": "Other"
+  },
+  {
+   "name": "LATAM Airlines",
    "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Paper & Packaging"
+   "framework": "GHG",
+   "industry": "Aviation"
   },
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "CBAM",
-   "industry": "Metals"
+   "framework": "PCF",
+   "industry": "Manufacturing"
   },
   {
    "name": "Ani",
@@ -337,8 +350,8 @@
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Other"
+   "framework": "CBAM",
+   "industry": "Metals"
   },
   {
    "name": "Ani",
@@ -349,14 +362,14 @@
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "PCF",
-   "industry": "Manufacturing"
+   "framework": "GHG",
+   "industry": "Other"
   },
   {
    "name": "Ani",
    "stage": "CALL",
-   "framework": "GHG",
-   "industry": "Other"
+   "framework": "PCF",
+   "industry": "Manufacturing"
   }
  ]
 }
