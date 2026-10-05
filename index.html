@@ -381,7 +381,67 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .pull-score{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--ink);min-width:26px;text-align:right}
 .pull-themes{margin-top:15px;font-size:11.5px;color:var(--ink-faint);display:flex;align-items:center;gap:7px;flex-wrap:wrap;max-width:840px}
 .pull-themes .pt-lab{font-family:var(--semi);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:10px;margin-right:2px}
-.chip.ind{background:var(--panel-3);color:var(--ink-dim)}
+.chip.ind{--ic:#8f88a8;background:color-mix(in srgb,var(--ic) 13%,#fff);color:color-mix(in srgb,var(--ic) 82%,#000);border-color:color-mix(in srgb,var(--ic) 30%,transparent);display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-weight:600}
+.chip.ind .idot{width:6px;height:6px;border-radius:50%;background:var(--ic);flex:none}
+.chip.ind b{font-weight:700;opacity:.75}
+.chip.inb{background:var(--signal-soft);color:var(--green);border-color:transparent}
+.chip.hot{background:rgba(222,109,59,.12);color:#B4481B;border-color:transparent}
+.chip.cold{background:var(--panel-2);color:var(--ink-faint);border-color:transparent}
+.pull-row{grid-template-columns:190px 1fr auto}
+.pull-lab{display:flex;justify-content:flex-end;overflow:hidden}
+.pull-lab .chip.ind{font-size:10.5px;padding:3px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pull-who{grid-column:2/4;display:flex;flex-wrap:wrap;gap:4px 10px;margin:-3px 0 4px;font-size:11px;color:var(--ink-dim)}
+.pull-who i{font-style:normal;color:var(--ink-faint);font-family:var(--mono);font-size:9.5px}
+.pull-who .more,.d-items .more{color:var(--ink-faint);font-family:var(--mono);font-size:10px}
+.w-call{font-weight:600;color:var(--ink)}
+.w-call:before{content:"●";color:var(--green);font-size:8px;margin-right:4px;vertical-align:1px}
+.w-acct:before{content:"○";color:var(--purple-2);font-size:9px;margin-right:4px}
+.w-acct.hot{color:#B4481B}.w-acct.cold{color:var(--ink-faint)}
+.seg.mini{display:flex;gap:2px;background:var(--lav);border:1px solid var(--line);border-radius:7px;padding:2px}
+.seg.mini button{border:0;background:none;font-size:10.5px;padding:3px 9px;border-radius:5px;color:var(--ink-dim);font-weight:600}
+.seg.mini button.on{background:var(--white);color:var(--purple);box-shadow:0 1px 3px rgba(18,12,58,.12)}
+.theme-row{cursor:pointer;border-radius:8px;padding:5px 6px;margin:0 -6px;transition:background .12s}
+.theme-row:hover{background:var(--panel-2)}
+.theme-row.on{background:var(--accent-soft);box-shadow:inset 0 0 0 1px rgba(137,64,201,.35)}
+.theme-row .pain-num{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.theme-row .pain-row{grid-template-columns:118px 1fr 70px}
+.trend.up{font-family:var(--mono);font-size:9.5px;color:var(--green);font-weight:700}
+.theme-who{margin:5px 0 2px 130px;display:flex;flex-direction:column;gap:4px}
+.tw-inds{display:flex;flex-wrap:wrap;gap:4px}
+.tw-custs{display:flex;flex-wrap:wrap;gap:3px 11px;font-size:11px;color:var(--ink-dim);line-height:1.35}
+.tc{--ic:#8f88a8;display:inline-flex;align-items:center;gap:4px}
+.tc:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ic);flex:none}
+.demand-panel{margin-bottom:26px;min-width:0}
+.learn-wrap{grid-template-columns:minmax(0,1fr)}
+.demand-table table{min-width:820px}
+.demand-table td{vertical-align:top}
+.d-theme{font-weight:700;color:var(--blue);cursor:pointer;white-space:nowrap}
+.d-theme:hover{color:var(--purple);text-decoration:underline}
+.d-num{font-family:var(--mono);white-space:nowrap;color:var(--ink)}
+.d-inds,.d-items{display:flex;flex-wrap:wrap;gap:4px}
+.d-custs{font-size:11.5px;max-width:260px}
+.d-item{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;background:var(--lav);border:1px solid var(--line-soft);border-radius:6px;padding:2px 7px;cursor:pointer;color:var(--ink)}
+.d-item:hover{border-color:var(--purple)}
+.d-item .sdot{width:7px;height:7px;border-radius:50%}
+.d-items .none{color:var(--ink-faint)}
+.verdict{font-family:var(--semi);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.v-gap{background:rgba(222,109,59,.14);color:#B4481B}
+.v-watch{background:var(--panel-2);color:var(--ink-dim)}
+.v-planned{background:var(--accent-soft);color:var(--purple)}
+.v-building{background:rgba(169,120,26,.14);color:#8a6110}
+.v-shipped{background:var(--signal-soft);color:var(--green)}
+.call-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
+.call-filters input,.call-filters select{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px;color:var(--ink)}
+.call-filters input{flex:1;min-width:200px;max-width:360px}
+.call-filters .cf-n{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+.parse-msg{font-size:11.5px;line-height:1.45;margin-top:8px;color:var(--ink-dim)}
+.parse-msg:empty{display:none}
+.parse-msg.ok{color:var(--green)}
+.parse-msg.warn{color:#9a4a1c}
+.parse-msg a{color:var(--purple);font-weight:600}
+@keyframes autofill{from{background:rgba(1,167,122,.18)}to{background:var(--lav)}}
+.autofilled{animation:autofill 1.6s ease-out}
+@media (max-width:760px){.signal-row{grid-template-columns:minmax(0,1fr)!important}.pull-tags{flex-wrap:wrap;white-space:normal}.pull-row{grid-template-columns:minmax(0,1fr)}.pull-lab{justify-content:flex-start}.pull-who{grid-column:1}.theme-who{margin-left:0}.theme-row .pain-row{grid-template-columns:100px 1fr 64px}}
 .chip.demo{background:var(--signal-soft);color:var(--green);text-decoration:none;border-color:transparent}
 .chip.demo:hover{text-decoration:underline}
 .chip.gtm{background:color-mix(in srgb,var(--purple-2) 16%,transparent);color:var(--purple-2);border-color:transparent}
@@ -501,9 +561,11 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
       <div class="theme-panel" id="themePanel"></div>
       <div class="pain-panel" id="painPanel"></div>
     </div>
+    <div class="demand-panel" id="demandPanel"></div>
     <div>
-      <div class="sec-title"><span class="kick">From the field</span><h2>Call Log</h2><span class="cnt" id="callCnt">0</span><span class="rule"></span>
+      <div class="sec-title" id="callLogTitle"><span class="kick">From the field</span><h2>Call Log</h2><span class="cnt" id="callCnt">0</span><span class="rule"></span>
         <button class="btn" id="addCallBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Log a call</button></div>
+      <div class="call-filters" id="callFilters"></div>
       <div class="learn-table-wrap" id="callTableWrap"></div>
       <div class="call-grid" id="callGrid"></div>
     </div>
@@ -588,9 +650,10 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 <div class="drawer" id="callDrawer">
   <div class="dh"><div><h2 id="callTitle">Log a call</h2></div><button class="x" id="closeCall">×</button></div>
   <div class="db">
-    <div class="field paste-parse"><label>Auto-fill from meeting notes <span class="hint">— paste the notes text (and/or the PressPlay link)</span></label>
-      <textarea id="cPaste" placeholder="Paste the full meeting notes here, then click Auto-fill…"></textarea>
+    <div class="field paste-parse"><label>Auto-fill from meeting notes <span class="hint">— paste a PressPlay link or the notes text</span></label>
+      <textarea id="cPaste" placeholder="Paste a PressPlay link, or the full meeting notes (⌘A ⌘C on the notes page), then click Auto-fill…"></textarea>
       <button type="button" class="btn" id="cParseBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5z"/></svg>Auto-fill from notes</button>
+      <div class="parse-msg" id="cParseMsg"></div>
     </div>
     <div class="two"><div class="field"><label>Customer</label><input id="cCustomer" placeholder="e.g. Varuna" autocomplete="off"></div><div class="field"><label>Date</label><input id="cDate" type="date"></div></div>
     <div class="field"><label>Attendees / role <span class="hint">— optional</span></label><input id="cAttendees" placeholder="e.g. Head of ESG (Priya)" autocomplete="off"></div>
@@ -618,9 +681,9 @@ const STATUSES=[{k:"Not Started",c:"var(--s-notstarted)"},{k:"Discovery",c:"var(
 const IMPACT=["Low","Medium","High","Critical"];
 const EFFORT=["XS","S","M","L","XL"];
 const CALL_TYPES=["Discovery","Onboarding","Demo","Renewal","Support","Feedback","Sales"];
-const THEMES=["CBAM","CCTS","PCAF","SBTi","Product LCA","EPD","Offsetting","BRSR","Data automation","Benchmarking","Dashboards","Customer engagement","Methodology","Other"];
+const THEMES=["CBAM","CCTS","PCAF","SBTi","Product LCA","EPD","Offsetting","BRSR","Data automation","Supplier engagement","ERP / SAP integration","Benchmarking","Dashboards","Reduction planning","Customer engagement","Methodology","Other"];
 const ARCHETYPES=["Wipro","SBTi","Varuna","Jeena","YPO","Sony","Analytics","Cosmetic","Platform","Side quest","Other"];
-const INDUSTRIES=["Banking & Finance","IT Services","Automotive","Metals","Manufacturing","Chemicals","Logistics","Paper & Packaging","Consulting","Membership & Events","FMCG","Real Estate","Other"];
+const INDUSTRIES=["Banking & Finance","IT Services","Automotive","Metals","Manufacturing","Industrial Equipment","Electrical Equipment","Chemicals","Cement & Building Materials","Logistics & Shipping","Aviation","Paper & Packaging","Textiles & Apparel","Energy","Healthcare","Consulting","Membership & Events","Media & Entertainment","FMCG","Real Estate","Agriculture","Other"];
 const SENTIMENTS=["Positive","Neutral","Negative"];
 let roadView="timeline",sortBy="start",TIMEUNIT="quarter";
 let gtm=null; // daily GTM pipeline summary (gtm.json), refreshed by the GTM-sync GitHub Action
@@ -1046,74 +1109,192 @@ async function saveMeth(){
 async function delMeth(){if(!editingMeth)return;meth=meth.filter(m=>m.id!==editingMeth);await save();closeMeth();renderMethodology();flash("Deleted");}
 
 /* LEARNINGS */
+/* --- industry identity: one canonical name + colour per industry, shared by calls and the GTM feed --- */
+const IND_ALIASES={"steel manufacturing":"Metals","steel":"Metals","metals & mining":"Metals","textiles":"Textiles & Apparel","textile":"Textiles & Apparel","apparel":"Textiles & Apparel","logistics":"Logistics & Shipping","shipping":"Logistics & Shipping","maritime":"Logistics & Shipping","banking":"Banking & Finance","finance":"Banking & Finance","bfsi":"Banking & Finance","it":"IT Services","pharma":"Healthcare","cement":"Cement & Building Materials","building materials":"Cement & Building Materials","unspecified":"Unmapped","":"Unmapped"};
+const IND_COLORS={"Metals":"#56657D","Automotive":"#C4551F","Banking & Finance":"#2F6FB5","IT Services":"#1F8197","Logistics & Shipping":"#0B7A70","Aviation":"#4A55C0","Paper & Packaging":"#8A6327","Textiles & Apparel":"#B03C78","Chemicals":"#7A2FB8","Manufacturing":"#6A4A9E","Industrial Equipment":"#5F4B8B","Electrical Equipment":"#A06A00","Cement & Building Materials":"#7A6A5C","Energy":"#B5651D","FMCG":"#018A65","Healthcare":"#C23B5B","Real Estate":"#8C5A3C","Agriculture":"#4C8A28","Oil & Gas":"#3D3A5C","Membership & Events":"#8940C9","Consulting":"#5B7B4C","Media & Entertainment":"#C2410C","Unmapped":"#8f88a8","Other":"#8f88a8"};
+const IND_FALLBACK=["#7A2FB8","#018A65","#C4551F","#2F6FB5","#B03C78","#A06A00","#0B7A70","#4A55C0"];
+function normName(s){return (s||"").toLowerCase().replace(/\(.*?\)/g," ").replace(/&/g," and ").replace(/\b(ltd|limited|pvt|private|inc|co|corp|group|india|the)\b\.?/g," ").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();}
+function sameAccount(a,b){a=normName(a);b=normName(b);if(!a||!b)return false;return a===b||a.startsWith(b+" ")||b.startsWith(a+" ");}
+function gtmAccount(customer){return (gtm&&gtm.accounts||[]).find(a=>sameAccount(a.name,customer))||null;}
+function indCanon(ind,customer){
+  const ga=customer?gtmAccount(customer):null;if(ga&&ga.industry&&ga.industry!=="Unmapped")return ga.industry; // GTM account map wins — one industry per company
+  const k=(ind||"").trim();const al=IND_ALIASES[k.toLowerCase()];if(al)return al;
+  const hit=Object.keys(IND_COLORS).find(x=>x.toLowerCase()===k.toLowerCase());return hit||k||"Unmapped";
+}
+function indColor(k){if(IND_COLORS[k])return IND_COLORS[k];let h=0;for(let i=0;i<(k||"").length;i++)h=(h*31+k.charCodeAt(i))>>>0;return IND_FALLBACK[h%IND_FALLBACK.length];}
+function indChip(k,extra){const c=indColor(k);return `<span class="chip ind" style="--ic:${c}" title="${esc(k)}"><span class="idot"></span>${esc(k)}${extra!=null?` <b>${extra}</b>`:''}</span>`;}
+function callInd(c){return indCanon(c.industry,c.customer);}
+let callFilter={q:"",theme:"",industry:""};
+let pullMode="adj";
+
 function renderLearnStrip(){
-  const nCalls=calls.length,customers=new Set(calls.map(c=>c.customer).filter(Boolean)).size;
+  const nCalls=calls.length,customers=new Set(calls.map(c=>normName(c.customer)).filter(Boolean)).size;
   const highPain=calls.filter(c=>c.pain==="High").length;
   const themeCount={};calls.forEach(c=>{(callThemes(c).length?callThemes(c):["Other"]).forEach(t=>{themeCount[t]=(themeCount[t]||0)+1;});});
   const recurring=Object.values(themeCount).filter(n=>n>=2).length;
-  const withNotes=calls.filter(c=>c.sourceUrl).length;
-  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:withNotes,l:"With notes"}];
+  const inds=new Set(calls.map(callInd).filter(x=>x!=="Unmapped")).size;
+  const gaps=demandRows().filter(r=>r.verdict==="gap").length;
+  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:inds,l:"Industries"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:gaps,l:"Roadmap gaps",accent:gaps>0}];
   document.getElementById("learnStrip").innerHTML=cells.map(c=>`<div class="stat"><span class="n ${c.accent?'accent':''} ${c.purple?'purple':''}">${c.n}</span><span class="l">${c.l}</span></div>`).join("");
 }
 function itemName(id){const it=items.find(i=>i.id===id);return it?it.name:id;}
+
+/* --- "Where we have pull": call signal + GTM engagement (engaged-only, depth × temperature × inbound) --- */
+const STAGE_ABBR={REPLIED:"replied",CALL:"call",PROPOSAL:"proposal",WON:"won"};
 function renderPullPanel(){
   const el=document.getElementById("painPanel");if(!el)return;
   if(!calls.length&&!(gtm&&gtm.byIndustry)){el.innerHTML="";return;}
   const painW={High:3,Medium:2,Low:1}, sentW={Positive:1.3,Neutral:1,Negative:0.6};
   const ind={};
-  const ensure=k=>ind[k]=ind[k]||{calls:0,callPull:0,High:0,Medium:0,Low:0,sent:0,gtmPull:0,gtmAcc:0,replies:0};
-  calls.forEach(c=>{const o=ensure(c.industry||"Unspecified");
+  const ensure=k=>ind[k]=ind[k]||{calls:0,callPull:0,High:0,Medium:0,Low:0,sent:0,custs:[],gtm:0,reached:0,engaged:0,inbound:0,hot:0,cold:0,accts:[]};
+  calls.forEach(c=>{const o=ensure(callInd(c));
     const pw=painW[c.pain]||2, sw=sentW[c.sentiment]||1;
     o.calls++;o.callPull+=pw*sw;o.sent+=sw;
     o[["High","Medium","Low"].includes(c.pain)?c.pain:"Medium"]++;
+    if(!o.custs.some(x=>sameAccount(x,c.customer)))o.custs.push(c.customer);
   });
-  const hasGtm=!!(gtm&&gtm.byIndustry);
-  if(hasGtm)for(const [k,v] of Object.entries(gtm.byIndustry)){const o=ensure(k);o.gtmPull=v.gtmPull||0;o.gtmAcc=v.accounts||0;o.replies=v.replies||0;}
+  const hasGtm=!!(gtm&&gtm.byIndustry), v2=hasGtm&&gtm.accounts&&gtm.accounts.some(a=>"pull" in a);
+  if(hasGtm)for(const [k,v] of Object.entries(gtm.byIndustry)){const o=ensure(k);
+    if(v2){o.gtm=pullMode==="adj"?(v.pullAdj||0):(v.pull||0);o.reached=v.reached||0;o.engaged=v.engaged||0;o.inbound=v.inbound||0;o.hot=v.hot||0;o.cold=v.cold||0;}
+    else{o.gtm=v.gtmPull||0;o.reached=v.accounts||0;o.engaged=v.replies||0;}}
+  if(v2)gtm.accounts.filter(a=>STAGE_ABBR[a.stage]).forEach(a=>{const o=ensure(a.industry);o.accts.push(a);});
   const rows=Object.entries(ind).map(([k,v])=>({k,...v,avg:v.calls?v.sent/v.calls:1.0}));
-  const maxCall=Math.max(...rows.map(r=>r.callPull),0.0001), maxGtm=Math.max(...rows.map(r=>r.gtmPull),0.0001);
-  rows.forEach(r=>{r.score=hasGtm?(0.5*(r.callPull/maxCall)+0.5*(r.gtmPull/maxGtm)):(r.callPull/maxCall);});
+  const maxCall=Math.max(...rows.map(r=>r.callPull),0.0001), maxGtm=Math.max(...rows.map(r=>r.gtm),0.0001);
+  rows.forEach(r=>{r.score=hasGtm?(0.5*(r.callPull/maxCall)+0.5*(r.gtm/maxGtm)):(r.callPull/maxCall);if(r.k==="Unmapped")r.score*=0.0001;});
   rows.sort((a,b)=>b.score-a.score||b.callPull-a.callPull);
-  const maxScore=Math.max(...rows.map(r=>r.score),0.0001), top=rows[0];
+  const shown=rows.filter(r=>r.calls||r.engaged);  // outreach with zero engagement is reach, not pull
+  const quiet=rows.filter(r=>!r.calls&&!r.engaged&&r.reached);
+  const maxScore=Math.max(...shown.map(r=>r.score),0.0001), top=shown[0];
   const barCol=r=>r.calls?(r.avg>1.12?"var(--green)":r.avg>=0.85?"var(--purple)":"var(--coral)"):"var(--purple-2)";
   const domPain=r=>(r.High>=r.Medium&&r.High>=r.Low)?"High":(r.Medium>=r.Low?"Medium":"Low");
   const sLab=a=>a>1.12?"positive":a>=0.85?"mixed":"cool";
-  const bars=rows.map(r=>{const pct=Math.round(r.score/maxScore*100);
-    const tags=[`<span class="pull-score">${pct}</span>`];
-    if(r.calls)tags.push(`<span class="chip">${r.calls} call${r.calls>1?'s':''}</span>`);
-    if(r.gtmAcc)tags.push(`<span class="chip gtm">${r.gtmAcc} in motion</span>`);
+  const bars=shown.map(r=>{const pct=Math.round(r.score/maxScore*100);
+    const tags=[`<span class="pull-score">${r.k==="Unmapped"?"–":pct}</span>`];
+    if(r.calls)tags.push(`<span class="chip" title="calls logged in Learnings">${r.calls} call${r.calls>1?'s':''}</span>`);
+    if(r.reached)tags.push(`<span class="chip gtm" title="GTM accounts engaged (replied or further) / reached">${r.engaged}/${r.reached} engaged</span>`);
+    if(r.inbound)tags.push(`<span class="chip inb" title="came to us inbound">${r.inbound} inbound</span>`);
+    if(r.hot)tags.push(`<span class="chip hot" title="rated ≥7/10 or flagged hot in GTM notes">${r.hot} hot</span>`);
+    if(r.cold)tags.push(`<span class="chip cold" title="lower priority / parked / pushed back in GTM notes">${r.cold} cold</span>`);
     if(r.calls)tags.push(`<span class="chip pain-${domPain(r)}">${domPain(r)}</span>`);
-    return `<div class="pull-row"><div class="pull-lab" title="${esc(r.k)}">${esc(r.k)}</div>
+    const who=[...r.custs.map(n=>`<span class="w-call">${esc(n)}</span>`),...r.accts.filter(a=>!r.custs.some(c=>sameAccount(c,a.name))).sort((a,b)=>b.pull-a.pull).map(a=>`<span class="w-acct ${a.temp||''}" title="${esc(a.framework||'')} · ${esc(a.stage)}${a.call?' ('+a.call.toLowerCase()+')':''}${a.inbound?' · inbound':''}${a.rating?' · '+a.rating+'/10':''}">${esc(a.name)} <i>${STAGE_ABBR[a.stage]||''}</i></span>`)];
+    return `<div class="pull-row"><div class="pull-lab">${indChip(r.k)}</div>
       <div class="pull-track"><div class="pull-fill" style="width:${pct}%;background:${barCol(r)}"></div></div>
-      <div class="pull-tags">${tags.join("")}</div></div>`;
+      <div class="pull-tags">${tags.join("")}</div>
+      ${who.length?`<div class="pull-who">${who.slice(0,7).join("")}${who.length>7?`<span class="more">+${who.length-7}</span>`:''}</div>`:''}</div>`;
   }).join("");
-  const blend=hasGtm?"call signal (frequency × pain × sentiment) blended 50/50 with live GTM pipeline (deal stage + inbound)":"call frequency × pain intensity × meeting sentiment";
+  const blend=hasGtm?`call signal (frequency × pain × sentiment) blended 50/50 with GTM engagement — only accounts that replied or went further count, weighted by depth (reply → call → proposal → won), inbound and how hot the team rated them${pullMode==="adj"?", then rate-adjusted by how many accounts we reached in that industry":""}`:"call frequency × pain intensity × meeting sentiment";
   let gtmLine="";
-  if(hasGtm){const f=gtm.funnel||{};gtmLine=`<div class="pull-gtm"><span class="pt-lab">GTM pipeline</span> ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won · ${gtm.accountsParsed||0} accounts mapped · <span class="gtm-when">synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span></div>`;}
-  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Where we have pull</h2><span class="rule"></span></div>
-    <div class="pain-sub">A <b>pull score</b> per industry — ${blend}. Strongest pull: <b>${esc(top.k)}</b>${top.calls?` — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment`:``}${top.gtmAcc?`${top.calls?'; ':' — '}${top.gtmAcc} accounts in the GTM motion`:``}.</div>
+  if(hasGtm){const f=gtm.funnel||{};gtmLine=`<div class="pull-gtm"><span class="pt-lab">GTM pipeline</span> ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won · ${gtm.accountsParsed||0} accounts mapped · <span class="gtm-when">synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span>${quiet.length?`<br><span class="pt-lab">Reached, no reply yet</span> ${quiet.map(r=>`${esc(r.k)} (${r.reached})`).join(" · ")}`:""}</div>`;}
+  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Where we have pull</h2><span class="rule"></span>${v2?`<div class="seg mini" id="pullSeg"><button data-m="adj" class="${pullMode==='adj'?'on':''}" title="pull ÷ √accounts reached — doesn't reward sheer outreach volume">Rate-adjusted</button><button data-m="vol" class="${pullMode==='vol'?'on':''}" title="raw engagement, bigger outreach = bigger number">Volume</button></div>`:''}</div>
+    <div class="pain-sub">A <b>pull score</b> per industry — ${blend}. Strongest pull: <b>${esc(top?top.k:"—")}</b>${top&&top.calls?` — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment`:``}${top&&top.engaged?`${top.calls?'; ':' — '}${top.engaged} of ${top.reached} GTM accounts engaged`:``}.</div>
     <div class="pull-bars">${bars}</div>
-    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k"><span class="sw" style="background:var(--purple-2)"></span>Pipeline only</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">bar = pull score 0–100</span></div>
+    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k"><span class="sw" style="background:var(--purple-2)"></span>Pipeline only</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">names: <span class="w-call">call logged</span> <span class="w-acct">GTM account</span></span></div>
     ${gtmLine}`;
+  el.querySelectorAll("#pullSeg button").forEach(b=>b.addEventListener("click",()=>{pullMode=b.getAttribute("data-m");renderPullPanel();}));
+}
+
+/* --- recurring pain themes: who raised it (customers + industries), trend, click to filter --- */
+function themeStats(){
+  const th={},now=Date.now(),D=864e5;
+  calls.forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);
+    (ths.length?ths:["Other"]).forEach(t=>{const o=th[t]=th[t]||{High:0,Medium:0,Low:0,total:0,custs:[],inds:{},recent:0,prior:0,calls:[]};
+      o[p]++;o.total++;o.calls.push(c);
+      if(!o.custs.some(x=>sameAccount(x.name,c.customer)))o.custs.push({name:c.customer,ind:callInd(c),pain:p});
+      const ik=callInd(c);o.inds[ik]=(o.inds[ik]||0)+1;
+      const age=c.date?(now-new Date(c.date+"T00:00"))/D:999;if(age<=30)o.recent++;else if(age<=60)o.prior++;});});
+  return Object.entries(th).map(([t,v])=>({t,...v})).sort((a,b)=>b.total-a.total||b.High-a.High);
 }
 function renderThemePanel(){
   const el=document.getElementById("themePanel");if(!el)return;
   if(!calls.length){el.innerHTML="";return;}
-  const th={};calls.forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);(ths.length?ths:["Other"]).forEach(t=>{(th[t]=th[t]||{High:0,Medium:0,Low:0,total:0})[p]++;th[t].total++;});});
-  const rows=Object.entries(th).map(([t,v])=>({t,...v})).sort((a,b)=>b.total-a.total||b.High-a.High);
+  const rows=themeStats();
   const max=Math.max(...rows.map(r=>r.total),1),recurring=rows.filter(r=>r.total>=2).length,col={High:"var(--pain-high)",Medium:"var(--pain-med)",Low:"var(--pain-low)"};
+  const pr={High:0,Medium:1,Low:2};
   const bars=rows.map(r=>{
     const segs=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pseg" style="flex:${r[k]};background:${col[k]}" title="${r[k]} × ${k} pain"></span>`).join("");
-    return `<div class="pain-row"><div class="pain-lab" title="${esc(r.t)}">${esc(r.t)}</div><div class="pain-track" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</div><div class="pain-num">${r.total}</div></div>`;
+    const inds=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>indChip(k,n)).join("");
+    const custs=[...r.custs].sort((a,b)=>pr[a.pain]-pr[b.pain]).map(c=>`<span class="tc" style="--ic:${indColor(c.ind)}" title="${esc(c.ind)} · ${c.pain} pain">${esc(c.name)}</span>`).join("");
+    const trend=r.recent>r.prior&&r.recent>=2?`<span class="trend up" title="${r.recent} in the last 30 days vs ${r.prior} the 30 before">▲ rising</span>`:"";
+    const on=callFilter.theme===r.t;
+    return `<div class="theme-row ${on?'on':''}" data-theme="${esc(r.t)}" title="Click to filter the call log to ${esc(r.t)}">
+      <div class="pain-row"><div class="pain-lab">${esc(r.t)}</div><div class="pain-track" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</div><div class="pain-num">${r.total}${trend}</div></div>
+      <div class="theme-who"><div class="tw-inds">${inds}</div><div class="tw-custs">${custs}</div></div></div>`;
   }).join("");
   el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Recurring pain themes</h2><span class="rule"></span></div>
-    <div class="pain-sub">How many logged calls raised each theme — bar length = number of calls, coloured by pain level.${recurring>1?` <b>${recurring}</b> themes recur across 2+ calls.`:''} Updates live as calls are logged.</div>
+    <div class="pain-sub">How many logged calls raised each theme, coloured by pain level — with the industries and customers behind every count.${recurring>1?` <b>${recurring}</b> themes recur across 2+ calls.`:''} Click a theme to filter the call log.</div>
     <div class="pain-bars">${bars}</div>
-    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--pain-high)"></span>High pain</span><span class="k"><span class="sw" style="background:var(--pain-med)"></span>Medium</span><span class="k"><span class="sw" style="background:var(--pain-low)"></span>Low</span></div>`;
+    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--pain-high)"></span>High pain</span><span class="k"><span class="sw" style="background:var(--pain-med)"></span>Medium</span><span class="k"><span class="sw" style="background:var(--pain-low)"></span>Low</span><span class="k" style="margin-left:auto">customers sorted by pain · dot = industry</span></div>`;
+  el.querySelectorAll("[data-theme]").forEach(r=>r.addEventListener("click",()=>{const t=r.getAttribute("data-theme");setCallFilter({theme:callFilter.theme===t?"":t},true);}));
+}
+
+/* --- demand → roadmap: is what we keep hearing actually on the roadmap? --- */
+const THEME_MATCH={"CBAM":/cbam/i,"CCTS":/ccts|carbon credit trading/i,"PCAF":/pcaf|financed/i,"SBTi":/sbti|science.based|target/i,"Product LCA":/\blca\b|\bpcf\b|product carbon|life.?cycle|14067/i,"EPD":/\bepd\b/i,"Offsetting":/offset|credit|retire/i,"BRSR":/brsr/i,"Data automation":/automat|upload|ingest|extract|pipeline|parser|ocr|\bapi\b/i,"Benchmarking":/benchmark|peer/i,"Dashboards":/dashboard|analytics|report/i,"Customer engagement":/customer engagement|email report/i,"Methodology":/methodolog|emission factor|\bef\b/i,"Supplier engagement":/supplier|vendor|scope 3 collection/i,"ERP / SAP integration":/\bsap\b|\berp\b|oracle|integration/i,"Reduction planning":/reduction|decarb|scenario|marginal abatement|\bmacc\b/i};
+const LIVE_ST=["In Progress","In Review","QA"],DONE_ST=["Shipped"];
+function demandRows(){
+  if(!calls.length)return[];
+  return themeStats().filter(r=>r.t!=="Other").map(r=>{
+    const linked=new Set(r.calls.map(c=>c.link).filter(Boolean));
+    const re=THEME_MATCH[r.t];
+    const its=items.filter(it=>linked.has(it.id)||(re&&re.test((it.name||"")+" "+(it.notes||"")))).filter(it=>it.status!=="Parked");
+    const verdict=!its.length?(r.total>=2?"gap":"watch"):its.some(it=>DONE_ST.includes(it.status))?"shipped":its.some(it=>LIVE_ST.includes(it.status))?"building":"planned";
+    return {...r,items:its,verdict};
+  });
+}
+function renderDemandPanel(){
+  const el=document.getElementById("demandPanel");if(!el)return;
+  const rows=demandRows();if(!rows.length){el.innerHTML="";return;}
+  const V={gap:["Gap","Heard repeatedly, nothing on the roadmap"],watch:["Watch","Heard once — not on the roadmap yet"],planned:["Planned","On the roadmap, not started"],building:["Building","In progress"],shipped:["Shipped","Something shipped for it"]};
+  const order={gap:0,planned:1,building:2,watch:3,shipped:4};
+  rows.sort((a,b)=>order[a.verdict]-order[b.verdict]||b.total-a.total||b.High-a.High);
+  const body=rows.map(r=>{
+    const its=r.items.slice(0,3).map(it=>`<span class="d-item" data-goitem="${it.id}" title="${esc(it.status)}"><span class="sdot" style="background:${statusMeta(it.status).c}"></span>${esc(it.name)}</span>`).join("")+(r.items.length>3?`<span class="more">+${r.items.length-3}</span>`:"");
+    const inds=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>indChip(k,n)).join("");
+    return `<tr><td><span class="verdict v-${r.verdict}" title="${V[r.verdict][1]}">${V[r.verdict][0]}</span></td>
+      <td class="d-theme" data-theme="${esc(r.t)}">${esc(r.t)}</td>
+      <td class="d-num">${r.total}${r.High?` <span class="chip pain-High">${r.High} high</span>`:''}</td>
+      <td><div class="d-inds">${inds}</div></td>
+      <td class="d-custs">${r.custs.map(c=>esc(c.name)).join(", ")}</td>
+      <td><div class="d-items">${its||'<span class="none">—</span>'}</div></td></tr>`;
+  }).join("");
+  const gaps=rows.filter(r=>r.verdict==="gap");
+  el.innerHTML=`<div class="sec-title"><span class="kick">For the roadmap</span><h2>Demand → Roadmap</h2><span class="rule"></span></div>
+    <div class="pain-sub">Every theme customers raised, who raised it, and what's on the roadmap for it (items linked from a call, or whose name/notes mention the theme).${gaps.length?` <b>${gaps.length} gap${gaps.length>1?'s':''}</b>: ${gaps.map(g=>esc(g.t)).join(", ")} — heard 2+ times with nothing planned.`:" No gaps — everything heard twice has a roadmap item."}</div>
+    <div class="learn-table demand-table"><table><thead><tr><th>Status</th><th>Theme</th><th>Calls</th><th>Industries</th><th>Customers</th><th>On the roadmap</th></tr></thead><tbody>${body}</tbody></table></div>`;
+  el.querySelectorAll("[data-goitem]").forEach(x=>x.addEventListener("click",()=>{switchView("roadmap");setTimeout(()=>openEdit(x.getAttribute("data-goitem")),80);}));
+  el.querySelectorAll(".d-theme[data-theme]").forEach(x=>x.addEventListener("click",()=>setCallFilter({theme:x.getAttribute("data-theme")},true)));
+}
+
+/* --- call log: filters + table + cards --- */
+function setCallFilter(p,scroll){Object.assign(callFilter,p);renderLearnings();
+  if(scroll){const t=document.getElementById("callLogTitle");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}}
+function filteredCalls(){
+  const q=callFilter.q.trim().toLowerCase();
+  return calls.filter(c=>(!callFilter.theme||callThemes(c).includes(callFilter.theme)||(callFilter.theme==="Other"&&!callThemes(c).length))
+    &&(!callFilter.industry||callInd(c)===callFilter.industry)
+    &&(!q||[c.customer,c.industry,c.attendees,c.quote,c.insight,callThemes(c).join(" ")].join(" ").toLowerCase().includes(q)));
+}
+function renderCallFilters(n){
+  const el=document.getElementById("callFilters");if(!el)return;
+  const themes=[...new Set(calls.flatMap(c=>callThemes(c).length?callThemes(c):["Other"]))].sort();
+  const inds=[...new Set(calls.map(callInd))].sort();
+  const active=callFilter.q||callFilter.theme||callFilter.industry;
+  if(!el.dataset.built){
+    el.innerHTML=`<input type="search" id="cfQ" placeholder="Search calls — customer, quote, insight…"><select id="cfTheme"></select><select id="cfInd"></select><button class="btn" id="cfClear">Clear</button><span class="cf-n" id="cfN"></span>`;
+    el.dataset.built="1";
+    document.getElementById("cfQ").addEventListener("input",e=>{callFilter.q=e.target.value;renderLearnings();});
+    document.getElementById("cfTheme").addEventListener("change",e=>setCallFilter({theme:e.target.value}));
+    document.getElementById("cfInd").addEventListener("change",e=>setCallFilter({industry:e.target.value}));
+    document.getElementById("cfClear").addEventListener("click",()=>{document.getElementById("cfQ").value="";setCallFilter({q:"",theme:"",industry:""});});
+  }
+  document.getElementById("cfTheme").innerHTML=`<option value="">All themes</option>`+themes.map(t=>`<option ${t===callFilter.theme?'selected':''}>${esc(t)}</option>`).join("");
+  document.getElementById("cfInd").innerHTML=`<option value="">All industries</option>`+inds.map(t=>`<option ${t===callFilter.industry?'selected':''}>${esc(t)}</option>`).join("");
+  document.getElementById("cfClear").style.display=active?"":"none";
+  document.getElementById("cfN").textContent=active?`${n} of ${calls.length} calls`:"";
 }
 function renderCallTable(sorted){
   const wrap=document.getElementById("callTableWrap");if(!wrap)return;
   wrap.innerHTML=`<div class="learn-table"><table><thead><tr><th>Customer</th><th>Industry</th><th>Date</th><th>Type</th><th>Pain</th><th>Prio</th><th>Demo</th><th>Notes</th></tr></thead><tbody>`+
-    sorted.map(c=>`<tr data-goto="${c.id}"><td class="lc-cust">${esc(c.customer||'—')}</td><td>${c.industry?esc(c.industry):'—'}</td><td class="lc-date">${esc(c.date||'')}</td><td>${esc(c.type||'')}</td><td>${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)}</span>`:'—'}</td><td>${esc(c.prio||'')}</td><td>${c.demoUrl?`<a class="notes-link" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:'—'}</td><td>${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:'—'}</td></tr>`).join("")+
+    sorted.map(c=>`<tr data-goto="${c.id}"><td class="lc-cust">${esc(c.customer||'—')}</td><td>${indChip(callInd(c))}</td><td class="lc-date">${esc(c.date||'')}</td><td>${esc(c.type||'')}</td><td>${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)}</span>`:'—'}</td><td>${esc(c.prio||'')}</td><td>${c.demoUrl?`<a class="notes-link" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:'—'}</td><td>${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:'—'}</td></tr>`).join("")+
     `</tbody></table></div>`;
   wrap.querySelectorAll("[data-goto]").forEach(tr=>tr.addEventListener("click",e=>{
     if(e.target.closest("a"))return;
@@ -1122,18 +1303,22 @@ function renderCallTable(sorted){
   }));
 }
 function renderLearnings(){
-  renderLearnStrip();renderPullPanel();renderThemePanel();document.getElementById("callCnt").textContent=calls.length;
+  renderLearnStrip();renderPullPanel();renderThemePanel();renderDemandPanel();
   const grid=document.getElementById("callGrid"),wrap=document.getElementById("callTableWrap");
+  const list=filteredCalls();
+  document.getElementById("callCnt").textContent=list.length===calls.length?calls.length:`${list.length}/${calls.length}`;
+  renderCallFilters(list.length);
   if(!calls.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls logged yet</h3><div>Capture your first customer conversation.</div></div>`;return;}
-  const sorted=[...calls].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  if(!list.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls match</h3><div>Clear the filters to see all ${calls.length}.</div></div>`;return;}
+  const sorted=[...list].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   renderCallTable(sorted);
   grid.innerHTML=sorted.map(c=>{
     const link=c.link?`<span class="chip link" data-goitem="${c.link}">→ ${esc(itemName(c.link))}</span>`:"";
     const notes=c.sourceUrl?`<a class="chip notes" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:"";
     const demo=c.demoUrl?`<a class="chip demo" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:"";
-    const indChip=c.industry?`<span class="chip ind">${esc(c.industry)}</span>`:"";
-    return `<div class="call-card" id="call-${c.id}" data-call="${c.id}"><div class="topaccent"></div>
-      <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${indChip}${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
+    const ik=callInd(c);
+    return `<div class="call-card" id="call-${c.id}" data-call="${c.id}"><div class="topaccent" style="background:${indColor(ik)}"></div>
+      <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${indChip(ik)}${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
       ${c.attendees?`<div style="font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:-4px">${esc(c.attendees)}</div>`:''}
       ${c.quote?`<div class="quote">${esc(c.quote)}</div>`:''}
       ${c.insight?`<div class="insight"><b>Insight:</b> ${esc(c.insight)}</div>`:''}
@@ -1144,56 +1329,143 @@ function renderLearnings(){
     if(e.target.hasAttribute("data-goitem")){switchView("roadmap");setTimeout(()=>openEdit(e.target.getAttribute("data-goitem")),80);return;}
     openCall(el.getAttribute("data-call"));}));
 }
-/* --- parse pasted meeting notes into a draft call (best-effort, offline) --- */
+
+/* --- parse meeting notes (pasted text, or a PressPlay link) into a draft call --- */
 function cleanNote(s){return (s||"").replace(/\s*\d+\s*$/,"").replace(/\s+/g," ").trim();}
 function guessCustomer(title){
-  if(!title)return"";let parts=[title];
-  [/<>/,/\sx\s/i,/:/,/\s-\s/,/–/,/—/].forEach(sep=>{parts=parts.flatMap(p=>p.split(sep));});
-  parts=parts.map(p=>p.trim()).filter(Boolean).filter(p=>!/climes/i.test(p));
+  if(!title)return"";
+  const fw=title.match(/\b(?:for|with|at|<>|x)\s+([A-Z][\w&.'’\-]*(?:\s+(?:[A-Z][\w&.'’\-]*|&|and|of))*)/); // "Demo for SBI", "Call with Tega Industries"
+  if(fw&&!/climes/i.test(fw[1]))return fw[1].replace(/\s+(and|of|&)$/i,"").trim();
+  let parts=[title];
+  [/<>/,/\sx\s/i,/\s&\s/,/:/,/\s-\s/,/–/,/—/,/\|/].forEach(sep=>{parts=parts.flatMap(p=>p.split(sep));});
+  parts=parts.map(p=>p.trim()).filter(Boolean).filter(p=>!/climes|carbon[- ]?os|life ?first/i.test(p));
   let cand=parts[0]||title;
-  cand=cand.replace(/\b(carbon.*|GHG.*|SBTi.*|CBAM.*|CCTS.*|meeting.*|call.*|demo.*|migration.*|exploration.*|technical.*|net[- ]?zero.*|initiative.*|platform.*|chapter.*)$/i,"").trim();
+  cand=cand.replace(/^(intro|introductory|discovery|demo|follow[- ]?up|call|meeting|catch[- ]?up|sync)\s+(call\s+)?(with\s+)?/i,"");
+  cand=cand.replace(/\b(for|with)\s+/i,"");
+  cand=cand.replace(/\b(carbon.*|GHG.*|SBTi.*|CBAM.*|CCTS.*|PCAF.*|meeting.*|call.*|demo.*|migration.*|exploration.*|technical.*|net[- ]?zero.*|initiative.*|platform.*|chapter.*|discussion.*|sync.*|intro.*)$/i,"").trim();
   return cand||title;
 }
+function knownCustomers(){
+  const s=[...calls.map(c=>c.customer),...(gtm&&gtm.accounts||[]).map(a=>a.name.replace(/\s*\(.*?\)\s*/g," ").trim())].filter(Boolean);
+  return [...new Set(s)].sort((a,b)=>b.length-a.length);
+}
+function findKnownCustomer(text){
+  if(!text)return"";const t=" "+normName(text)+" ";
+  for(const n of knownCustomers()){const k=normName(n);if(k.length>=3&&t.includes(" "+k+" "))return n;}
+  return"";
+}
 function inferIndustry(name,low){
+  const ga=name&&gtmAccount(name);if(ga&&ga.industry!=="Unmapped")return ga.industry;
+  const prev=name&&calls.find(c=>sameAccount(c.customer,name)&&c.industry);if(prev)return callInd(prev);
   name=(name||"").toLowerCase();
-  const map=[["Banking & Finance",/bank|\bsbi\b|financ|pcaf|nbfc/],["IT Services",/infosys|tech mahindra|\btcs\b|wipro|it services/],["Automotive",/hyundai|automotive|\bmotor\b|vehicle|\boem\b/],["Metals",/metal|steel|alumin|extrusion|forging/],["Chemicals",/chemical|rasayan/],["Logistics",/logistic|freight|jeena|varuna|warehouse|shipping/],["Paper & Packaging",/paper|packaging|satia|pulp/],["Consulting",/consult|ecociate|advisory|\bgiz\b/],["Membership & Events",/\bypo\b|chapter|event|member/],["FMCG",/fmcg|consumer goods|unilever|cola/],["Manufacturing",/manufactur|factory|\bplant\b|industrial/]];
-  for(const [ind,re] of map){if((name&&re.test(name))||re.test(low))return ind;}
-  return "";
+  const map=[["Banking & Finance",/bank|\bsbi\b|financ|pcaf|nbfc|asset management|insurance/],["IT Services",/infosys|tech mahindra|\btcs\b|wipro|it services|software services/],["Automotive",/hyundai|automotive|\bmotors?\b|vehicle|\boem\b|auto component/],["Metals",/metal|steel|alumin|extrusion|forging|stainless/],["Chemicals",/chemical|rasayan|organics|fertili|paint/],["Logistics & Shipping",/logistic|freight|jeena|varuna|warehouse|shipping|vessel|maritime|fleet/],["Aviation",/airline|aviation|aircraft|corsia/],["Paper & Packaging",/paper|packaging|satia|pulp/],["Textiles & Apparel",/textile|fabric|apparel|garment|cotton|yarn/],["Cement & Building Materials",/cement|building material|pipes|tiles/],["Healthcare",/hospital|pharma|healthcare|life ?science/],["Energy",/renewable|solar|wind|power plant|utility/],["Consulting",/consult|ecociate|advisory|\bgiz\b/],["Membership & Events",/\bypo\b|chapter|event|member/],["Media & Entertainment",/media|pictures|studio|entertainment|production house/],["FMCG",/fmcg|consumer goods|unilever|cola|foods/],["Manufacturing",/manufactur|factory|\bplant\b|industrial/]];
+  for(const [ind,re] of map){if(name&&re.test(name))return ind;}
+  let best="",bn=0;for(const [ind,re] of map){const n=hits(low,re);if(n>bn){bn=n;best=ind;}} // body text: the industry mentioned most, not the first one mentioned
+  return bn>=2?best:"";
+}
+function hits(low,re){return (low.match(new RegExp(re.source,"g"))||[]).length;}
+function sectionAfter(raw,heads){
+  const re=new RegExp("^\\s*(?:#+\\s*|\\*\\*)?(?:"+heads+")\\b[^\\n]*?(?::|\\*\\*)?\\s*$","im");const m=raw.match(re);
+  if(m){const rest=raw.slice(m.index+m[0].length).replace(/^\s*\n/,"");const end=rest.search(/\n\s*\n\s*(?:#+\s*)?[A-Z][^\n]{2,60}:?\s*\n|\n\s*#+\s/);return (end>0?rest.slice(0,end):rest.slice(0,900)).trim();}
+  const inl=raw.match(new RegExp("(?:"+heads+")\\s*[:\\-–]\\s*([^\\n]{20,})","i"));return inl?inl[1].trim():"";
 }
 function parseNotes(raw){
   raw=(raw||"").replace(/\r/g,"");const out={},low=raw.toLowerCase();
-  (raw.match(/https?:\/\/[^\s"')]+/g)||[]).forEach(u=>{if(/pressplay\.vastoo/i.test(u))out.sourceUrl=u;else if(/climes\.io/i.test(u))out.demoUrl=u;else if(!out.sourceUrl)out.sourceUrl=u;});
+  (raw.match(/https?:\/\/[^\s"')]+/g)||[]).forEach(u=>{if(/pressplay\.vastoo/i.test(u))out.sourceUrl=u;else if(/climes\.io/i.test(u)&&!/gtm-/.test(u))out.demoUrl=u;else if(!out.sourceUrl)out.sourceUrl=u;});
   let lines=raw.split("\n").map(s=>s.trim()).filter(Boolean)
-    .filter(l=>!/^(URL:|Source element:|---|Made with PressPlay|Because|Get PressPlay|Share notes)/i.test(l)&&!/^https?:/i.test(l));
-  let title=(lines[0]||"").replace(/^Title:\s*/i,"").replace(/^PressPlay:\s*/i,"").trim();
-  out.customer=guessCustomer(title);
-  const dm=raw.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s*(\d{4})\b/);
-  if(dm){const mo=["january","february","march","april","may","june","july","august","september","october","november","december"].indexOf(dm[1].toLowerCase())+1;out.date=`${dm[3]}-${String(mo).padStart(2,"0")}-${String(+dm[2]).padStart(2,"0")}`;}
+    .filter(l=>!/^(URL:|Source element:|---|Made with PressPlay|Because|Get PressPlay|Share notes|Tab Context)/i.test(l)&&!/^https?:/i.test(l));
+  let title=(lines[0]||"").replace(/^Title:\s*/i,"").replace(/^PressPlay:\s*/i,"").replace(/^#+\s*/,"").trim();
+  out.customer=findKnownCustomer(title)||guessCustomer(title)||findKnownCustomer(raw.slice(0,3000));
+  // date: "September 30, 2026" · "30 Sep 2026" · "Sep 30, 2026" · ISO
+  const MO=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],mi=s=>MO.indexOf(s.slice(0,3).toLowerCase())+1,pad=n=>String(n).padStart(2,"0");
+  let dm;
+  if((dm=raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b/i)))out.date=`${dm[3]}-${pad(mi(dm[1]))}-${pad(+dm[2])}`;
+  else if((dm=raw.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?,?\s+(\d{4})\b/i)))out.date=`${dm[3]}-${pad(mi(dm[2]))}-${pad(+dm[1])}`;
+  else if((dm=raw.match(/\b(20\d\d)-(\d\d)-(\d\d)\b/)))out.date=dm[0];
   else if(/\byesterday\b/i.test(raw)){const d=new Date();d.setDate(d.getDate()-1);out.date=d.toISOString().slice(0,10);}
   else if(/\btoday\b/i.test(raw)){out.date=new Date().toISOString().slice(0,10);}
-  const tl=raw.match(/TL;?DR[:\s]*([\s\S]*?)(?:\n\s*\n|\n[A-Z][^\n]{2,60}\n)/i);
-  if(tl)out.insight=cleanNote(tl[1]);else{const i=lines.findIndex(l=>/^TL;?DR/i.test(l));if(i>=0&&lines[i+1])out.insight=cleanNote(lines[i+1]);}
-  const qm=raw.match(/["“”]([^"“”]{12,220})["“”]/);if(qm)out.quote=cleanNote(qm[1]);
-  out.type=/\bdemo\b|demonstrat/.test(low)?"Demo":/migrat|onboard/.test(low)?"Onboarding":/renewal/.test(low)?"Renewal":/\bfeedback\b/.test(low)?"Feedback":/proposal|pricing|\bmou\b|sales/.test(low)?"Sales":"Discovery";
-  const themeRules=[["CBAM",/cbam/],["CCTS",/ccts/],["PCAF",/pcaf|financed emission/],["SBTi",/sbti|science[- ]based/],["Product LCA",/\blca\b|product carbon|\bpcf\b|life ?cycle/],["EPD",/\bepd\b/],["Offsetting",/offset|carbon credit|retire|verra|gold standard|net[- ]?zero/],["BRSR",/brsr/],["Data automation",/excel|upload|automat|activity data|data collection|migrat/],["Benchmarking",/benchmark/],["Dashboards",/dashboard|analytics|exec[- ]ready/],["Customer engagement",/customer engagement|email report/],["Methodology",/methodolog|scope 3 (confus|classif)|not applicable/]];
-  out.themes=themeRules.filter(([t,re])=>re.test(low)).map(([t])=>t);if(!out.themes.length)out.themes=["Other"];
-  out.pain=/(on hold|urgent|obstacle|time consuming|big problem|calamity|blocker)/.test(low)?"High":/(no pressure|not that complex|already ahead|no urgency|no immediate|good to have)/.test(low)?"Low":"Medium";
-  out.sentiment=/(amazing|excited|enthusi|leaned in|very positive|impressed|keen|exactly what|committed|got my attention)/.test(low)?"Positive":/(declined|no urgency|already ahead|hesitat|not ready|skeptic|rolled back|not that complex|no immediate pressure)/.test(low)?"Negative":"Neutral";
+  // attendees
+  const att=sectionAfter(raw,"attendees|participants|present|people");
+  if(att)out.attendees=cleanNote(att.split("\n").slice(0,4).join(", ")).slice(0,140);
+  else{const mw=raw.match(/\bmet with ([A-Z][\w.]+(?:\s[A-Z][\w.]+)?(?:(?:,|\sand|\s&)\s[A-Z][\w.]+(?:\s[A-Z][\w.]+)?)*)\s(?:from|of|at)\b/);if(mw)out.attendees=mw[1];}
+  // insight: TL;DR / summary / key insight / overview section, else first substantial paragraph
+  let ins=sectionAfter(raw,"TL;?DR|summary|key insights?|key takeaways?|overview|outcome");
+  if(!ins){const para=raw.split(/\n\s*\n/).map(p=>p.trim()).find(p=>p.length>140&&!/^title:/i.test(p));if(para)ins=para;}
+  if(ins)out.insight=cleanNote(ins).slice(0,1200);
+  // quote: prefer a first-person line in quotes
+  const qs=[...raw.matchAll(/["“”]([^"“”\n]{24,260})["“”]/g)].map(m=>cleanNote(m[1])).filter(q=>q.split(/\s+/).length>=6&&q.toLowerCase()!==title.toLowerCase()&&!/^view shared meeting/i.test(q));
+  out.quote=qs.find(q=>/\b(we|our|us|i|my|we're|i'm)\b/i.test(q))||qs[0]||"";
+  out.type=/\bdemo\b/i.test(title)||hits(low,/\bdemo|demonstrat|walked (?:them )?through|showed the/)>=2?"Demo":/migrat|onboard|go[- ]live|cutover/.test(low)?"Onboarding":/renewal|renew\b/.test(low)?"Renewal":/\bsupport\b|issue|bug/.test(title.toLowerCase())?"Support":/\bfeedback\b/.test(low)?"Feedback":/proposal|pricing|commercials|\bmou\b|\bmsa\b/.test(low)?"Sales":"Discovery";
+  // themes: framework names count on one mention; generic themes need 2+ mentions; keep the strongest 5
+  const themeRules=[["CBAM",/\bcbam\b/,1],["CCTS",/\bccts\b|carbon credit trading/,1],["PCAF",/\bpcaf\b|financed emission/,1],["SBTi",/\bsbti\b|science[- ]based target/,1],["BRSR",/\bbrsr\b/,1],["EPD",/\bepds?\b|environmental product declaration/,1],["Product LCA",/\blca\b|product carbon|\bpcf\b|life ?cycle|cradle|14067/,1],["Offsetting",/offset|carbon credit|retire|verra|gold standard|neutral/,2],["Data automation",/excel|spreadsheet|upload|automat|activity data|data collection|manual|back[- ]and[- ]forth/,2],["Supplier engagement",/supplier|vendor|value chain|purchased goods/,2],["ERP / SAP integration",/\bsap\b|\berp\b|oracle|\btally\b|s\/4 ?hana/,2],["Benchmarking",/benchmark|peer|industry average|compare/,1],["Dashboards",/dashboard|analytics|visuali|exec[- ]ready|board report/,2],["Reduction planning",/reduction (?:plan|target|pathway|roadmap|lever)|decarboni[sz]ation (?:plan|roadmap|pathway)|abatement|\bmacc\b|reduce (?:my|our|their) emissions/,2],["Customer engagement",/customer engagement|email report|customer request|buyer/,2],["Methodology",/methodolog|emission factor|scope 3 (?:confus|classif)|not applicable|calculation approach/,2]];
+  out.themes=themeRules.map(([t,re,min])=>[t,hits(low,re),min]).filter(([t,n,min])=>n>=min&&THEMES.includes(t)).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([t])=>t);
+  if(!out.themes.length)out.themes=["Other"];
+  const ph=hits(low,/on hold|urgent|obstacle|time[- ]consuming|big problem|calamity|blocker|pain point|struggl|deadline|penalt|audit|frustrat|takes (?:months|years)|biggest (?:pain|challenge)/);
+  const pl=hits(low,/no pressure|not that complex|already ahead|no urgency|no immediate|good to have|wait and watch|not looking|handled internally|in a (?:very )?good place/);
+  out.pain=ph-pl>=2?"High":pl>ph?"Low":"Medium";
+  const sp=hits(low,/amazing|excited|enthusi|leaned in|very positive|impressed|keen|exactly what|committed|got my attention|motivated|interested in exploring|agreed to|next steps? (?:is|are) agreed|loved/);
+  const sn=hits(low,/declined|no urgency|already ahead|hesitat|not ready|skeptic|rolled back|not that complex|no immediate|not (?:currently )?looking|pushed back|cautious|wait and watch|not interested/);
+  out.sentiment=sp-sn>=2?"Positive":sn-sp>=2?"Negative":"Neutral";
   out.industry=inferIndustry(out.customer,low);
-  out.prio="P1";
+  out.prio=out.pain==="High"&&out.sentiment!=="Negative"?"P0":out.pain==="Low"||out.sentiment==="Negative"?"P2":"P1";
   return out;
 }
-function applyParsedNotes(){
-  const raw=document.getElementById("cPaste").value;if(!raw.trim()){flash("Paste the notes first");return;}
-  const p=parseNotes(raw);
-  const set=(id,v)=>{if(v)document.getElementById(id).value=v;};
-  set("cCustomer",p.customer);set("cDate",p.date);set("cQuote",p.quote);set("cInsight",p.insight);set("cSource",p.sourceUrl);set("cDemo",p.demoUrl);set("cIndustry",p.industry);
-  if(p.type)fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);
-  if(p.themes&&p.themes.length){draftCallThemes=p.themes.slice();renderCallThemes();}
+/* PressPlay link → draft. The share page loads its notes from /api/meetings/<id> (CORS-open), which gives
+   meeting_name, meeting_datetime, attendees[{name,company}], meeting_summary (markdown, starts with "## TL;DR"),
+   concise_summary and transcripts[{text,source}] ("system" = the far side of the call, usually the customer). */
+function ppId(url){const m=(url||"").match(/pressplay\.vastoo\.co\/(?:[\w-]+\/)*([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);return m?m[1]:null;}
+async function fetchPressPlay(url){
+  const id=ppId(url);if(!id)return null;
+  const r=await fetch(`https://pressplay.vastoo.co/api/meetings/${id}`,{credentials:"omit"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  return r.json();
+}
+function draftFromPressPlay(j,url){
+  const title=j.meeting_name||"",summary=j.meeting_summary||"",concise=j.concise_summary||"";
+  const p=parseNotes(`Title: ${title}\n\n${summary}\n\n${concise}`);
+  p.sourceUrl=url;
+  if(j.meeting_datetime)p.date=String(j.meeting_datetime).slice(0,10);
+  const team=new Set([...owners,...DEFAULT_OWNERS,"Ani","Anirudh","Aravind","Manasvi","Roma","Dishant","Juhi"].map(n=>n.toLowerCase().split(/\s+/)[0]));
+  const ext=(j.attendees||[]).filter(a=>a&&a.name&&!/^(me|you)$/i.test(a.name.trim())&&!/internal|climes/i.test(a.company||"")&&!/climes/i.test(a.email||"")&&!team.has(a.name.toLowerCase().split(/\s+/)[0]));
+  if(ext.length)p.attendees=ext.map(a=>a.name+(a.company?` (${a.company})`:"")).join(", ");
+  if(!p.customer||/climes/i.test(p.customer)){const co=ext.map(a=>a.company).find(Boolean);if(co)p.customer=co;}
+  const tl=summary.match(/##\s*TL;?DR\s*\n+([\s\S]*?)(?:\n\s*##\s|$)/i);
+  if(tl)p.insight=cleanNote(tl[1]).slice(0,1200);else if(!p.insight&&concise)p.insight=cleanNote(concise.replace(/\[Source:[^\]]*\]/g,"")).slice(0,1200);
+  if(!p.quote&&Array.isArray(j.transcripts)){ // a verbatim line from the customer's side of the call that names a pain or a want
+    const lines=j.transcripts.filter(t=>t&&t.source==="system"&&t.text).map(t=>t.text.trim()).filter(t=>t.length>=50&&t.length<=260);
+    const pick=lines.find(t=>/\b(we|our|i)\b/i.test(t)&&/problem|challenge|difficult|manual|time[- ]consuming|struggl|need|want|looking for|biggest|pain/i.test(t))||lines.find(t=>/\b(we|our)\b/i.test(t));
+    if(pick)p.quote=pick;}
+  p.industry=inferIndustry(p.customer,(summary+" "+concise).toLowerCase());
+  return p;
+}
+function fillCallFields(p){
+  const filled=[];
+  const set=(id,v,lab)=>{if(v){const el=document.getElementById(id);el.value=v;el.classList.remove("autofilled");void el.offsetWidth;el.classList.add("autofilled");filled.push(lab);}};
+  set("cCustomer",p.customer,"customer");set("cDate",p.date,"date");set("cAttendees",p.attendees,"attendees");set("cQuote",p.quote,"quote");set("cInsight",p.insight,"insight");set("cSource",p.sourceUrl,"notes link");set("cDemo",p.demoUrl,"demo link");set("cIndustry",p.industry,"industry");
+  if(p.type){fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);filled.push("type");}
+  if(p.themes&&p.themes.length){draftCallThemes=p.themes.slice();renderCallThemes();filled.push(p.themes.length+" theme"+(p.themes.length>1?"s":""));}
   if(p.pain)fillSelect(document.getElementById("cPain"),PAINS,p.pain);
   if(p.prio)fillSelect(document.getElementById("cPrio"),PRIOS,p.prio);
   if(p.sentiment)fillSelect(document.getElementById("cSentiment"),SENTIMENTS,p.sentiment);
-  flash("Auto-filled — review & save");
+  return filled;
+}
+function parseMsg(html,kind){const el=document.getElementById("cParseMsg");if(!el)return;el.className="parse-msg "+(kind||"");el.innerHTML=html||"";}
+async function applyParsedNotes(){
+  const raw=document.getElementById("cPaste").value.trim();if(!raw){flash("Paste the notes or a PressPlay link first");return;}
+  const onlyUrl=/^https?:\/\/\S+$/.test(raw);
+  let p;
+  if(onlyUrl){
+    if(!ppId(raw)){parseMsg(`That isn't a PressPlay link, so there's nothing to read — paste the notes text instead.`,"warn");document.getElementById("cSource").value=raw;return;}
+    parseMsg("Reading the notes from PressPlay…");
+    try{p=draftFromPressPlay(await fetchPressPlay(raw),raw);}
+    catch(e){
+      document.getElementById("cSource").value=raw;
+      parseMsg(`PressPlay doesn't let other sites read its notes directly, so the link alone isn't enough. <a href="${esc(raw)}" target="_blank" rel="noopener">Open the notes ↗</a>, press <b>⌘A</b> then <b>⌘C</b>, and paste everything here — the link is already saved.`,"warn");
+      return;}
+  }
+  if(!p)p=parseNotes(raw);
+  const filled=fillCallFields(p);
+  parseMsg(`Filled ${filled.join(", ")} — pain <b>${esc(p.pain)}</b>, sentiment <b>${esc(p.sentiment)}</b>. Review, then save.`,"ok");
 }
 
 /* roadmap editor */
@@ -1307,7 +1579,7 @@ function openCall(id){
   const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:""};
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
   document.getElementById("delCallBtn").style.display=c?"block":"none";
-  document.getElementById("cPaste").value="";document.getElementById("cSource").value=d.sourceUrl||"";document.getElementById("cDemo").value=d.demoUrl||"";
+  document.getElementById("cPaste").value="";parseMsg("");document.getElementById("cSource").value=d.sourceUrl||"";document.getElementById("cDemo").value=d.demoUrl||"";
   document.getElementById("cIndustry").value=d.industry||"";
   document.getElementById("indList").innerHTML=INDUSTRIES.map(x=>`<option value="${esc(x)}">`).join("");
   document.getElementById("cCustomer").value=d.customer||"";document.getElementById("cDate").value=d.date||"";document.getElementById("cAttendees").value=d.attendees||"";document.getElementById("cQuote").value=d.quote||"";document.getElementById("cInsight").value=d.insight||"";
@@ -1404,6 +1676,7 @@ function wire(){
   document.getElementById("closeCall").addEventListener("click",closeCall);document.getElementById("cancelCall").addEventListener("click",closeCall);document.getElementById("scrim2").addEventListener("click",closeCall);
   document.getElementById("saveCall").addEventListener("click",saveCall);document.getElementById("delCallBtn").addEventListener("click",deleteCall);
   document.getElementById("cParseBtn").addEventListener("click",applyParsedNotes);
+  document.getElementById("cPaste").addEventListener("paste",()=>setTimeout(()=>{const v=document.getElementById("cPaste").value.trim();if(/^https?:\/\/\S+$/.test(v))applyParsedNotes();},0)); // a pasted link auto-runs
   document.getElementById("whoBtn").addEventListener("click",()=>{const n=prompt("Your name — shown on tasks you add or edit:",currentUser||"");if(n!==null)setUser(n);});
   document.getElementById("exportBtn").addEventListener("click",exportJSON);
   document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("fileInput").click());
