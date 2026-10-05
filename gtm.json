@@ -1,7 +1,8 @@
 {
- "generatedAt": "2026-10-04T12:16:36+00:00",
+ "generatedAt": "2026-10-05T14:17:52+00:00",
  "snapshotLabel": "30 Sep 2026, 11:30 IST",
  "source": "https://gtm-september.climes.io/",
+ "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
  "funnel": {
   "contacted": 2379,
   "replied": 24,
@@ -9,367 +10,1428 @@
   "proposal": 1,
   "won": 0
  },
- "accountsParsed": 38,
+ "accountsParsed": 142,
  "byIndustry": {
-  "Metals": {
-   "accounts": 18,
-   "gtmPull": 31.0,
-   "replies": 11,
-   "stages": {
-    "QUEUED": 4,
-    "SENT": 3,
-    "REPLIED": 7,
-    "CALL": 4,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "IT Services": {
-   "accounts": 1,
-   "gtmPull": 0.5,
-   "replies": 0,
-   "stages": {
-    "QUEUED": 1,
-    "SENT": 0,
-    "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "FMCG": {
-   "accounts": 2,
-   "gtmPull": 1.0,
-   "replies": 0,
-   "stages": {
-    "QUEUED": 2,
-    "SENT": 0,
-    "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Paper & Packaging": {
-   "accounts": 3,
-   "gtmPull": 5.5,
-   "replies": 2,
-   "stages": {
-    "QUEUED": 1,
-    "SENT": 0,
-    "REPLIED": 1,
-    "CALL": 1,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Automotive": {
-   "accounts": 3,
-   "gtmPull": 3.0,
-   "replies": 0,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 3,
-    "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Chemicals": {
-   "accounts": 1,
-   "gtmPull": 1.0,
-   "replies": 0,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 1,
-    "REPLIED": 0,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Manufacturing": {
-   "accounts": 5,
-   "gtmPull": 12.0,
-   "replies": 4,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 1,
-    "REPLIED": 1,
-    "CALL": 3,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Healthcare": {
-   "accounts": 2,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 1,
-    "REPLIED": 1,
-    "CALL": 0,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
-  },
-  "Other": {
-   "accounts": 2,
-   "gtmPull": 5.0,
-   "replies": 2,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 0,
-    "REPLIED": 1,
-    "CALL": 1,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
+  "Membership & Events": {
+   "reached": 1,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 1,
+   "won": 0,
+   "inbound": 0,
+   "hot": 1,
+   "cold": 0,
+   "pull": 7.5,
+   "pullAdj": 7.5
   },
   "Aviation": {
-   "accounts": 1,
-   "gtmPull": 3.0,
-   "replies": 1,
-   "stages": {
-    "QUEUED": 0,
-    "SENT": 0,
-    "REPLIED": 0,
-    "CALL": 1,
-    "PROPOSAL": 0,
-    "WON": 0
-   }
+   "reached": 2,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 3.0,
+   "pullAdj": 2.121
+  },
+  "Paper & Packaging": {
+   "reached": 5,
+   "engaged": 3,
+   "calls": 2,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 1,
+   "pull": 5.5,
+   "pullAdj": 2.46
+  },
+  "Metals": {
+   "reached": 26,
+   "engaged": 8,
+   "calls": 3,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 3,
+   "pull": 11.5,
+   "pullAdj": 2.255
+  },
+  "Industrial Equipment": {
+   "reached": 1,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 1,
+   "pull": 1.5,
+   "pullAdj": 1.5
+  },
+  "Banking & Finance": {
+   "reached": 15,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 1,
+   "cold": 0,
+   "pull": 4.5,
+   "pullAdj": 1.162
+  },
+  "Logistics & Shipping": {
+   "reached": 4,
+   "engaged": 3,
+   "calls": 2,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 1,
+   "cold": 2,
+   "pull": 7.1,
+   "pullAdj": 3.55
+  },
+  "Textiles & Apparel": {
+   "reached": 8,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 1,
+   "cold": 0,
+   "pull": 4.2,
+   "pullAdj": 1.485
+  },
+  "Electrical Equipment": {
+   "reached": 3,
+   "engaged": 1,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 1,
+   "hot": 0,
+   "cold": 0,
+   "pull": 1.5,
+   "pullAdj": 0.866
+  },
+  "Agriculture": {
+   "reached": 1,
+   "engaged": 1,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 1,
+   "hot": 0,
+   "cold": 0,
+   "pull": 1.5,
+   "pullAdj": 1.5
+  },
+  "Energy": {
+   "reached": 2,
+   "engaged": 1,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 1,
+   "hot": 0,
+   "cold": 1,
+   "pull": 0.75,
+   "pullAdj": 0.53
+  },
+  "Healthcare": {
+   "reached": 3,
+   "engaged": 1,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 1.0,
+   "pullAdj": 0.577
+  },
+  "Cement & Building Materials": {
+   "reached": 11,
+   "engaged": 1,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 1.0,
+   "pullAdj": 0.302
+  },
+  "Chemicals": {
+   "reached": 14,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "FMCG": {
+   "reached": 4,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "Automotive": {
+   "reached": 6,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "Oil & Gas": {
+   "reached": 1,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "Unmapped": {
+   "reached": 30,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "Real Estate": {
+   "reached": 2,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "IT Services": {
+   "reached": 2,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
+  },
+  "Manufacturing": {
+   "reached": 1,
+   "engaged": 0,
+   "calls": 0,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 0.0,
+   "pullAdj": 0.0
   }
  },
  "accounts": [
   {
-   "name": "JSW Steel",
-   "stage": "QUEUED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Hindalco Industries",
-   "stage": "QUEUED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Vedanta Aluminium",
-   "stage": "QUEUED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Jindal Stainless",
-   "stage": "QUEUED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "TCS",
-   "stage": "QUEUED",
-   "framework": "SBTI",
-   "industry": "IT Services"
-  },
-  {
-   "name": "Nestle India",
-   "stage": "QUEUED",
-   "framework": "SBTI",
-   "industry": "FMCG"
-  },
-  {
-   "name": "Asian Paints",
-   "stage": "QUEUED",
-   "framework": "EPD",
-   "industry": "FMCG"
-  },
-  {
-   "name": "Trident",
-   "stage": "QUEUED",
-   "framework": "EUDR",
-   "industry": "Paper & Packaging"
-  },
-  {
-   "name": "Sundram Fasteners",
-   "stage": "SENT",
-   "framework": "CBAM",
-   "industry": "Automotive"
-  },
-  {
-   "name": "Ratnamani Metals & Tubes",
-   "stage": "SENT",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Venus Pipes & Tubes",
-   "stage": "SENT",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Amarinox",
-   "stage": "SENT",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "SKF India",
-   "stage": "SENT",
-   "framework": "SBTI",
-   "industry": "Automotive"
-  },
-  {
-   "name": "Bharat Forge",
-   "stage": "SENT",
-   "framework": "CBAM",
-   "industry": "Automotive"
-  },
-  {
-   "name": "Aarti Industries",
-   "stage": "SENT",
-   "framework": "PCF",
-   "industry": "Chemicals"
-  },
-  {
-   "name": "Polycab India",
-   "stage": "SENT",
-   "framework": "EPD",
-   "industry": "Manufacturing"
-  },
-  {
-   "name": "Apollo Hospitals",
-   "stage": "SENT",
-   "framework": "PCF",
-   "industry": "Healthcare"
-  },
-  {
-   "name": "Bansal Wire",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Ensto India",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Aravind",
-   "stage": "REPLIED",
-   "framework": "CCTS",
-   "industry": "Paper & Packaging"
-  },
-  {
-   "name": "Suzlon",
-   "stage": "REPLIED",
-   "framework": "EPD",
-   "industry": "Manufacturing"
-  },
-  {
-   "name": "Zydus Lifesciences",
-   "stage": "REPLIED",
-   "framework": "SBTI",
-   "industry": "Healthcare"
-  },
-  {
-   "name": "Viraj Profiles",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Aperam",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Centravis",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Icdas",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Construction Materials Industries (CMI Oman)",
-   "stage": "REPLIED",
-   "framework": "CBAM",
-   "industry": "Metals"
-  },
-  {
-   "name": "Hurtigruten",
-   "stage": "REPLIED",
-   "framework": "GHG",
-   "industry": "Other"
+   "name": "YPO Bangalore",
+   "industry": "Membership & Events",
+   "framework": "Carbon neutral",
+   "country": "IN",
+   "stage": "PROPOSAL",
+   "pull": 7.5,
+   "temp": "hot"
   },
   {
    "name": "LATAM Airlines",
-   "stage": "CALL",
+   "industry": "Aviation",
    "framework": "GHG",
-   "industry": "Aviation"
+   "country": "INTL",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Pakka",
+   "industry": "Paper & Packaging",
    "framework": "PCF",
-   "industry": "Manufacturing"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Pradeep Metals",
+   "industry": "Metals",
    "framework": "CBAM",
-   "industry": "Metals"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Tega Industries",
+   "industry": "Industrial Equipment",
    "framework": "CBAM",
-   "industry": "Metals"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Gulf Extrusions",
+   "industry": "Metals",
    "framework": "CBAM",
-   "industry": "Metals"
+   "country": "AE",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
   },
   {
-   "name": "Ani",
+   "name": "BRAC Bank",
+   "industry": "Banking & Finance",
+   "framework": "Financed (PCAF)",
+   "country": "BD",
    "stage": "CALL",
+   "pull": 4.5,
+   "temp": "hot"
+  },
+  {
+   "name": "TR FVLS (trfvlsl.com)",
+   "industry": "Logistics & Shipping",
    "framework": "PCF",
-   "industry": "Manufacturing"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 5.1,
+   "temp": "hot",
+   "rating": 8.5
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Peekay Steels",
+   "industry": "Metals",
    "framework": "CBAM",
-   "industry": "Metals"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm",
+   "rating": 5.0
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "JK Paper",
+   "industry": "Paper & Packaging",
    "framework": "CCTS",
-   "industry": "Paper & Packaging"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm",
+   "rating": 5.0
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Balearia",
+   "industry": "Logistics & Shipping",
    "framework": "GHG",
-   "industry": "Other"
+   "country": "ES",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
   },
   {
-   "name": "Ani",
-   "stage": "CALL",
+   "name": "Asian Fabricx",
+   "industry": "Textiles & Apparel",
    "framework": "PCF",
-   "industry": "Manufacturing"
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 4.2,
+   "temp": "hot",
+   "rating": 7.0
+  },
+  {
+   "name": "Bansal Wire",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Ensto India",
+   "industry": "Electrical Equipment",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.5,
+   "inbound": true,
+   "temp": "warm"
+  },
+  {
+   "name": "Hosachiguru",
+   "industry": "Agriculture",
+   "framework": "Not sure yet",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.5,
+   "inbound": true,
+   "temp": "warm"
+  },
+  {
+   "name": "Andhra Paper",
+   "industry": "Paper & Packaging",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Suzlon",
+   "industry": "Energy",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 0.75,
+   "inbound": true,
+   "temp": "cold"
+  },
+  {
+   "name": "Zydus Lifesciences",
+   "industry": "Healthcare",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Viraj Profiles",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 0.5,
+   "temp": "cold"
+  },
+  {
+   "name": "Aperam",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "BR",
+   "stage": "REPLIED",
+   "pull": 0.5,
+   "temp": "cold"
+  },
+  {
+   "name": "Centravis",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "UA",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Icdas",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "TR",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Construction Materials Industries (CMI Oman)",
+   "industry": "Cement & Building Materials",
+   "framework": "CBAM",
+   "country": "OM",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Hurtigruten",
+   "industry": "Logistics & Shipping",
+   "framework": "GHG",
+   "country": "NO",
+   "stage": "REPLIED",
+   "pull": 0.5,
+   "temp": "cold"
+  },
+  {
+   "name": "NOCIL",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Britannia Industries",
+   "industry": "FMCG",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Bharat Forge",
+   "industry": "Automotive",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "HDFC Asset Management",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Apollo Pipes",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Himatsingka Seide",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Century Extrusions",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Tata Chemicals",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Vinati Organics",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "OQ",
+   "industry": "Oil & Gas",
+   "framework": "CBAM",
+   "country": "OM",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Indian Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Nippon Paint India",
+   "industry": "Chemicals",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "SRF",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Bandhan Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Aditya Birla Capital",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Pearl Global Industries",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Mirza International",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Action Tesa",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "RBL Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Coromandel International",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Meghmani Organics",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "LIC Housing Finance",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Arfin India",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emirates Group",
+   "industry": "Aviation",
+   "framework": "CORSIA",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Bank of India",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Ashok Leyland",
+   "industry": "Automotive",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Manaksia Aluminium",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Havells India",
+   "industry": "Electrical Equipment",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "HSIL (Hindware)",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Cholamandalam Finance",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Borouge",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Pidilite Industries",
+   "industry": "Chemicals",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "NABARD",
+   "industry": "Unmapped",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "GNFC",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "ACWA Power",
+   "industry": "Energy",
+   "framework": "GCC",
+   "country": "SA",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Cera Sanitaryware",
+   "industry": "Unmapped",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emami Paper Mills",
+   "industry": "Paper & Packaging",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "EID Parry",
+   "industry": "Unmapped",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Akzo Nobel India",
+   "industry": "Unmapped",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "TVS Srichakra",
+   "industry": "Unmapped",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "SKF India",
+   "industry": "Automotive",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emirates NBD",
+   "industry": "Unmapped",
+   "framework": "PCAF",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "AWL Agri Business",
+   "industry": "Unmapped",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Saurashtra Cement",
+   "industry": "Cement & Building Materials",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Jai Balaji Industries",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "NCL Industries",
+   "industry": "Cement & Building Materials",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Seshasayee Paper",
+   "industry": "Paper & Packaging",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Harrisons Malayalam",
+   "industry": "Unmapped",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Kotak Mahindra Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Somany Ceramics",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Syngene International",
+   "industry": "Unmapped",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Aldar Properties",
+   "industry": "Real Estate",
+   "framework": "GCC",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Dabur India",
+   "industry": "FMCG",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Chambal Fertilisers",
+   "industry": "Chemicals",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Steelcast",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Industries Qatar / QAFCO",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "QA",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Prince Pipes & Fittings",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Patanjali Foods",
+   "industry": "FMCG",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Neuland Laboratories",
+   "industry": "Unmapped",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Everest Industries",
+   "industry": "Unmapped",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Amarinox",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "DCW",
+   "industry": "Unmapped",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Sunflag Iron & Steel",
+   "industry": "Metals",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "First Abu Dhabi Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "TVS Motor",
+   "industry": "Automotive",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "SABIC Agri-Nutrients",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "SA",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Mahindra Lifespace",
+   "industry": "Real Estate",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Tata Communications",
+   "industry": "IT Services",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Maharashtra Seamless",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emirates Steel Arkan",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Ma'aden",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "SA",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Sai Life Sciences",
+   "industry": "Healthcare",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Kirloskar Ferrous",
+   "industry": "Unmapped",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "TGV SRAAC",
+   "industry": "Unmapped",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Shyam Metalics & Energy",
+   "industry": "Metals",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emirates Global Aluminium",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Axis Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Supreme Industries",
+   "industry": "Unmapped",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Mangalam Cement",
+   "industry": "Cement & Building Materials",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Electrosteel Castings",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Shree Renuka Sugars",
+   "industry": "Unmapped",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Venus Pipes & Tubes",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Deepak Fertilisers (DFPCL)",
+   "industry": "Chemicals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Ratnamani Metals & Tubes",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Fertiglobe",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Sundram Fasteners",
+   "industry": "Automotive",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Aarti Industries",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Polycab India",
+   "industry": "Electrical Equipment",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Apollo Hospitals",
+   "industry": "Healthcare",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "KPR Mill",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "M&M Financial Services",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "DP World",
+   "industry": "Logistics & Shipping",
+   "framework": "GCC",
+   "country": "AE",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "SP Apparels",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Finolex Industries",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Superhouse",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Jindal Aluminium",
+   "industry": "Metals",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Acutaas Chemicals",
+   "industry": "Chemicals",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "ISMT",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Rama Steel Tubes",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Deccan Cements",
+   "industry": "Cement & Building Materials",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Everest Kanto Cylinder",
+   "industry": "Unmapped",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Andhra Sugars",
+   "industry": "Chemicals",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Happy Forgings",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Chemfab Alkalis",
+   "industry": "Unmapped",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Bosch Ltd",
+   "industry": "Automotive",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Jindal Stainless",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Hindalco Industries",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Vedanta Aluminium",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "JSW Steel",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "TCS",
+   "industry": "IT Services",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Nestle India",
+   "industry": "FMCG",
+   "framework": "SBTi",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Asian Paints",
+   "industry": "Chemicals",
+   "framework": "EPD",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Trident",
+   "industry": "Textiles & Apparel",
+   "framework": "EUDR",
+   "country": "IN",
+   "stage": "QUEUED",
+   "pull": 0.0
+  },
+  {
+   "name": "Prism Johnson",
+   "industry": "Unmapped",
+   "framework": "CCTS",
+   "country": "IN",
+   "stage": "LOST",
+   "pull": 0.0
+  },
+  {
+   "name": "UPL",
+   "industry": "Unmapped",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "LOST",
+   "pull": 0.0
+  },
+  {
+   "name": "Nororbis Itus",
+   "industry": "Manufacturing",
+   "framework": "GHG",
+   "country": "IN",
+   "stage": "LOST",
+   "pull": 0.0
+  },
+  {
+   "name": "Union Bank of India",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "IN",
+   "stage": "LOST",
+   "pull": 0.0
+  },
+  {
+   "name": "Saudi Awwal Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "SA",
+   "stage": "LOST",
+   "pull": 0.0
   }
  ]
 }
