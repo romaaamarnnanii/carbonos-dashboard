@@ -473,6 +473,68 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   .pull-tags{grid-column:2;justify-content:flex-start}
   .signal-row{grid-template-columns:1fr;gap:24px}
 }
+
+/* ===== signal cards (v3): compact rows, click to expand ===== */
+.signal-row{gap:20px}
+.sig-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px;box-shadow:0 2px 10px rgba(18,12,58,.06)}
+.sig-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sig-kick{font-family:var(--semi);font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.sig-head h2{margin:2px 0 0;font-size:17px;font-weight:700;color:var(--blue);letter-spacing:-.01em}
+.sig-lede{margin:8px 0 14px;font-size:13px;color:var(--ink-dim);line-height:1.5}
+.sig-lede b{color:var(--ink)}
+.sig-how{position:relative;color:var(--purple);font-weight:600;cursor:help;border-bottom:1px dotted currentColor;white-space:nowrap}
+.sig-tip{display:none;position:absolute;right:0;top:calc(100% + 6px);width:320px;white-space:normal;background:var(--blue);color:#fff;font-weight:400;font-size:12px;line-height:1.5;padding:10px 12px;border-radius:8px;z-index:5;box-shadow:var(--shadow)}
+.sig-how:hover .sig-tip,.sig-how:focus .sig-tip{display:block}
+.sig-legend{display:flex;gap:10px;font-size:11px;color:var(--ink-faint);white-space:nowrap;padding-top:4px}
+.sig-legend>span{display:inline-flex;align-items:center;gap:4px}
+.sig-legend .sw,.sd-line .sw{width:9px;height:9px;border-radius:2px;display:inline-block}
+.sig-cols,.sig-row{display:grid;grid-template-columns:150px minmax(60px,1fr) 34px 150px 14px;gap:12px;align-items:center}
+.sig-cols{font-family:var(--semi);font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);padding:0 8px 6px;border-bottom:1px solid var(--line-soft)}
+.sig-cols span:nth-child(3){text-align:right}
+.sig-item{border-bottom:1px solid var(--line-soft)}
+.sig-item:last-child{border-bottom:0}
+.sig-row{padding:9px 8px;cursor:pointer;border-radius:7px;margin:2px 0}
+.sig-row:hover{background:var(--lav)}
+.sig-item.open .sig-row{background:var(--lav)}
+.sig-lab{font-size:13px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.idot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.sig-track{height:10px;background:var(--panel-2);border-radius:5px;overflow:hidden;display:block}
+.sig-fill{display:block;height:100%;background:var(--purple);border-radius:5px}
+.pain-stack{display:flex;height:100%;border-radius:5px;overflow:hidden;min-width:4px}
+.pain-stack .pseg{display:block}
+.sig-num{font-size:14px;font-weight:700;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.sig-meta{font-size:12px;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sig-chev{width:14px;height:14px;color:var(--ink-faint);transition:transform .15s}
+.sig-item.open .sig-chev{transform:rotate(90deg);color:var(--purple)}
+.sig-detail{padding:8px 8px 14px 24px;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--ink-dim)}
+.sd-line{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.sd-line b{color:var(--ink)}
+.sd-line .pl{display:inline-flex;align-items:center;gap:5px}
+.sd-group{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:start}
+.sd-lab{font-family:var(--semi);font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);padding-top:3px}
+.sd-chips{display:flex;flex-wrap:wrap;gap:5px}
+.sd-names{display:flex;flex-wrap:wrap;gap:4px 14px;line-height:1.6}
+.sd-names .nm{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:500}
+.sd-names .nm.acct{font-weight:400;color:var(--ink-dim)}
+.sd-names .nm i{font-style:normal;font-size:10.5px;color:var(--ink-faint);margin-left:4px}
+.sd-names .nm.hot{color:#B4481B}.sd-names .nm.cold{color:var(--ink-faint)}
+.t-hot{color:#B4481B!important}.t-cold{color:var(--ink-faint)}.t-up{color:var(--green);font-weight:600;font-size:11.5px}
+.sig-act{align-self:flex-start;background:none;border:0;padding:0;color:var(--purple);font-weight:600;font-size:12.5px}
+.sig-act:hover{text-decoration:underline}
+.sig-more{display:flex;align-items:center;gap:6px;margin:10px auto 0;background:none;border:1px solid var(--line);border-radius:7px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--ink-dim)}
+.sig-more:hover{border-color:var(--purple);color:var(--purple)}
+.sig-more svg{width:13px;height:13px}
+.sig-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--ink-faint);line-height:1.5}
+.sig-foot .when{font-size:11px}
+@media (max-width:760px){.sig-cols{display:none}.sig-row{grid-template-columns:minmax(0,1fr) 70px 30px 14px}.sig-meta{display:none}.sd-group{grid-template-columns:1fr;gap:4px}.sig-detail{padding-left:8px}.sig-card{padding:16px 14px}}
+.dm-row{grid-template-columns:82px 170px 40px minmax(0,1.2fr) minmax(0,1fr) 14px}
+.dm-inds,.dm-road{display:flex;align-items:center;gap:4px 12px;min-width:0;overflow:hidden;white-space:nowrap;font-size:12.5px;color:var(--ink-dim)}
+.dm-inds .nm,.d-first{display:inline-flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.d-first{color:var(--ink)}
+.d-first .sdot{width:7px;height:7px;border-radius:50%;flex:none}
+.dm-road .none,.sd-chips .none{color:var(--ink-faint);font-style:italic;font-size:12px}
+.dm-inds .more,.dm-road .more{font-size:11px;color:var(--ink-faint)}
+@media (max-width:760px){.dm-row{grid-template-columns:70px minmax(0,1fr) 30px 14px}.dm-inds,.dm-road{display:none}}
 </style>
 </head>
 <body>
@@ -1141,6 +1203,19 @@ function itemName(id){const it=items.find(i=>i.id===id);return it?it.name:id;}
 
 /* --- "Where we have pull": call signal + GTM engagement (engaged-only, depth × temperature × inbound) --- */
 const STAGE_ABBR={REPLIED:"replied",CALL:"call",PROPOSAL:"proposal",WON:"won"};
+/* compact, expandable signal lists: top N rows by default, click a row for the detail */
+const SIG_TOP=7;
+const sigOpen={theme:new Set(),pull:new Set()},sigAll={theme:false,pull:false};
+function sigToggle(kind,key){const s=sigOpen[kind];s.has(key)?s.delete(key):s.add(key);}
+function sigMore(kind,total){if(total<=SIG_TOP)return"";
+  return `<button type="button" class="sig-more" data-more="${kind}">${sigAll[kind]?"Show top "+SIG_TOP:`Show all ${total}`}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate(${sigAll[kind]?180:0}deg)"><path d="M6 9l6 6 6-6"/></svg></button>`;}
+function sigBind(el,kind,rerender){
+  el.querySelectorAll(`[data-row]`).forEach(r=>r.addEventListener("click",e=>{if(e.target.closest("a,button.sig-act"))return;sigToggle(kind,r.getAttribute("data-row"));rerender();}));
+  el.querySelectorAll(`[data-more]`).forEach(b=>b.addEventListener("click",()=>{sigAll[kind]=!sigAll[kind];rerender();}));
+}
+const CHEV=`<svg class="sig-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>`;
+
+/* --- "Where we have pull": call signal + GTM engagement (engaged-only, depth × temperature × inbound) --- */
 function renderPullPanel(){
   const el=document.getElementById("painPanel");if(!el)return;
   if(!calls.length&&!(gtm&&gtm.byIndustry)){el.innerHTML="";return;}
@@ -1160,40 +1235,47 @@ function renderPullPanel(){
   if(v2)gtm.accounts.filter(a=>STAGE_ABBR[a.stage]).forEach(a=>{const o=ensure(a.industry);o.accts.push(a);});
   const rows=Object.entries(ind).map(([k,v])=>({k,...v,avg:v.calls?v.sent/v.calls:1.0}));
   const maxCall=Math.max(...rows.map(r=>r.callPull),0.0001), maxGtm=Math.max(...rows.map(r=>r.gtm),0.0001);
-  rows.forEach(r=>{r.score=hasGtm?(0.5*(r.callPull/maxCall)+0.5*(r.gtm/maxGtm)):(r.callPull/maxCall);if(r.k==="Unmapped")r.score*=0.0001;});
-  rows.sort((a,b)=>b.score-a.score||b.callPull-a.callPull);
-  const shown=rows.filter(r=>r.calls||r.engaged);  // outreach with zero engagement is reach, not pull
-  const quiet=rows.filter(r=>!r.calls&&!r.engaged&&r.reached);
+  rows.forEach(r=>{r.score=hasGtm?(0.5*(r.callPull/maxCall)+0.5*(r.gtm/maxGtm)):(r.callPull/maxCall);});
+  const shown=rows.filter(r=>(r.calls||r.engaged)&&r.k!=="Unmapped").sort((a,b)=>b.score-a.score||b.callPull-a.callPull); // outreach with zero engagement is reach, not pull
+  const quiet=rows.filter(r=>!r.calls&&!r.engaged&&r.reached&&r.k!=="Unmapped").sort((a,b)=>b.reached-a.reached);
   const maxScore=Math.max(...shown.map(r=>r.score),0.0001), top=shown[0];
-  const barCol=r=>r.calls?(r.avg>1.12?"var(--green)":r.avg>=0.85?"var(--purple)":"var(--coral)"):"var(--purple-2)";
-  const domPain=r=>(r.High>=r.Medium&&r.High>=r.Low)?"High":(r.Medium>=r.Low?"Medium":"Low");
   const sLab=a=>a>1.12?"positive":a>=0.85?"mixed":"cool";
-  const bars=shown.map(r=>{const pct=Math.round(r.score/maxScore*100);
-    const tags=[`<span class="pull-score">${r.k==="Unmapped"?"–":pct}</span>`];
-    if(r.calls)tags.push(`<span class="chip" title="calls logged in Learnings">${r.calls} call${r.calls>1?'s':''}</span>`);
-    if(r.reached)tags.push(`<span class="chip gtm" title="GTM accounts engaged (replied or further) / reached">${r.engaged}/${r.reached} engaged</span>`);
-    if(r.inbound)tags.push(`<span class="chip inb" title="came to us inbound">${r.inbound} inbound</span>`);
-    if(r.hot)tags.push(`<span class="chip hot" title="rated ≥7/10 or flagged hot in GTM notes">${r.hot} hot</span>`);
-    if(r.cold)tags.push(`<span class="chip cold" title="lower priority / parked / pushed back in GTM notes">${r.cold} cold</span>`);
-    if(r.calls)tags.push(`<span class="chip pain-${domPain(r)}">${domPain(r)}</span>`);
-    const who=[...r.custs.map(n=>`<span class="w-call">${esc(n)}</span>`),...r.accts.filter(a=>!r.custs.some(c=>sameAccount(c,a.name))).sort((a,b)=>b.pull-a.pull).map(a=>`<span class="w-acct ${a.temp||''}" title="${esc(a.framework||'')} · ${esc(a.stage)}${a.call?' ('+a.call.toLowerCase()+')':''}${a.inbound?' · inbound':''}${a.rating?' · '+a.rating+'/10':''}">${esc(a.name)} <i>${STAGE_ABBR[a.stage]||''}</i></span>`)];
-    return `<div class="pull-row"><div class="pull-lab">${indChip(r.k)}</div>
-      <div class="pull-track"><div class="pull-fill" style="width:${pct}%;background:${barCol(r)}"></div></div>
-      <div class="pull-tags">${tags.join("")}</div>
-      ${who.length?`<div class="pull-who">${who.slice(0,7).join("")}${who.length>7?`<span class="more">+${who.length-7}</span>`:''}</div>`:''}</div>`;
+  const domPain=r=>(r.High>=r.Medium&&r.High>=r.Low)?"High":(r.Medium>=r.Low?"Medium":"Low");
+  const list=sigAll.pull?shown:shown.slice(0,SIG_TOP);
+  const body=list.map(r=>{const pct=Math.round(r.score/maxScore*100),open=sigOpen.pull.has(r.k);
+    const meta=[r.calls?`${r.calls} call${r.calls>1?"s":""}`:"",r.reached?`${r.engaged}/${r.reached} engaged`:""].filter(Boolean).join(" · ");
+    let detail="";
+    if(open){
+      const facts=[];
+      if(r.calls)facts.push(`<span><b>${r.calls}</b> call${r.calls>1?"s":""} logged · ${sLab(r.avg)} sentiment · mostly ${domPain(r).toLowerCase()} pain</span>`);
+      if(r.reached)facts.push(`<span><b>${r.engaged}</b> of ${r.reached} GTM accounts engaged${r.inbound?` · <b>${r.inbound}</b> inbound`:""}${r.hot?` · <b class="t-hot">${r.hot} hot</b>`:""}${r.cold?` · <span class="t-cold">${r.cold} cold</span>`:""}</span>`);
+      const gAcc=r.accts.filter(a=>!r.custs.some(c=>sameAccount(c,a.name))).sort((a,b)=>b.pull-a.pull);
+      detail=`<div class="sig-detail">${facts.map(f=>`<div class="sd-line">${f}</div>`).join("")}
+        ${r.custs.length?`<div class="sd-group"><div class="sd-lab">Calls logged</div><div class="sd-names">${r.custs.map(n=>`<span class="nm">${esc(n)}</span>`).join("")}</div></div>`:""}
+        ${gAcc.length?`<div class="sd-group"><div class="sd-lab">In the GTM pipeline</div><div class="sd-names">${gAcc.map(a=>`<span class="nm acct ${a.temp||''}" title="${esc(a.framework||'')}${a.inbound?' · inbound':''}${a.rating?' · '+a.rating+'/10':''}">${esc(a.name)}<i>${STAGE_ABBR[a.stage]}${a.call==="UPCOMING"?" · upcoming":""}</i></span>`).join("")}</div></div>`:""}
+        ${r.calls?`<button type="button" class="sig-act" data-ind="${esc(r.k)}">Show these calls →</button>`:""}</div>`;
+    }
+    return `<div class="sig-item ${open?"open":""}"><div class="sig-row" data-row="${esc(r.k)}" title="Click for details">
+      <span class="sig-lab"><span class="idot" style="background:${indColor(r.k)}"></span>${esc(r.k)}</span>
+      <span class="sig-track"><span class="sig-fill" style="width:${pct}%"></span></span>
+      <span class="sig-num">${pct}</span><span class="sig-meta">${meta}</span>${CHEV}</div>${detail}</div>`;
   }).join("");
-  const blend=hasGtm?`call signal (frequency × pain × sentiment) blended 50/50 with GTM engagement — only accounts that replied or went further count, weighted by depth (reply → call → proposal → won), inbound and how hot the team rated them${pullMode==="adj"?", then rate-adjusted by how many accounts we reached in that industry":""}`:"call frequency × pain intensity × meeting sentiment";
-  let gtmLine="";
-  if(hasGtm){const f=gtm.funnel||{};gtmLine=`<div class="pull-gtm"><span class="pt-lab">GTM pipeline</span> ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won · ${gtm.accountsParsed||0} accounts mapped · <span class="gtm-when">synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span>${quiet.length?`<br><span class="pt-lab">Reached, no reply yet</span> ${quiet.map(r=>`${esc(r.k)} (${r.reached})`).join(" · ")}`:""}</div>`;}
-  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Where we have pull</h2><span class="rule"></span>${v2?`<div class="seg mini" id="pullSeg"><button data-m="adj" class="${pullMode==='adj'?'on':''}" title="pull ÷ √accounts reached — doesn't reward sheer outreach volume">Rate-adjusted</button><button data-m="vol" class="${pullMode==='vol'?'on':''}" title="raw engagement, bigger outreach = bigger number">Volume</button></div>`:''}</div>
-    <div class="pain-sub">A <b>pull score</b> per industry — ${blend}. Strongest pull: <b>${esc(top?top.k:"—")}</b>${top&&top.calls?` — ${top.calls} call${top.calls>1?'s':''}, ${sLab(top.avg)} sentiment`:``}${top&&top.engaged?`${top.calls?'; ':' — '}${top.engaged} of ${top.reached} GTM accounts engaged`:``}.</div>
-    <div class="pull-bars">${bars}</div>
-    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--green)"></span>Positive</span><span class="k"><span class="sw" style="background:var(--purple)"></span>Mixed</span><span class="k"><span class="sw" style="background:var(--coral)"></span>Cool</span><span class="k"><span class="sw" style="background:var(--purple-2)"></span>Pipeline only</span><span class="k" style="margin-left:auto;color:var(--ink-faint)">names: <span class="w-call">call logged</span> <span class="w-acct">GTM account</span></span></div>
-    ${gtmLine}`;
+  const how=hasGtm?`Half from logged calls (how often an industry comes up × pain × sentiment), half from the GTM pipeline — counting only accounts that replied or went further, weighted by depth (reply → call → proposal → won), inbound and how hot the team rated them${pullMode==="adj"?", then adjusted for how many accounts we reached":""}.`:"Calls logged × pain × sentiment.";
+  const f=hasGtm?(gtm.funnel||{}):null;
+  el.innerHTML=`<div class="sig-card">
+    <div class="sig-head"><div><div class="sig-kick">Signal</div><h2>Where we have pull</h2></div>${v2?`<div class="seg mini" id="pullSeg"><button data-m="adj" class="${pullMode==='adj'?'on':''}" title="Doesn't reward sheer outreach volume">Rate-adjusted</button><button data-m="vol" class="${pullMode==='vol'?'on':''}" title="Raw engagement — bigger outreach, bigger number">Volume</button></div>`:''}</div>
+    <p class="sig-lede">${top?`Strongest pull: <b>${esc(top.k)}</b>.`:""} Score 0–100 per industry. <span class="sig-how" tabindex="0">How it's scored<span class="sig-tip">${how}</span></span></p>
+    <div class="sig-cols"><span>Industry</span><span></span><span>Score</span><span>Evidence</span></div>
+    <div class="sig-list">${body}</div>
+    ${sigMore("pull",shown.length)}
+    ${hasGtm?`<div class="sig-foot"><span>GTM: ${f.contacted||0} contacted → ${f.replied||0} replied → ${f.call||0} calls → ${f.proposal||0} proposal → ${f.won||0} won</span>${quiet.length?`<span>No reply yet: ${quiet.slice(0,5).map(r=>`${esc(r.k)} (${r.reached})`).join(", ")}${quiet.length>5?` +${quiet.length-5}`:""}</span>`:""}<span class="when">Synced ${esc(gtm.snapshotLabel||gtm.generatedAt||"")}</span></div>`:""}
+  </div>`;
+  sigBind(el,"pull",renderPullPanel);
   el.querySelectorAll("#pullSeg button").forEach(b=>b.addEventListener("click",()=>{pullMode=b.getAttribute("data-m");renderPullPanel();}));
+  el.querySelectorAll("[data-ind]").forEach(b=>b.addEventListener("click",()=>setCallFilter({industry:b.getAttribute("data-ind"),theme:""},true)));
 }
 
-/* --- recurring pain themes: who raised it (customers + industries), trend, click to filter --- */
+/* --- recurring pain themes: who raised it (customers + industries), trend, click to expand --- */
 function themeStats(){
   const th={},now=Date.now(),D=864e5;
   calls.forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);
@@ -1210,21 +1292,37 @@ function renderThemePanel(){
   const rows=themeStats();
   const max=Math.max(...rows.map(r=>r.total),1),recurring=rows.filter(r=>r.total>=2).length,col={High:"var(--pain-high)",Medium:"var(--pain-med)",Low:"var(--pain-low)"};
   const pr={High:0,Medium:1,Low:2};
-  const bars=rows.map(r=>{
-    const segs=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pseg" style="flex:${r[k]};background:${col[k]}" title="${r[k]} × ${k} pain"></span>`).join("");
-    const inds=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>indChip(k,n)).join("");
-    const custs=[...r.custs].sort((a,b)=>pr[a.pain]-pr[b.pain]).map(c=>`<span class="tc" style="--ic:${indColor(c.ind)}" title="${esc(c.ind)} · ${c.pain} pain">${esc(c.name)}</span>`).join("");
-    const trend=r.recent>r.prior&&r.recent>=2?`<span class="trend up" title="${r.recent} in the last 30 days vs ${r.prior} the 30 before">▲ rising</span>`:"";
-    const on=callFilter.theme===r.t;
-    return `<div class="theme-row ${on?'on':''}" data-theme="${esc(r.t)}" title="Click to filter the call log to ${esc(r.t)}">
-      <div class="pain-row"><div class="pain-lab">${esc(r.t)}</div><div class="pain-track" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</div><div class="pain-num">${r.total}${trend}</div></div>
-      <div class="theme-who"><div class="tw-inds">${inds}</div><div class="tw-custs">${custs}</div></div></div>`;
+  const list=sigAll.theme?rows:rows.slice(0,SIG_TOP);
+  const body=list.map(r=>{
+    const open=sigOpen.theme.has(r.t);
+    const segs=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pseg" style="flex:${r[k]};background:${col[k]}"></span>`).join("");
+    const nInd=Object.keys(r.inds).length;
+    const rising=r.recent>r.prior&&r.recent>=2;
+    let detail="";
+    if(open){
+      const inds=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>indChip(k,n)).join("");
+      const painLine=["High","Medium","Low"].filter(k=>r[k]).map(k=>`<span class="pl"><span class="sw" style="background:${col[k]}"></span>${r[k]} ${k.toLowerCase()}</span>`).join("");
+      detail=`<div class="sig-detail">
+        <div class="sd-line">${painLine}${rising?`<span class="t-up">▲ ${r.recent} in the last 30 days (vs ${r.prior})</span>`:""}</div>
+        <div class="sd-group"><div class="sd-lab">Industries</div><div class="sd-chips">${inds}</div></div>
+        <div class="sd-group"><div class="sd-lab">Customers</div><div class="sd-names">${[...r.custs].sort((a,b)=>pr[a.pain]-pr[b.pain]).map(c=>`<span class="nm" title="${esc(c.ind)} · ${c.pain} pain"><span class="idot" style="background:${indColor(c.ind)}"></span>${esc(c.name)}</span>`).join("")}</div></div>
+        <button type="button" class="sig-act" data-th="${esc(r.t)}">Show these calls →</button></div>`;
+    }
+    return `<div class="sig-item ${open?"open":""}"><div class="sig-row" data-row="${esc(r.t)}" title="Click for details">
+      <span class="sig-lab">${esc(r.t)}</span>
+      <span class="sig-track"><span class="pain-stack" style="width:${(r.total/max*100).toFixed(1)}%">${segs}</span></span>
+      <span class="sig-num">${r.total}</span><span class="sig-meta">${r.custs.length} customer${r.custs.length>1?"s":""} · ${nInd} industr${nInd>1?"ies":"y"}${rising?` <span class="t-up">▲</span>`:""}</span>${CHEV}</div>${detail}</div>`;
   }).join("");
-  el.innerHTML=`<div class="sec-title"><span class="kick">Signal</span><h2>Recurring pain themes</h2><span class="rule"></span></div>
-    <div class="pain-sub">How many logged calls raised each theme, coloured by pain level — with the industries and customers behind every count.${recurring>1?` <b>${recurring}</b> themes recur across 2+ calls.`:''} Click a theme to filter the call log.</div>
-    <div class="pain-bars">${bars}</div>
-    <div class="pain-legend"><span class="k"><span class="sw" style="background:var(--pain-high)"></span>High pain</span><span class="k"><span class="sw" style="background:var(--pain-med)"></span>Medium</span><span class="k"><span class="sw" style="background:var(--pain-low)"></span>Low</span><span class="k" style="margin-left:auto">customers sorted by pain · dot = industry</span></div>`;
-  el.querySelectorAll("[data-theme]").forEach(r=>r.addEventListener("click",()=>{const t=r.getAttribute("data-theme");setCallFilter({theme:callFilter.theme===t?"":t},true);}));
+  el.innerHTML=`<div class="sig-card">
+    <div class="sig-head"><div><div class="sig-kick">Signal</div><h2>Recurring pain themes</h2></div>
+      <div class="sig-legend"><span><span class="sw" style="background:var(--pain-high)"></span>High</span><span><span class="sw" style="background:var(--pain-med)"></span>Med</span><span><span class="sw" style="background:var(--pain-low)"></span>Low pain</span></div></div>
+    <p class="sig-lede">Calls that raised each theme${recurring>1?` — <b>${recurring}</b> recur across 2+ calls`:""}. Click a theme to see who raised it.</p>
+    <div class="sig-cols"><span>Theme</span><span></span><span>Calls</span><span>Who</span></div>
+    <div class="sig-list">${body}</div>
+    ${sigMore("theme",rows.length)}
+  </div>`;
+  sigBind(el,"theme",renderThemePanel);
+  el.querySelectorAll("[data-th]").forEach(b=>b.addEventListener("click",()=>setCallFilter({theme:b.getAttribute("data-th"),industry:""},true)));
 }
 
 /* --- demand → roadmap: is what we keep hearing actually on the roadmap? --- */
@@ -1243,27 +1341,42 @@ function demandRows(){
 function renderDemandPanel(){
   const el=document.getElementById("demandPanel");if(!el)return;
   const rows=demandRows();if(!rows.length){el.innerHTML="";return;}
-  const V={gap:["Gap","Heard repeatedly, nothing on the roadmap"],watch:["Watch","Heard once — not on the roadmap yet"],planned:["Planned","On the roadmap, not started"],building:["Building","In progress"],shipped:["Shipped","Something shipped for it"]};
+  const V={gap:["Gap","Heard 2+ times, nothing on the roadmap"],watch:["Watch","Heard once, not on the roadmap yet"],planned:["Planned","On the roadmap, not started"],building:["Building","In progress"],shipped:["Shipped","Something shipped for it"]};
   const order={gap:0,planned:1,building:2,watch:3,shipped:4};
   rows.sort((a,b)=>order[a.verdict]-order[b.verdict]||b.total-a.total||b.High-a.High);
-  const body=rows.map(r=>{
-    const its=r.items.slice(0,3).map(it=>`<span class="d-item" data-goitem="${it.id}" title="${esc(it.status)}"><span class="sdot" style="background:${statusMeta(it.status).c}"></span>${esc(it.name)}</span>`).join("")+(r.items.length>3?`<span class="more">+${r.items.length-3}</span>`:"");
-    const inds=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>indChip(k,n)).join("");
-    return `<tr><td><span class="verdict v-${r.verdict}" title="${V[r.verdict][1]}">${V[r.verdict][0]}</span></td>
-      <td class="d-theme" data-theme="${esc(r.t)}">${esc(r.t)}</td>
-      <td class="d-num">${r.total}${r.High?` <span class="chip pain-High">${r.High} high</span>`:''}</td>
-      <td><div class="d-inds">${inds}</div></td>
-      <td class="d-custs">${r.custs.map(c=>esc(c.name)).join(", ")}</td>
-      <td><div class="d-items">${its||'<span class="none">—</span>'}</div></td></tr>`;
+  if(sigOpen.demand===undefined){sigOpen.demand=new Set();sigAll.demand=false;}
+  const list=sigAll.demand?rows:rows.slice(0,SIG_TOP);
+  const body=list.map(r=>{const open=sigOpen.demand.has(r.t);
+    const indsSorted=Object.entries(r.inds).sort((a,b)=>b[1]-a[1]);
+    const indsShort=indsSorted.slice(0,3).map(([k])=>`<span class="nm"><span class="idot" style="background:${indColor(k)}"></span>${esc(k)}</span>`).join("")+(indsSorted.length>3?`<span class="more">+${indsSorted.length-3}</span>`:"");
+    const road=r.items.length?`<span class="d-first"><span class="sdot" style="background:${statusMeta(r.items[0].status).c}"></span>${esc(r.items[0].name)}</span>${r.items.length>1?`<span class="more">+${r.items.length-1}</span>`:""}`:`<span class="none">Nothing yet</span>`;
+    let detail="";
+    if(open){
+      detail=`<div class="sig-detail">
+        <div class="sd-group"><div class="sd-lab">Industries</div><div class="sd-chips">${indsSorted.map(([k,n])=>indChip(k,n)).join("")}</div></div>
+        <div class="sd-group"><div class="sd-lab">Customers</div><div class="sd-names">${r.custs.map(c=>`<span class="nm"><span class="idot" style="background:${indColor(c.ind)}"></span>${esc(c.name)}</span>`).join("")}</div></div>
+        <div class="sd-group"><div class="sd-lab">On the roadmap</div><div class="sd-chips">${r.items.length?r.items.map(it=>`<span class="d-item" data-goitem="${it.id}" title="${esc(it.status)}"><span class="sdot" style="background:${statusMeta(it.status).c}"></span>${esc(it.name)}</span>`).join(""):`<span class="none">Nothing matched — link a build from one of these calls, or add a roadmap item.</span>`}</div></div>
+        <button type="button" class="sig-act" data-th="${esc(r.t)}">Show these calls →</button></div>`;
+    }
+    return `<div class="sig-item ${open?"open":""}"><div class="sig-row dm-row" data-row="${esc(r.t)}" title="Click for details">
+      <span><span class="verdict v-${r.verdict}" title="${V[r.verdict][1]}">${V[r.verdict][0]}</span></span>
+      <span class="sig-lab">${esc(r.t)}</span>
+      <span class="sig-num">${r.total}</span>
+      <span class="dm-inds">${indsShort}</span>
+      <span class="dm-road">${road}</span>${CHEV}</div>${detail}</div>`;
   }).join("");
   const gaps=rows.filter(r=>r.verdict==="gap");
-  el.innerHTML=`<div class="sec-title"><span class="kick">For the roadmap</span><h2>Demand → Roadmap</h2><span class="rule"></span></div>
-    <div class="pain-sub">Every theme customers raised, who raised it, and what's on the roadmap for it (items linked from a call, or whose name/notes mention the theme).${gaps.length?` <b>${gaps.length} gap${gaps.length>1?'s':''}</b>: ${gaps.map(g=>esc(g.t)).join(", ")} — heard 2+ times with nothing planned.`:" No gaps — everything heard twice has a roadmap item."}</div>
-    <div class="learn-table demand-table"><table><thead><tr><th>Status</th><th>Theme</th><th>Calls</th><th>Industries</th><th>Customers</th><th>On the roadmap</th></tr></thead><tbody>${body}</tbody></table></div>`;
-  el.querySelectorAll("[data-goitem]").forEach(x=>x.addEventListener("click",()=>{switchView("roadmap");setTimeout(()=>openEdit(x.getAttribute("data-goitem")),80);}));
-  el.querySelectorAll(".d-theme[data-theme]").forEach(x=>x.addEventListener("click",()=>setCallFilter({theme:x.getAttribute("data-theme")},true)));
+  el.innerHTML=`<div class="sig-card">
+    <div class="sig-head"><div><div class="sig-kick">For the roadmap</div><h2>Demand → Roadmap</h2></div></div>
+    <p class="sig-lede">${gaps.length?`<b>${gaps.length} gap${gaps.length>1?"s":""}</b> — ${gaps.map(g=>esc(g.t)).join(", ")} came up in 2+ calls with nothing on the roadmap.`:"No gaps — everything heard twice has a roadmap item."} <span class="sig-how" tabindex="0">How it's matched<span class="sig-tip">A roadmap item counts for a theme if a call with that theme links to it ("Linked build"), or its name/notes mention the theme. Parked items don't count.</span></span></p>
+    <div class="sig-cols dm-row"><span>Status</span><span>Theme</span><span>Calls</span><span>Top industries</span><span>On the roadmap</span><span></span></div>
+    <div class="sig-list">${body}</div>
+    ${sigMore("demand",rows.length)}
+  </div>`;
+  sigBind(el,"demand",renderDemandPanel);
+  el.querySelectorAll("[data-goitem]").forEach(x=>x.addEventListener("click",e=>{e.stopPropagation();switchView("roadmap");setTimeout(()=>openEdit(x.getAttribute("data-goitem")),80);}));
+  el.querySelectorAll("[data-th]").forEach(b=>b.addEventListener("click",()=>setCallFilter({theme:b.getAttribute("data-th"),industry:""},true)));
 }
-
 /* --- call log: filters + table + cards --- */
 function setCallFilter(p,scroll){Object.assign(callFilter,p);renderLearnings();
   if(scroll){const t=document.getElementById("callLogTitle");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}}
