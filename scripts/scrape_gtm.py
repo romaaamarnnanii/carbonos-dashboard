@@ -91,6 +91,18 @@ NAME_IND = {
     "Apollo Hospitals": "Healthcare", "Zydus Lifesciences": "Healthcare",
     "YPO Bangalore": "Membership & Events",
     "Nororbis Itus": "Manufacturing", "Novorbis Itus": "Manufacturing",
+    # added from the first full-table run (Oct 2026)
+    "Arfin India": "Metals", "Jai Balaji Industries": "Metals", "Maharashtra Seamless": "Metals", "Ma'aden": "Metals",
+    "Kirloskar Ferrous": "Metals", "ISMT": "Metals", "Everest Kanto Cylinder": "Metals",
+    "Borouge": "Chemicals", "GNFC": "Chemicals", "Akzo Nobel India": "Chemicals", "Industries Qatar / QAFCO": "Chemicals",
+    "DCW": "Chemicals", "SABIC Agri-Nutrients": "Chemicals", "TGV SRAAC": "Chemicals", "Fertiglobe": "Chemicals",
+    "Chemfab Alkalis": "Chemicals", "UPL": "Chemicals",
+    "NABARD": "Banking & Finance", "Emirates NBD": "Banking & Finance",
+    "Cera Sanitaryware": "Cement & Building Materials", "Everest Industries": "Cement & Building Materials",
+    "Supreme Industries": "Cement & Building Materials", "Prism Johnson": "Cement & Building Materials",
+    "TVS Srichakra": "Automotive", "AWL Agri Business": "FMCG",
+    "EID Parry": "Agriculture", "Harrisons Malayalam": "Agriculture", "Shree Renuka Sugars": "Agriculture",
+    "Syngene International": "Healthcare", "Neuland Laboratories": "Healthcare",
 }
 # name keywords -> industry, for accounts not in NAME_IND yet
 KEYWORD_IND = [
