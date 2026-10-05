@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-05T14:17:52+00:00",
+ "generatedAt": "2026-10-05T14:19:17+00:00",
  "snapshotLabel": "30 Sep 2026, 11:30 IST",
  "source": "https://gtm-september.climes.io/",
  "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
@@ -49,7 +49,7 @@
    "pullAdj": 2.46
   },
   "Metals": {
-   "reached": 26,
+   "reached": 33,
    "engaged": 8,
    "calls": 3,
    "proposals": 0,
@@ -58,7 +58,7 @@
    "hot": 0,
    "cold": 3,
    "pull": 11.5,
-   "pullAdj": 2.255
+   "pullAdj": 2.002
   },
   "Industrial Equipment": {
    "reached": 1,
@@ -73,7 +73,7 @@
    "pullAdj": 1.5
   },
   "Banking & Finance": {
-   "reached": 15,
+   "reached": 17,
    "engaged": 1,
    "calls": 1,
    "proposals": 0,
@@ -82,7 +82,7 @@
    "hot": 1,
    "cold": 0,
    "pull": 4.5,
-   "pullAdj": 1.162
+   "pullAdj": 1.091
   },
   "Logistics & Shipping": {
    "reached": 4,
@@ -121,7 +121,7 @@
    "pullAdj": 0.866
   },
   "Agriculture": {
-   "reached": 1,
+   "reached": 4,
    "engaged": 1,
    "calls": 0,
    "proposals": 0,
@@ -130,7 +130,7 @@
    "hot": 0,
    "cold": 0,
    "pull": 1.5,
-   "pullAdj": 1.5
+   "pullAdj": 0.75
   },
   "Energy": {
    "reached": 2,
@@ -145,7 +145,7 @@
    "pullAdj": 0.53
   },
   "Healthcare": {
-   "reached": 3,
+   "reached": 5,
    "engaged": 1,
    "calls": 0,
    "proposals": 0,
@@ -154,10 +154,10 @@
    "hot": 0,
    "cold": 0,
    "pull": 1.0,
-   "pullAdj": 0.577
+   "pullAdj": 0.447
   },
   "Cement & Building Materials": {
-   "reached": 11,
+   "reached": 15,
    "engaged": 1,
    "calls": 0,
    "proposals": 0,
@@ -166,10 +166,10 @@
    "hot": 0,
    "cold": 0,
    "pull": 1.0,
-   "pullAdj": 0.302
+   "pullAdj": 0.258
   },
   "Chemicals": {
-   "reached": 14,
+   "reached": 24,
    "engaged": 0,
    "calls": 0,
    "proposals": 0,
@@ -181,7 +181,7 @@
    "pullAdj": 0.0
   },
   "FMCG": {
-   "reached": 4,
+   "reached": 5,
    "engaged": 0,
    "calls": 0,
    "proposals": 0,
@@ -193,7 +193,7 @@
    "pullAdj": 0.0
   },
   "Automotive": {
-   "reached": 6,
+   "reached": 7,
    "engaged": 0,
    "calls": 0,
    "proposals": 0,
@@ -206,18 +206,6 @@
   },
   "Oil & Gas": {
    "reached": 1,
-   "engaged": 0,
-   "calls": 0,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 0,
-   "pull": 0.0,
-   "pullAdj": 0.0
-  },
-  "Unmapped": {
-   "reached": 30,
    "engaged": 0,
    "calls": 0,
    "proposals": 0,
@@ -667,7 +655,7 @@
   },
   {
    "name": "Arfin India",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "SENT",
@@ -731,7 +719,7 @@
   },
   {
    "name": "Borouge",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CBAM",
    "country": "AE",
    "stage": "SENT",
@@ -747,7 +735,7 @@
   },
   {
    "name": "NABARD",
-   "industry": "Unmapped",
+   "industry": "Banking & Finance",
    "framework": "PCAF",
    "country": "IN",
    "stage": "SENT",
@@ -755,7 +743,7 @@
   },
   {
    "name": "GNFC",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "SENT",
@@ -771,7 +759,7 @@
   },
   {
    "name": "Cera Sanitaryware",
-   "industry": "Unmapped",
+   "industry": "Cement & Building Materials",
    "framework": "EPD",
    "country": "IN",
    "stage": "SENT",
@@ -787,7 +775,7 @@
   },
   {
    "name": "EID Parry",
-   "industry": "Unmapped",
+   "industry": "Agriculture",
    "framework": "EUDR",
    "country": "IN",
    "stage": "SENT",
@@ -795,7 +783,7 @@
   },
   {
    "name": "Akzo Nobel India",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "EPD",
    "country": "IN",
    "stage": "SENT",
@@ -803,7 +791,7 @@
   },
   {
    "name": "TVS Srichakra",
-   "industry": "Unmapped",
+   "industry": "Automotive",
    "framework": "EUDR",
    "country": "IN",
    "stage": "SENT",
@@ -819,7 +807,7 @@
   },
   {
    "name": "Emirates NBD",
-   "industry": "Unmapped",
+   "industry": "Banking & Finance",
    "framework": "PCAF",
    "country": "AE",
    "stage": "SENT",
@@ -827,7 +815,7 @@
   },
   {
    "name": "AWL Agri Business",
-   "industry": "Unmapped",
+   "industry": "FMCG",
    "framework": "EUDR",
    "country": "IN",
    "stage": "SENT",
@@ -843,7 +831,7 @@
   },
   {
    "name": "Jai Balaji Industries",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "SENT",
@@ -867,7 +855,7 @@
   },
   {
    "name": "Harrisons Malayalam",
-   "industry": "Unmapped",
+   "industry": "Agriculture",
    "framework": "EUDR",
    "country": "IN",
    "stage": "SENT",
@@ -891,7 +879,7 @@
   },
   {
    "name": "Syngene International",
-   "industry": "Unmapped",
+   "industry": "Healthcare",
    "framework": "PCF",
    "country": "IN",
    "stage": "SENT",
@@ -931,7 +919,7 @@
   },
   {
    "name": "Industries Qatar / QAFCO",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CBAM",
    "country": "QA",
    "stage": "SENT",
@@ -955,7 +943,7 @@
   },
   {
    "name": "Neuland Laboratories",
-   "industry": "Unmapped",
+   "industry": "Healthcare",
    "framework": "PCF",
    "country": "IN",
    "stage": "SENT",
@@ -963,7 +951,7 @@
   },
   {
    "name": "Everest Industries",
-   "industry": "Unmapped",
+   "industry": "Cement & Building Materials",
    "framework": "EPD",
    "country": "IN",
    "stage": "SENT",
@@ -979,7 +967,7 @@
   },
   {
    "name": "DCW",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CCTS",
    "country": "IN",
    "stage": "SENT",
@@ -1011,7 +999,7 @@
   },
   {
    "name": "SABIC Agri-Nutrients",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CBAM",
    "country": "SA",
    "stage": "SENT",
@@ -1035,7 +1023,7 @@
   },
   {
    "name": "Maharashtra Seamless",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "SENT",
@@ -1051,7 +1039,7 @@
   },
   {
    "name": "Ma'aden",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "SA",
    "stage": "SENT",
@@ -1067,7 +1055,7 @@
   },
   {
    "name": "Kirloskar Ferrous",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CCTS",
    "country": "IN",
    "stage": "SENT",
@@ -1075,7 +1063,7 @@
   },
   {
    "name": "TGV SRAAC",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CCTS",
    "country": "IN",
    "stage": "SENT",
@@ -1107,7 +1095,7 @@
   },
   {
    "name": "Supreme Industries",
-   "industry": "Unmapped",
+   "industry": "Cement & Building Materials",
    "framework": "EPD",
    "country": "IN",
    "stage": "SENT",
@@ -1131,7 +1119,7 @@
   },
   {
    "name": "Shree Renuka Sugars",
-   "industry": "Unmapped",
+   "industry": "Agriculture",
    "framework": "EUDR",
    "country": "IN",
    "stage": "SENT",
@@ -1163,7 +1151,7 @@
   },
   {
    "name": "Fertiglobe",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CBAM",
    "country": "AE",
    "stage": "SENT",
@@ -1267,7 +1255,7 @@
   },
   {
    "name": "ISMT",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "QUEUED",
@@ -1291,7 +1279,7 @@
   },
   {
    "name": "Everest Kanto Cylinder",
-   "industry": "Unmapped",
+   "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
    "stage": "QUEUED",
@@ -1315,7 +1303,7 @@
   },
   {
    "name": "Chemfab Alkalis",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "CCTS",
    "country": "IN",
    "stage": "QUEUED",
@@ -1395,7 +1383,7 @@
   },
   {
    "name": "Prism Johnson",
-   "industry": "Unmapped",
+   "industry": "Cement & Building Materials",
    "framework": "CCTS",
    "country": "IN",
    "stage": "LOST",
@@ -1403,7 +1391,7 @@
   },
   {
    "name": "UPL",
-   "industry": "Unmapped",
+   "industry": "Chemicals",
    "framework": "PCF",
    "country": "IN",
    "stage": "LOST",
