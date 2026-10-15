@@ -535,6 +535,47 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 .dm-road .none,.sd-chips .none{color:var(--ink-faint);font-style:italic;font-size:12px}
 .dm-inds .more,.dm-road .more{font-size:11px;color:var(--ink-faint)}
 @media (max-width:760px){.dm-row{grid-template-columns:70px minmax(0,1fr) 30px 14px}.dm-inds,.dm-road{display:none}}
+
+/* ===== customer accounts ===== */
+nav.tabs button{white-space:nowrap}
+.tab-short{display:none}
+@media (max-width:1280px){.tab-long{display:none}.tab-short{display:inline}}
+.sig-cols.ac-row span:nth-child(3){text-align:left}
+.acct-panel{min-width:0}
+.stage-pill{--sc:#8f88a8;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap;padding:2px 8px;border-radius:20px;background:color-mix(in srgb,var(--sc) 14%,#fff);color:color-mix(in srgb,var(--sc) 85%,#000)}
+.stage-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sc)}
+.ac-row{grid-template-columns:minmax(150px,1.3fr) 230px 1.4fr 80px 60px 14px}
+.ac-stage{display:flex;align-items:center;gap:10px}
+.steps{display:flex;gap:3px}
+.steps .st{width:14px;height:5px;border-radius:3px;background:var(--panel-3)}
+.steps .st.on{background:var(--sc)}
+.ac-seg{display:inline-flex;flex-wrap:wrap;margin:0 0 12px}
+.ac-empty{padding:18px 8px;color:var(--ink-faint);font-size:12.5px}
+.ac-sub{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--ink-faint)}
+.ac-pick button{--sc:#8f88a8}
+.ac-pick button .d{background:var(--sc)}
+.af-list{display:flex;flex-direction:column;gap:6px}
+.af-row{display:flex;align-items:center;gap:8px;font-size:13px;background:var(--lav);border:1px solid var(--line-soft);border-radius:8px;padding:7px 10px}
+.af-row svg{width:15px;height:15px;color:var(--purple);flex:none}
+.af-row a{color:var(--ink);font-weight:600;text-decoration:none;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.af-row a:hover{color:var(--purple);text-decoration:underline}
+.af-date{font-size:11px;color:var(--ink-faint);white-space:nowrap}
+.af-x{background:none;border:0;color:var(--ink-faint);font-size:16px;line-height:1;padding:0 2px}
+.af-x:hover{color:var(--coral)}
+.af-none{font-size:12px;color:var(--ink-faint);font-style:italic}
+.af-add{display:grid;grid-template-columns:1fr 1.4fr auto;gap:6px;margin-top:8px}
+.ac-timeline{display:flex;flex-direction:column;gap:14px}
+.tl-stage{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-faint);margin-bottom:6px}
+.tl-call{border-left:2px solid var(--sc);padding:6px 0 6px 12px;margin-left:6px;cursor:pointer;border-radius:0 6px 6px 0}
+.tl-call:hover{background:var(--lav)}
+.tl-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:12px}
+.tl-date{font-weight:700;color:var(--ink)}
+.tl-type{color:var(--ink-dim)}
+.tl-att{color:var(--ink-faint)}
+.tl-ins{font-size:12.5px;color:var(--ink-dim);line-height:1.5;margin-top:3px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.tl-areas{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.chip.area{background:rgba(1,167,122,.1);color:#017a59;border-color:transparent}
+@media (max-width:760px){.ac-row{grid-template-columns:minmax(0,1fr) auto 14px}.ac-row>.sig-meta,.ac-row .steps{display:none}.af-add{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -556,7 +597,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
   <nav class="tabs" id="tabs">
     <button data-v="roadmap" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Roadmap</button>
     <button data-v="methodology"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Methodology</button>
-    <button data-v="learnings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Learnings</button>
+    <button data-v="learnings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="tab-long">Customer Discovery &amp; Learnings</span><span class="tab-short">Customers</span></button>
     <button data-v="standups"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v13a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>Standups</button>
   </nav>
   <div class="spacer"></div>
@@ -619,6 +660,7 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
 <section class="view" id="view-learnings">
   <div class="strip" id="learnStrip"></div>
   <div class="learn-wrap">
+    <div class="acct-panel" id="acctPanel"></div>
     <div class="signal-row">
       <div class="theme-panel" id="themePanel"></div>
       <div class="pain-panel" id="painPanel"></div>
@@ -717,10 +759,12 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
       <button type="button" class="btn" id="cParseBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5z"/></svg>Auto-fill from notes</button>
       <div class="parse-msg" id="cParseMsg"></div>
     </div>
-    <div class="two"><div class="field"><label>Customer</label><input id="cCustomer" placeholder="e.g. Varuna" autocomplete="off"></div><div class="field"><label>Date</label><input id="cDate" type="date"></div></div>
+    <div class="two"><div class="field"><label>Customer</label><input id="cCustomer" list="custList" placeholder="e.g. Varuna" autocomplete="off"><datalist id="custList"></datalist></div><div class="field"><label>Date</label><input id="cDate" type="date"></div></div>
+    <div class="field"><label>Stage with us <span class="hint" id="cStageHint"></span></label><select id="cStage"></select></div>
     <div class="field"><label>Attendees / role <span class="hint">— optional</span></label><input id="cAttendees" placeholder="e.g. Head of ESG (Priya)" autocomplete="off"></div>
     <div class="two"><div class="field"><label>Industry</label><input id="cIndustry" list="indList" placeholder="e.g. Banking & Finance" autocomplete="off"><datalist id="indList"></datalist></div><div class="field"><label>Sentiment</label><select id="cSentiment"></select></div></div>
     <div class="two"><div class="field"><label>Call type</label><select id="cType"></select></div><div class="field"><label>Pain level</label><select id="cPain"></select></div></div>
+    <div class="field"><label>What this call taught us <span class="hint">— tap all that apply</span></label><div class="pick multi" id="cAreaPick"></div></div>
     <div class="field"><label>Themes / pains raised <span class="hint">— tap all that apply</span></label><div class="pick multi" id="cThemePick"></div></div>
     <div class="field"><label>What they said <span class="hint">— verbatim or paraphrase</span></label><textarea id="cQuote" placeholder="&quot;We can't see scope split at a glance…&quot;"></textarea></div>
     <div class="field"><label>Learning / insight</label><textarea id="cInsight" placeholder="What this tells us to do."></textarea></div>
@@ -729,6 +773,21 @@ select.mini{background:var(--lav);border:1px solid var(--line);color:var(--ink);
     <div class="field"><label>Linked build <span class="hint">— optional roadmap item</span></label><select id="cLink"></select></div>
   </div>
   <div class="df"><button class="del-link" id="delCallBtn">Delete call</button><div style="display:flex;gap:9px"><button class="btn" id="cancelCall">Cancel</button><button class="btn primary" id="saveCall">Save</button></div></div>
+</div>
+
+<!-- customer account drawer -->
+<div class="scrim" id="scrim5"></div>
+<div class="drawer" id="acctDrawer">
+  <div class="dh"><div><h2 id="acctTitle">Customer</h2><div class="dsub ac-sub" id="acctSub"></div></div><button class="x" id="closeAcct">×</button></div>
+  <div class="db">
+    <div class="field"><label>Stage with us</label><div class="statuspick ac-pick" id="aStagePick"></div></div>
+    <div class="field"><label>Files shared <span class="hint">— internal links: data templates, baselines, decks</span></label>
+      <div class="af-list" id="aFiles"></div>
+      <div class="af-add"><input id="aFileLabel" placeholder="Name, e.g. FY26 baseline" autocomplete="off"><input id="aFileUrl" type="url" placeholder="https://…" autocomplete="off"><button type="button" class="btn" id="aFileAdd">Add</button></div></div>
+    <div class="field"><label>Account notes <span class="hint">— motivations, stakeholders, what matters to them</span></label><textarea id="aNotes" placeholder="Why they're working with us, who decides, what success looks like…"></textarea></div>
+    <div class="field"><label style="display:flex;align-items:center;justify-content:space-between">Calls, by stage <button type="button" class="btn" id="aLogCall" style="text-transform:none;letter-spacing:0">+ Log a call</button></label><div class="ac-timeline" id="aTimeline"></div></div>
+  </div>
+  <div class="df"><span></span><div style="display:flex;gap:9px"><button class="btn" id="cancelAcct">Cancel</button><button class="btn primary" id="saveAcct">Save</button></div></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -857,7 +916,7 @@ const SEED_METH=[{"id":"S1-COMBUSTION-STATIONARY","scope":"Scope 1","cat":"Main"
 const SEED_CALLS=[{id:"CL1",date:"2026-08-14",customer:"Varuna",attendees:"Head of ESG (Priya)",type:"Onboarding",theme:"Dashboards",quote:"We can't see scope split at a glance — the exec team asks about it weekly.",insight:"Buyers need an exec-ready analytics view, not raw tables.",pain:"High",prio:"P0",link:"B01"}];
 const SEED_BUILD=[{buildId:"B01",asks:3},{buildId:"B02",asks:2},{buildId:"B03",asks:2},{buildId:"B04",asks:1}];
 
-let items=[],meth=[],calls=[],builds=[],owners=[],standups=[];
+let items=[],meth=[],calls=[],builds=[],owners=[],standups=[],accounts=[];
 let editingId=null,editingCall=null,editingMeth=null,editingStandup=null,group="horizon",methFilter="all",methQ="",methDraftStatus="Verification";
 let draftOwner="",draftPRD=null;
 const filters={status:"",type:"",impact:"",q:""};
@@ -908,7 +967,7 @@ async function remoteUpdateTask(rec){const now=new Date().toISOString();rec._upd
   const body={data:taskData(rec),updated_by:rec._updatedBy,updated_at:rec._updatedAt};
   const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(rec.id)}`,{method:"PATCH",headers:supaHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("task update "+r.status);}
 async function remoteDeleteTask(id){const r=await fetch(`${supaBase()}/rest/v1/${TASKS}?id=eq.${encodeURIComponent(id)}`,{method:"DELETE",headers:supaHeaders({Prefer:"return=minimal"})});if(!r.ok)throw new Error("task delete "+r.status);}
-async function remoteSaveMeta(){const stamp=new Date().toISOString();const body=[{id:META_ROW,data:{meth,calls,builds,owners,standups},updated_at:stamp}];
+async function remoteSaveMeta(){const stamp=new Date().toISOString();const body=[{id:META_ROW,data:{meth,calls,builds,owners,standups,accounts},updated_at:stamp}];
   const r=await fetch(`${supaBase()}/rest/v1/roadmap_state?on_conflict=id`,{method:"POST",headers:supaHeaders({"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(body)});if(!r.ok)throw new Error("meta save "+r.status);}
 async function remoteSeedTasks(){const now=new Date().toISOString();
   const rows=items.map(it=>({id:it.id,data:taskData(it),created_by:it._createdBy||"Seed",created_at:it._createdAt||now,updated_by:it._updatedBy||"Seed",updated_at:it._updatedAt||now}));
@@ -945,7 +1004,7 @@ function ensureGate(){return new Promise(async(resolve)=>{
   btn.onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit();};
 });}
 function sigOf(tasks,metaRow){return tasks.map(t=>t.id+"@"+(t._updatedAt||"")).sort().join(",")+"|"+(metaRow?metaRow.updated_at:"");}
-function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null||editingStandup!==null;}
+function editingOpen(){return editingId!==null||editingCall!==null||editingMeth!==null||editingStandup!==null||editingAcct!==null;}
 async function remotePoll(){
   if(!REMOTE_ON||editingOpen())return;
   try{const [tasks,metaRow]=await Promise.all([remoteLoadTasks(),remoteLoadMeta()]);
@@ -954,12 +1013,12 @@ async function remotePoll(){
   }catch(e){}
 }
 
-function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];if(!meth.length)meth=SEED_METH.slice();
+function applyState(d){items=d.items||[];meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];accounts=d.accounts||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();if(!owners.length)seedOwnersFromItems();}
-function applyMeta(d){d=d||{};meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];if(!meth.length)meth=SEED_METH.slice();
+function applyMeta(d){d=d||{};meth=d.meth||[];calls=d.calls||[];builds=d.builds||[];owners=d.owners||[];standups=d.standups||[];accounts=d.accounts||[];if(!meth.length)meth=SEED_METH.slice();
   meth.forEach(m=>{if(m.due===undefined)m.due="";});if(!owners.length)seedOwnersFromItems();}
-function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();standups=[];migrateItems();seedOwnersFromItems();}
-function cacheLocal(){try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners,standups}));}catch(e){}}
+function seedState(){items=SEED_ITEMS.slice();meth=SEED_METH.slice();calls=SEED_CALLS.slice();builds=SEED_BUILD.slice();standups=[];accounts=[];migrateItems();seedOwnersFromItems();}
+function cacheLocal(){try{localStorage.setItem(KEY,JSON.stringify({items,meth,calls,builds,owners,standups,accounts}));}catch(e){}}
 async function load(){
   // 1) shared team database (Supabase) — tasks are per-row, everything else is one "meta" row
   if(REMOTE_ON){
@@ -982,7 +1041,7 @@ async function save(silent){
   cacheLocal();
   let ok=false;
   if(REMOTE_ON){try{await remoteSaveMeta();ok=true;}catch(e){}}
-  else{try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners,standups}));ok=true;}}catch(e){}}
+  else{try{if(window.storage){await window.storage.set(KEY,JSON.stringify({items,meth,calls,builds,owners,standups,accounts}));ok=true;}}catch(e){}}
   if(!silent)flash(REMOTE_ON?(ok?"Saved — synced":"Saved locally · sync failed"):"Saved");
 }
 async function persistTaskUpsert(rec,isNew){
@@ -1186,17 +1245,18 @@ function indCanon(ind,customer){
 function indColor(k){if(IND_COLORS[k])return IND_COLORS[k];let h=0;for(let i=0;i<(k||"").length;i++)h=(h*31+k.charCodeAt(i))>>>0;return IND_FALLBACK[h%IND_FALLBACK.length];}
 function indChip(k,extra){const c=indColor(k);return `<span class="chip ind" style="--ic:${c}" title="${esc(k)}"><span class="idot"></span>${esc(k)}${extra!=null?` <b>${extra}</b>`:''}</span>`;}
 function callInd(c){return indCanon(c.industry,c.customer);}
-let callFilter={q:"",theme:"",industry:""};
+let callFilter={q:"",theme:"",industry:"",stage:""};
 let pullMode="adj";
 
 function renderLearnStrip(){
   const nCalls=calls.length,customers=new Set(calls.map(c=>normName(c.customer)).filter(Boolean)).size;
-  const highPain=calls.filter(c=>c.pain==="High").length;
-  const themeCount={};calls.forEach(c=>{(callThemes(c).length?callThemes(c):["Other"]).forEach(t=>{themeCount[t]=(themeCount[t]||0)+1;});});
+  const disc=discoveryCalls(),highPain=disc.filter(c=>c.pain==="High").length;
+  const themeCount={};disc.forEach(c=>{(callThemes(c).length?callThemes(c):["Other"]).forEach(t=>{themeCount[t]=(themeCount[t]||0)+1;});});
   const recurring=Object.values(themeCount).filter(n=>n>=2).length;
   const inds=new Set(calls.map(callInd).filter(x=>x!=="Unmapped")).size;
   const gaps=demandRows().filter(r=>r.verdict==="gap").length;
-  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:inds,l:"Industries"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:gaps,l:"Roadmap gaps",accent:gaps>0}];
+  const active=accountList().filter(a=>stageIdx(a.stage)>0).length;
+  const cells=[{n:nCalls,l:"Calls logged"},{n:customers,l:"Customers"},{n:active,l:"Past discovery",purple:true},{n:inds,l:"Industries"},{n:highPain,l:"High pain",accent:true},{n:recurring,l:"Recurring themes",purple:true},{n:gaps,l:"Roadmap gaps",accent:gaps>0}];
   document.getElementById("learnStrip").innerHTML=cells.map(c=>`<div class="stat"><span class="n ${c.accent?'accent':''} ${c.purple?'purple':''}">${c.n}</span><span class="l">${c.l}</span></div>`).join("");
 }
 function itemName(id){const it=items.find(i=>i.id===id);return it?it.name:id;}
@@ -1222,7 +1282,7 @@ function renderPullPanel(){
   const painW={High:3,Medium:2,Low:1}, sentW={Positive:1.3,Neutral:1,Negative:0.6};
   const ind={};
   const ensure=k=>ind[k]=ind[k]||{calls:0,callPull:0,High:0,Medium:0,Low:0,sent:0,custs:[],gtm:0,reached:0,engaged:0,inbound:0,hot:0,cold:0,accts:[]};
-  calls.forEach(c=>{const o=ensure(callInd(c));
+  discoveryCalls().forEach(c=>{const o=ensure(callInd(c));
     const pw=painW[c.pain]||2, sw=sentW[c.sentiment]||1;
     o.calls++;o.callPull+=pw*sw;o.sent+=sw;
     o[["High","Medium","Low"].includes(c.pain)?c.pain:"Medium"]++;
@@ -1278,7 +1338,7 @@ function renderPullPanel(){
 /* --- recurring pain themes: who raised it (customers + industries), trend, click to expand --- */
 function themeStats(){
   const th={},now=Date.now(),D=864e5;
-  calls.forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);
+  discoveryCalls().forEach(c=>{const p=["High","Medium","Low"].includes(c.pain)?c.pain:"Medium";const ths=callThemes(c);
     (ths.length?ths:["Other"]).forEach(t=>{const o=th[t]=th[t]||{High:0,Medium:0,Low:0,total:0,custs:[],inds:{},recent:0,prior:0,calls:[]};
       o[p]++;o.total++;o.calls.push(c);
       if(!o.custs.some(x=>sameAccount(x.name,c.customer)))o.custs.push({name:c.customer,ind:callInd(c),pain:p});
@@ -1377,6 +1437,116 @@ function renderDemandPanel(){
   el.querySelectorAll("[data-goitem]").forEach(x=>x.addEventListener("click",e=>{e.stopPropagation();switchView("roadmap");setTimeout(()=>openEdit(x.getAttribute("data-goitem")),80);}));
   el.querySelectorAll("[data-th]").forEach(b=>b.addEventListener("click",()=>setCallFilter({theme:b.getAttribute("data-th"),industry:""},true)));
 }
+/* --- customer accounts: every call with a customer in one place, the stage they're at with us, shared files --- */
+const ACCT_STAGES=[{k:"Discovery",c:"#8f88a8"},{k:"Data & baseline",c:"#A06A00"},{k:"Pilot",c:"#C4551F"},{k:"Onboarding",c:"#7A2FB8"},{k:"Live",c:"#018A65"}];
+const ACCT_PARKED={k:"Parked",c:"#b9b3cc"};
+const LEARN_AREAS=["Data collection","Data gaps","Onboarding","Motivation / drivers","Stakeholders","Product feedback","Commercials"];
+function stageIdx(k){return ACCT_STAGES.findIndex(s=>s.k===k);}
+function stageMeta(k){return ACCT_STAGES.find(s=>s.k===k)||(k==="Parked"?ACCT_PARKED:ACCT_STAGES[0]);}
+function callStage(c){return (c&&c.stage&&(stageIdx(c.stage)>=0))?c.stage:"Discovery";}
+function discoveryCalls(){return calls.filter(c=>callStage(c)==="Discovery");} // pain themes, pull & roadmap gaps read discovery calls only
+function stagePill(k){const m=stageMeta(k);return `<span class="stage-pill" style="--sc:${m.c}">${esc(m.k)}</span>`;}
+function acctRecord(name){return accounts.find(a=>sameAccount(a.name,name));}
+function accountList(){
+  const map=[];
+  const find=n=>map.find(a=>sameAccount(a.name,n));
+  [...calls].sort((a,b)=>(b.date||"").localeCompare(a.date||"")).forEach(c=>{if(!c.customer)return;let a=find(c.customer);if(!a){a={name:c.customer,calls:[]};map.push(a);}a.calls.push(c);});
+  accounts.forEach(r=>{let a=find(r.name);if(!a){a={name:r.name,calls:[]};map.push(a);}a.name=r.name;a.rec=r;});
+  map.forEach(a=>{
+    const furthest=a.calls.reduce((m,c)=>Math.max(m,stageIdx(callStage(c))),0);
+    a.stage=(a.rec&&a.rec.stage)||ACCT_STAGES[furthest].k;
+    a.last=a.calls[0]?a.calls[0].date:"";
+    a.ind=a.calls[0]?callInd(a.calls[0]):indCanon("",a.name);
+    a.files=(a.rec&&a.rec.files)||[];
+  });
+  return map;
+}
+let acctFilter="all",editingAcct=null,acctDraft=null;
+function renderAccountsPanel(){
+  const el=document.getElementById("acctPanel");if(!el)return;
+  const all=accountList();if(!all.length){el.innerHTML="";return;}
+  const rank=a=>a.stage==="Parked"?-1:stageIdx(a.stage);
+  all.sort((a,b)=>rank(b)-rank(a)||(b.last||"").localeCompare(a.last||""));
+  const counts={};all.forEach(a=>counts[a.stage]=(counts[a.stage]||0)+1);
+  const rows=acctFilter==="all"?all:all.filter(a=>a.stage===acctFilter);
+  if(sigOpen.acct===undefined){sigOpen.acct=new Set();sigAll.acct=false;}
+  const list=sigAll.acct?rows:rows.slice(0,SIG_TOP);
+  const seg=[["all",`All ${all.length}`],...[...ACCT_STAGES,ACCT_PARKED].filter(s=>counts[s.k]).map(s=>[s.k,`${s.k} ${counts[s.k]}`])];
+  const body=list.map(a=>{
+    const si=stageIdx(a.stage),parked=a.stage==="Parked";
+    const steps=ACCT_STAGES.map((s,i)=>`<span class="st ${!parked&&i<=si?"on":""}" style="--sc:${stageMeta(a.stage).c}" title="${esc(s.k)}"></span>`).join("");
+    const byStage={};a.calls.forEach(c=>{const k=callStage(c);byStage[k]=(byStage[k]||0)+1;});
+    const callsTxt=`${a.calls.length} call${a.calls.length===1?"":"s"}`+(Object.keys(byStage).length>1?` · ${Object.entries(byStage).sort((x,y)=>stageIdx(x[0])-stageIdx(y[0])).map(([k,n])=>`${n} ${k.toLowerCase()}`).join(", ")}`:"");
+    return `<div class="sig-item"><div class="sig-row ac-row" data-acct="${esc(a.name)}" title="Open ${esc(a.name)}">
+      <span class="sig-lab"><span class="idot" style="background:${indColor(a.ind)}"></span>${esc(a.name)}</span>
+      <span class="ac-stage">${stagePill(a.stage)}<span class="steps">${steps}</span></span>
+      <span class="sig-meta">${callsTxt}</span>
+      <span class="sig-meta">${a.last?fmtDue(a.last):"—"}</span>
+      <span class="sig-meta">${a.files.length?`${a.files.length} file${a.files.length>1?"s":""}`:"—"}</span>${CHEV}</div></div>`;
+  }).join("");
+  el.innerHTML=`<div class="sig-card">
+    <div class="sig-head"><div><div class="sig-kick">Accounts</div><h2>Customers</h2></div><button class="btn" id="addAcctBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Add customer</button></div>
+    <p class="sig-lede">Every call with a customer in one place, the stage they're at with us, and the files we've shared. Open a customer to see their timeline.</p>
+    <div class="seg mini ac-seg" id="acctSeg">${seg.map(([k,l])=>`<button data-af="${esc(k)}" class="${acctFilter===k?"on":""}">${esc(l)}</button>`).join("")}</div>
+    <div class="sig-cols ac-row"><span>Customer</span><span>Stage</span><span>Calls</span><span>Last call</span><span>Files</span><span></span></div>
+    <div class="sig-list">${body||`<div class="ac-empty">No customers at this stage.</div>`}</div>
+    ${sigMore("acct",rows.length)}
+  </div>`;
+  el.querySelectorAll("[data-acct]").forEach(r=>r.addEventListener("click",()=>openAcct(r.getAttribute("data-acct"))));
+  el.querySelectorAll("[data-af]").forEach(b=>b.addEventListener("click",()=>{acctFilter=b.getAttribute("data-af");sigAll.acct=false;renderAccountsPanel();}));
+  el.querySelectorAll("[data-more]").forEach(b=>b.addEventListener("click",()=>{sigAll.acct=!sigAll.acct;renderAccountsPanel();}));
+  document.getElementById("addAcctBtn").addEventListener("click",()=>{const n=(prompt("Customer name")||"").trim();if(n)openAcct(n);});
+}
+function openAcct(name){
+  const a=accountList().find(x=>sameAccount(x.name,name))||{name,calls:[],stage:"Discovery",files:[],ind:indCanon("",name)};
+  editingAcct=a.name;
+  acctDraft={name:a.name,stage:a.stage,notes:(a.rec&&a.rec.notes)||"",files:(a.files||[]).map(f=>({...f}))};
+  document.getElementById("acctTitle").textContent=a.name;
+  document.getElementById("acctSub").innerHTML=`${indChip(a.ind)}<span>${a.calls.length} call${a.calls.length===1?"":"s"}${a.last?` · last ${esc(fmtDue(a.last))}`:""}</span>`;
+  document.getElementById("aNotes").value=acctDraft.notes;
+  renderAcctStage();renderAcctFiles();renderAcctTimeline(a);
+  document.getElementById("scrim5").classList.add("open");document.getElementById("acctDrawer").classList.add("open");
+}
+function renderAcctStage(){
+  const box=document.getElementById("aStagePick");
+  box.innerHTML=[...ACCT_STAGES,ACCT_PARKED].map(s=>`<button type="button" data-s="${esc(s.k)}" class="${s.k===acctDraft.stage?"on":""}" style="--sc:${s.c}"><span class="d"></span>${esc(s.k)}</button>`).join("");
+  box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{acctDraft.stage=b.getAttribute("data-s");acctDraft.touched=true;renderAcctStage();}));
+}
+function renderAcctFiles(){
+  const box=document.getElementById("aFiles");
+  box.innerHTML=acctDraft.files.length?acctDraft.files.map((f,i)=>`<div class="af-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M13 2v7h7"/></svg><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.label||f.url)}</a><span class="af-date">${f.added?esc(fmtDue(f.added)):""}</span><button type="button" class="af-x" data-fx="${i}" title="Remove">×</button></div>`).join(""):`<div class="af-none">No files yet — add the data templates, baselines or decks you've shared.</div>`;
+  box.querySelectorAll("[data-fx]").forEach(b=>b.addEventListener("click",()=>{acctDraft.files.splice(+b.getAttribute("data-fx"),1);renderAcctFiles();}));
+}
+function addAcctFile(){
+  const lab=document.getElementById("aFileLabel"),url=document.getElementById("aFileUrl");
+  const u=url.value.trim();if(!/^https?:\/\//i.test(u)){url.focus();flash("Paste a link starting with https://");return;}
+  acctDraft.files.push({label:lab.value.trim()||u.replace(/^https?:\/\/(www\.)?/,"").slice(0,60),url:u,added:new Date().toISOString().slice(0,10)});
+  lab.value="";url.value="";renderAcctFiles();
+}
+function renderAcctTimeline(a){
+  const box=document.getElementById("aTimeline");
+  if(!a.calls.length){box.innerHTML=`<div class="af-none">No calls logged yet.</div>`;return;}
+  const groups=ACCT_STAGES.map(s=>({s,calls:a.calls.filter(c=>callStage(c)===s.k).sort((x,y)=>(x.date||"").localeCompare(y.date||""))})).filter(g=>g.calls.length);
+  box.innerHTML=groups.map(g=>`<div class="tl-group"><div class="tl-stage">${stagePill(g.s.k)}<span>${g.calls.length} call${g.calls.length>1?"s":""}</span></div>
+    ${g.calls.map(c=>`<div class="tl-call" data-tlcall="${c.id}" style="--sc:${g.s.c}">
+      <div class="tl-h"><span class="tl-date">${esc(c.date?fmtDue(c.date)+" "+c.date.slice(0,4):"")}</span><span class="tl-type">${esc(c.type||"")}</span>${c.attendees?`<span class="tl-att">${esc(c.attendees)}</span>`:""}${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:""}</div>
+      ${c.insight?`<div class="tl-ins">${esc(c.insight)}</div>`:""}
+      ${(c.areas&&c.areas.length)?`<div class="tl-areas">${c.areas.map(x=>`<span class="chip theme">${esc(x)}</span>`).join("")}</div>`:""}
+    </div>`).join("")}</div>`).join("");
+  box.querySelectorAll("[data-tlcall]").forEach(el=>el.addEventListener("click",e=>{if(e.target.closest("a"))return;const id=el.getAttribute("data-tlcall");closeAcct();openCall(id);}));
+}
+function closeAcct(){document.getElementById("scrim5").classList.remove("open");document.getElementById("acctDrawer").classList.remove("open");editingAcct=null;acctDraft=null;}
+async function saveAcct(){
+  if(!acctDraft)return;
+  const notes=document.getElementById("aNotes").value.trim();
+  const prev=acctRecord(acctDraft.name);
+  const rec={name:acctDraft.name,stage:acctDraft.touched?acctDraft.stage:((prev&&prev.stage)||""),notes,files:acctDraft.files,updatedBy:currentUser||"—",updatedAt:new Date().toISOString()};
+  const i=accounts.findIndex(a=>sameAccount(a.name,acctDraft.name));
+  if(i>=0)accounts[i]={...accounts[i],...rec};else accounts.push({id:"AC"+Date.now().toString(36),...rec});
+  await save();closeAcct();renderLearnings();flash("Saved");
+}
+function logCallForAcct(){if(!acctDraft)return;const pre={customer:acctDraft.name,stage:acctDraft.stage==="Parked"?"Discovery":acctDraft.stage};closeAcct();openCall(null,pre);}
+
 /* --- call log: filters + table + cards --- */
 function setCallFilter(p,scroll){Object.assign(callFilter,p);renderLearnings();
   if(scroll){const t=document.getElementById("callLogTitle");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}}
@@ -1384,30 +1554,33 @@ function filteredCalls(){
   const q=callFilter.q.trim().toLowerCase();
   return calls.filter(c=>(!callFilter.theme||callThemes(c).includes(callFilter.theme)||(callFilter.theme==="Other"&&!callThemes(c).length))
     &&(!callFilter.industry||callInd(c)===callFilter.industry)
+    &&(!callFilter.stage||callStage(c)===callFilter.stage)
     &&(!q||[c.customer,c.industry,c.attendees,c.quote,c.insight,callThemes(c).join(" ")].join(" ").toLowerCase().includes(q)));
 }
 function renderCallFilters(n){
   const el=document.getElementById("callFilters");if(!el)return;
   const themes=[...new Set(calls.flatMap(c=>callThemes(c).length?callThemes(c):["Other"]))].sort();
   const inds=[...new Set(calls.map(callInd))].sort();
-  const active=callFilter.q||callFilter.theme||callFilter.industry;
+  const active=callFilter.q||callFilter.theme||callFilter.industry||callFilter.stage;
   if(!el.dataset.built){
-    el.innerHTML=`<input type="search" id="cfQ" placeholder="Search calls — customer, quote, insight…"><select id="cfTheme"></select><select id="cfInd"></select><button class="btn" id="cfClear">Clear</button><span class="cf-n" id="cfN"></span>`;
+    el.innerHTML=`<input type="search" id="cfQ" placeholder="Search calls — customer, quote, insight…"><select id="cfStage"></select><select id="cfTheme"></select><select id="cfInd"></select><button class="btn" id="cfClear">Clear</button><span class="cf-n" id="cfN"></span>`;
     el.dataset.built="1";
     document.getElementById("cfQ").addEventListener("input",e=>{callFilter.q=e.target.value;renderLearnings();});
     document.getElementById("cfTheme").addEventListener("change",e=>setCallFilter({theme:e.target.value}));
     document.getElementById("cfInd").addEventListener("change",e=>setCallFilter({industry:e.target.value}));
-    document.getElementById("cfClear").addEventListener("click",()=>{document.getElementById("cfQ").value="";setCallFilter({q:"",theme:"",industry:""});});
+    document.getElementById("cfStage").addEventListener("change",e=>setCallFilter({stage:e.target.value}));
+    document.getElementById("cfClear").addEventListener("click",()=>{document.getElementById("cfQ").value="";setCallFilter({q:"",theme:"",industry:"",stage:""});});
   }
   document.getElementById("cfTheme").innerHTML=`<option value="">All themes</option>`+themes.map(t=>`<option ${t===callFilter.theme?'selected':''}>${esc(t)}</option>`).join("");
   document.getElementById("cfInd").innerHTML=`<option value="">All industries</option>`+inds.map(t=>`<option ${t===callFilter.industry?'selected':''}>${esc(t)}</option>`).join("");
+  document.getElementById("cfStage").innerHTML=`<option value="">All stages</option>`+ACCT_STAGES.map(s=>`<option ${s.k===callFilter.stage?'selected':''}>${esc(s.k)}</option>`).join("");
   document.getElementById("cfClear").style.display=active?"":"none";
   document.getElementById("cfN").textContent=active?`${n} of ${calls.length} calls`:"";
 }
 function renderCallTable(sorted){
   const wrap=document.getElementById("callTableWrap");if(!wrap)return;
-  wrap.innerHTML=`<div class="learn-table"><table><thead><tr><th>Customer</th><th>Industry</th><th>Date</th><th>Type</th><th>Pain</th><th>Prio</th><th>Demo</th><th>Notes</th></tr></thead><tbody>`+
-    sorted.map(c=>`<tr data-goto="${c.id}"><td class="lc-cust">${esc(c.customer||'—')}</td><td>${indChip(callInd(c))}</td><td class="lc-date">${esc(c.date||'')}</td><td>${esc(c.type||'')}</td><td>${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)}</span>`:'—'}</td><td>${esc(c.prio||'')}</td><td>${c.demoUrl?`<a class="notes-link" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:'—'}</td><td>${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:'—'}</td></tr>`).join("")+
+  wrap.innerHTML=`<div class="learn-table"><table><thead><tr><th>Customer</th><th>Stage</th><th>Industry</th><th>Date</th><th>Type</th><th>Pain</th><th>Prio</th><th>Demo</th><th>Notes</th></tr></thead><tbody>`+
+    sorted.map(c=>`<tr data-goto="${c.id}"><td class="lc-cust">${esc(c.customer||'—')}</td><td>${stagePill(callStage(c))}</td><td>${indChip(callInd(c))}</td><td class="lc-date">${esc(c.date||'')}</td><td>${esc(c.type||'')}</td><td>${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)}</span>`:'—'}</td><td>${esc(c.prio||'')}</td><td>${c.demoUrl?`<a class="notes-link" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:'—'}</td><td>${c.sourceUrl?`<a class="notes-link" href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">Notes ↗</a>`:'—'}</td></tr>`).join("")+
     `</tbody></table></div>`;
   wrap.querySelectorAll("[data-goto]").forEach(tr=>tr.addEventListener("click",e=>{
     if(e.target.closest("a"))return;
@@ -1416,7 +1589,7 @@ function renderCallTable(sorted){
   }));
 }
 function renderLearnings(){
-  renderLearnStrip();renderPullPanel();renderThemePanel();renderDemandPanel();
+  renderLearnStrip();renderAccountsPanel();renderPullPanel();renderThemePanel();renderDemandPanel();
   const grid=document.getElementById("callGrid"),wrap=document.getElementById("callTableWrap");
   const list=filteredCalls();
   document.getElementById("callCnt").textContent=list.length===calls.length?calls.length:`${list.length}/${calls.length}`;
@@ -1431,11 +1604,11 @@ function renderLearnings(){
     const demo=c.demoUrl?`<a class="chip demo" href="${esc(c.demoUrl)}" target="_blank" rel="noopener">Demo ↗</a>`:"";
     const ik=callInd(c);
     return `<div class="call-card" id="call-${c.id}" data-call="${c.id}"><div class="topaccent" style="background:${indColor(ik)}"></div>
-      <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${indChip(ik)}${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
+      <div class="ch"><span class="cust">${esc(c.customer||'—')}</span>${indChip(ik)}${callStage(c)!=="Discovery"?stagePill(callStage(c)):""}${c.prio?`<span class="chip prio">${esc(c.prio)}</span>`:''}<span class="date">${esc(c.date||'')}</span></div>
       ${c.attendees?`<div style="font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);margin-top:-4px">${esc(c.attendees)}</div>`:''}
       ${c.quote?`<div class="quote">${esc(c.quote)}</div>`:''}
       ${c.insight?`<div class="insight"><b>Insight:</b> ${esc(c.insight)}</div>`:''}
-      <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${callThemes(c).map(t=>`<span class="chip theme">${esc(t)}</span>`).join('')}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${demo}${notes}${link}</div></div>`;
+      <div class="cf">${c.type?`<span class="chip">${esc(c.type)}</span>`:''}${(c.areas||[]).map(t=>`<span class="chip area">${esc(t)}</span>`).join('')}${callThemes(c).map(t=>`<span class="chip theme">${esc(t)}</span>`).join('')}${c.pain?`<span class="chip pain-${esc(c.pain)}">${esc(c.pain)} pain</span>`:''}${demo}${notes}${link}</div></div>`;
   }).join("");
   grid.querySelectorAll("[data-call]").forEach(el=>el.addEventListener("click",e=>{
     if(e.target.closest("a"))return;
@@ -1488,7 +1661,7 @@ function parseNotes(raw){
   let lines=raw.split("\n").map(s=>s.trim()).filter(Boolean)
     .filter(l=>!/^(URL:|Source element:|---|Made with PressPlay|Because|Get PressPlay|Share notes|Tab Context)/i.test(l)&&!/^https?:/i.test(l));
   let title=(lines[0]||"").replace(/^Title:\s*/i,"").replace(/^PressPlay:\s*/i,"").replace(/^#+\s*/,"").trim();
-  out.customer=findKnownCustomer(title)||guessCustomer(title)||findKnownCustomer(raw.slice(0,3000));
+  out._title=title;out.customer=findKnownCustomer(title)||guessCustomer(title)||findKnownCustomer(raw.slice(0,3000));
   // date: "September 30, 2026" · "30 Sep 2026" · "Sep 30, 2026" · ISO
   const MO=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],mi=s=>MO.indexOf(s.slice(0,3).toLowerCase())+1,pad=n=>String(n).padStart(2,"0");
   let dm;
@@ -1558,9 +1731,18 @@ function fillCallFields(p){
   if(p.type){fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);filled.push("type");}
   if(p.themes&&p.themes.length){draftCallThemes=p.themes.slice();renderCallThemes();filled.push(p.themes.length+" theme"+(p.themes.length>1?"s":""));}
   if(p.pain)fillSelect(document.getElementById("cPain"),PAINS,p.pain);
+  const st=inferStage(p);if(st){fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),st);syncStageHint();filled.push("stage");}
   if(p.prio)fillSelect(document.getElementById("cPrio"),PRIOS,p.prio);
   if(p.sentiment)fillSelect(document.getElementById("cSentiment"),SENTIMENTS,p.sentiment);
   return filled;
+}
+function inferStage(p){
+  const t=((p.customer||"")+" "+(p.insight||"")+" "+(p._title||"")).toLowerCase();
+  if(/\bpilot\b|proof of concept|\bpoc\b/.test(t))return "Pilot";
+  if(/onboard|kick-?off|go-?live|training session|user training/.test(t))return "Onboarding";
+  if(/baseline|data gap|data review|data shared|shared (?:the|their) data|data template/.test(t))return "Data & baseline";
+  const a=p.customer&&accountList().find(x=>sameAccount(x.name,p.customer));
+  return a&&a.stage!=="Parked"?a.stage:"";
 }
 function parseMsg(html,kind){const el=document.getElementById("cParseMsg");if(!el)return;el.className="parse-msg "+(kind||"");el.innerHTML=html||"";}
 async function applyParsedNotes(){
@@ -1687,9 +1869,20 @@ function renderCallThemes(){
     if(draftCallThemes.includes(t))draftCallThemes=draftCallThemes.filter(x=>x!==t);else draftCallThemes.push(t);
     b.classList.toggle("on");}));
 }
-function openCall(id){
+let draftAreas=[];
+function renderCallStage(){fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),document.getElementById("cStage").value||"Discovery");}
+function renderAreas(){
+  const box=document.getElementById("cAreaPick");
+  box.innerHTML=LEARN_AREAS.map(t=>`<button type="button" data-t="${esc(t)}" class="${draftAreas.includes(t)?'on':''}">${esc(t)}</button>`).join("");
+  box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const t=b.getAttribute("data-t");draftAreas=draftAreas.includes(t)?draftAreas.filter(x=>x!==t):[...draftAreas,t];b.classList.toggle("on");}));
+}
+function syncStageHint(){const disc=document.getElementById("cStage").value==="Discovery";document.getElementById("cStageHint").textContent=disc?"Counts toward pain themes, pull and roadmap gaps.":"Recorded on the customer's timeline — doesn't change pain themes or pull.";}
+function openCall(id,pre){
   editingCall=id;const c=calls.find(x=>x.id===id);
-  const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:""};
+  const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:"",...(pre||{})};
+  if(!c&&pre&&pre.customer){const prev=calls.find(x=>sameAccount(x.customer,pre.customer));if(prev&&!d.industry)d.industry=prev.industry||"";if(d.stage&&d.stage!=="Discovery")d.type="Onboarding";}
+  fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),callStage(d));draftAreas=(d.areas||[]).slice();renderAreas();syncStageHint();
+  document.getElementById("custList").innerHTML=accountList().map(a=>`<option value="${esc(a.name)}">`).join("");
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
   document.getElementById("delCallBtn").style.display=c?"block":"none";
   document.getElementById("cPaste").value="";parseMsg("");document.getElementById("cSource").value=d.sourceUrl||"";document.getElementById("cDemo").value=d.demoUrl||"";
@@ -1704,7 +1897,7 @@ function openCall(id){
 function closeCall(){document.getElementById("scrim2").classList.remove("open");document.getElementById("callDrawer").classList.remove("open");editingCall=null;}
 async function saveCall(){
   const customer=document.getElementById("cCustomer").value.trim();if(!customer){document.getElementById("cCustomer").focus();flash("Customer required");return;}
-  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,themes:draftCallThemes.slice(),theme:draftCallThemes[0]||"",quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value,sourceUrl:document.getElementById("cSource").value.trim(),demoUrl:document.getElementById("cDemo").value.trim(),industry:document.getElementById("cIndustry").value.trim(),sentiment:document.getElementById("cSentiment").value};
+  const rec={id:editingCall||("CL"+Date.now().toString(36)),customer,date:document.getElementById("cDate").value,attendees:document.getElementById("cAttendees").value.trim(),type:document.getElementById("cType").value,themes:draftCallThemes.slice(),theme:draftCallThemes[0]||"",quote:document.getElementById("cQuote").value.trim(),insight:document.getElementById("cInsight").value.trim(),pain:document.getElementById("cPain").value,prio:document.getElementById("cPrio").value,link:document.getElementById("cLink").value,sourceUrl:document.getElementById("cSource").value.trim(),demoUrl:document.getElementById("cDemo").value.trim(),industry:document.getElementById("cIndustry").value.trim(),sentiment:document.getElementById("cSentiment").value,stage:document.getElementById("cStage").value,areas:draftAreas.slice()};
   if(editingCall){const i=calls.findIndex(x=>x.id===editingCall);calls[i]=rec;}else calls.push(rec);
   await save();closeCall();renderLearnings();
 }
@@ -1757,8 +1950,8 @@ async function saveStandup(){
 async function deleteStandup(){if(!editingStandup)return;standups=standups.filter(s=>s.id!==editingStandup);await save();closeStandup();renderStandups();flash("Deleted");}
 
 /* import / export */
-function exportJSON(){const blob=new Blob([JSON.stringify({exported:new Date().toISOString(),items,meth,calls,builds,standups},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`carbonos-dashboard-${new Date().toISOString().slice(0,10)}.json`;a.click();flash("Exported backup");}
-function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;standups=d.standups||standups;}meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();cacheLocal();if(REMOTE_ON){try{await remoteReplaceAllTasks();}catch(e){}lastSig=null;}else{await save(true);}renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
+function exportJSON(){const blob=new Blob([JSON.stringify({exported:new Date().toISOString(),items,meth,calls,builds,standups,accounts},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`carbonos-dashboard-${new Date().toISOString().slice(0,10)}.json`;a.click();flash("Exported backup");}
+function importJSON(file){const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){items=d;}else{items=d.items||items;meth=d.meth||meth;calls=d.calls||calls;builds=d.builds||builds;standups=d.standups||standups;accounts=d.accounts||accounts;}meth.forEach(m=>{if(m.due===undefined)m.due="";});migrateItems();cacheLocal();if(REMOTE_ON){try{await remoteReplaceAllTasks();}catch(e){}lastSig=null;}else{await save(true);}renderAll();flash("Imported");}catch(e){flash("Couldn't read that file");}};r.readAsText(file);}
 
 function renderFilterOptions(){
   const archOpts=Array.from(new Set([...ARCHETYPES,...items.map(i=>i.archetype).filter(Boolean)]));
@@ -1789,6 +1982,10 @@ function wire(){
   document.getElementById("closeCall").addEventListener("click",closeCall);document.getElementById("cancelCall").addEventListener("click",closeCall);document.getElementById("scrim2").addEventListener("click",closeCall);
   document.getElementById("saveCall").addEventListener("click",saveCall);document.getElementById("delCallBtn").addEventListener("click",deleteCall);
   document.getElementById("cParseBtn").addEventListener("click",applyParsedNotes);
+  document.getElementById("cStage").addEventListener("change",syncStageHint);
+  document.getElementById("closeAcct").addEventListener("click",closeAcct);document.getElementById("cancelAcct").addEventListener("click",closeAcct);document.getElementById("scrim5").addEventListener("click",closeAcct);
+  document.getElementById("saveAcct").addEventListener("click",saveAcct);document.getElementById("aFileAdd").addEventListener("click",addAcctFile);document.getElementById("aLogCall").addEventListener("click",logCallForAcct);
+  document.getElementById("aFileUrl").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addAcctFile();}});
   document.getElementById("cPaste").addEventListener("paste",()=>setTimeout(()=>{const v=document.getElementById("cPaste").value.trim();if(/^https?:\/\/\S+$/.test(v))applyParsedNotes();},0)); // a pasted link auto-runs
   document.getElementById("whoBtn").addEventListener("click",()=>{const n=prompt("Your name — shown on tasks you add or edit:",currentUser||"");if(n!==null)setUser(n);});
   document.getElementById("exportBtn").addEventListener("click",exportJSON);
