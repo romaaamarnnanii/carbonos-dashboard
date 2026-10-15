@@ -544,7 +544,7 @@ nav.tabs button{white-space:nowrap}
 .acct-panel{min-width:0}
 .stage-pill{--sc:#8f88a8;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap;padding:2px 8px;border-radius:20px;background:color-mix(in srgb,var(--sc) 14%,#fff);color:color-mix(in srgb,var(--sc) 85%,#000)}
 .stage-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sc)}
-.ac-row{grid-template-columns:minmax(150px,1.3fr) 250px 1.4fr 80px 60px 14px}
+.ac-row{grid-template-columns:minmax(150px,1.3fr) 280px 1.4fr 80px 60px 14px}
 .ac-stage{display:flex;align-items:center;gap:10px}
 .steps{display:flex;gap:3px}
 .steps .st{width:14px;height:5px;border-radius:3px;background:var(--panel-3)}
@@ -1438,15 +1438,16 @@ function renderDemandPanel(){
   el.querySelectorAll("[data-th]").forEach(b=>b.addEventListener("click",()=>setCallFilter({theme:b.getAttribute("data-th"),industry:""},true)));
 }
 /* --- customer accounts: every call with a customer in one place, the stage they're at with us, shared files --- */
-const ACCT_STAGES=[{k:"Discovery",c:"#8f88a8",d:"First conversations, demos"},{k:"Pilot",c:"#C4551F",d:"Paid or unpaid — includes the free data collection & baseline"},{k:"Onboarding",c:"#7A2FB8",d:"Signed, setting up"},{k:"Live",c:"#018A65",d:"Using the platform"},{k:"Retention & renewal",c:"#2F6FB5",d:"Expanding or renewing a live account"}];
-const STAGE_ALIAS={"Data & baseline":"Pilot","Renewal":"Retention & renewal","Retention":"Retention & renewal"}; // older labels
+const ACCT_STAGES=[{k:"Discovery",c:"#8f88a8",d:"First conversations, demos"},{k:"Data & baseline",l:"Data & baseline (pilot)",c:"#A06A00",d:"Paid or unpaid pilot — data collection, data gaps, baseline"},{k:"Onboarding",c:"#7A2FB8",d:"Signed, setting up"},{k:"Live",c:"#018A65",d:"Using the platform"},{k:"Retention",c:"#0B7A70",d:"Keeping a live account engaged and expanding"},{k:"Renewal",c:"#2F6FB5",d:"Working on the contract renewal"}];
+const STAGE_ALIAS={"Pilot":"Data & baseline","Retention & renewal":"Retention"}; // older labels
+function stageLabel(k){const m=stageMeta(k);return m.l||m.k;}
 const ACCT_PARKED={k:"Parked",c:"#b9b3cc"};
 const LEARN_AREAS=["Data collection","Data gaps","Onboarding","Motivation / drivers","Stakeholders","Product feedback","Commercials"];
 function stageIdx(k){k=STAGE_ALIAS[k]||k;return ACCT_STAGES.findIndex(s=>s.k===k);}
 function stageMeta(k){k=STAGE_ALIAS[k]||k;return ACCT_STAGES.find(s=>s.k===k)||(k==="Parked"?ACCT_PARKED:ACCT_STAGES[0]);}
 function callStage(c){return (c&&c.stage&&(stageIdx(c.stage)>=0))?(STAGE_ALIAS[c.stage]||c.stage):"Discovery";}
 function discoveryCalls(){return calls.filter(c=>callStage(c)==="Discovery");} // pain themes, pull & roadmap gaps read discovery calls only
-function stagePill(k){const m=stageMeta(k);return `<span class="stage-pill" style="--sc:${m.c}">${esc(m.k)}</span>`;}
+function stagePill(k){const m=stageMeta(k);return `<span class="stage-pill" style="--sc:${m.c}">${esc(m.l||m.k)}</span>`;}
 function acctRecord(name){return accounts.find(a=>sameAccount(a.name,name));}
 function accountList(){
   const map=[];
@@ -1472,12 +1473,12 @@ function renderAccountsPanel(){
   const rows=acctFilter==="all"?all:all.filter(a=>a.stage===acctFilter);
   if(sigOpen.acct===undefined){sigOpen.acct=new Set();sigAll.acct=false;}
   const list=sigAll.acct?rows:rows.slice(0,SIG_TOP);
-  const seg=[["all",`All ${all.length}`],...[...ACCT_STAGES,ACCT_PARKED].filter(s=>counts[s.k]).map(s=>[s.k,`${s.k} ${counts[s.k]}`])];
+  const seg=[["all",`All ${all.length}`],...[...ACCT_STAGES,ACCT_PARKED].filter(s=>counts[s.k]).map(s=>[s.k,`${s.l||s.k} ${counts[s.k]}`])];
   const body=list.map(a=>{
     const si=stageIdx(a.stage),parked=a.stage==="Parked";
     const steps=ACCT_STAGES.map((s,i)=>`<span class="st ${!parked&&i<=si?"on":""}" style="--sc:${stageMeta(a.stage).c}" title="${esc(s.k)}"></span>`).join("");
     const byStage={};a.calls.forEach(c=>{const k=callStage(c);byStage[k]=(byStage[k]||0)+1;});
-    const callsTxt=`${a.calls.length} call${a.calls.length===1?"":"s"}`+(Object.keys(byStage).length>1?` · ${Object.entries(byStage).sort((x,y)=>stageIdx(x[0])-stageIdx(y[0])).map(([k,n])=>`${n} ${k.toLowerCase()}`).join(", ")}`:"");
+    const callsTxt=`${a.calls.length} call${a.calls.length===1?"":"s"}`+(Object.keys(byStage).length>1?` · ${Object.entries(byStage).sort((x,y)=>stageIdx(x[0])-stageIdx(y[0])).map(([k,n])=>`${n} ${stageLabel(k).toLowerCase()}`).join(", ")}`:"");
     return `<div class="sig-item"><div class="sig-row ac-row" data-acct="${esc(a.name)}" title="Open ${esc(a.name)}">
       <span class="sig-lab"><span class="idot" style="background:${indColor(a.ind)}"></span>${esc(a.name)}</span>
       <span class="ac-stage">${stagePill(a.stage)}<span class="steps">${steps}</span></span>
@@ -1510,7 +1511,7 @@ function openAcct(name){
 }
 function renderAcctStage(){
   const box=document.getElementById("aStagePick");
-  box.innerHTML=[...ACCT_STAGES,ACCT_PARKED].map(s=>`<button type="button" data-s="${esc(s.k)}" class="${s.k===acctDraft.stage?"on":""}" style="--sc:${s.c}" title="${esc(s.d||"No active work right now")}"><span class="d"></span>${esc(s.k)}</button>`).join("");
+  box.innerHTML=[...ACCT_STAGES,ACCT_PARKED].map(s=>`<button type="button" data-s="${esc(s.k)}" class="${s.k===acctDraft.stage?"on":""}" style="--sc:${s.c}" title="${esc(s.d||"No active work right now")}"><span class="d"></span>${esc(s.l||s.k)}</button>`).join("");
   box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{acctDraft.stage=b.getAttribute("data-s");acctDraft.touched=true;renderAcctStage();}));
 }
 function renderAcctFiles(){
@@ -1574,7 +1575,7 @@ function renderCallFilters(n){
   }
   document.getElementById("cfTheme").innerHTML=`<option value="">All themes</option>`+themes.map(t=>`<option ${t===callFilter.theme?'selected':''}>${esc(t)}</option>`).join("");
   document.getElementById("cfInd").innerHTML=`<option value="">All industries</option>`+inds.map(t=>`<option ${t===callFilter.industry?'selected':''}>${esc(t)}</option>`).join("");
-  document.getElementById("cfStage").innerHTML=`<option value="">All stages</option>`+ACCT_STAGES.map(s=>`<option ${s.k===callFilter.stage?'selected':''}>${esc(s.k)}</option>`).join("");
+  document.getElementById("cfStage").innerHTML=`<option value="">All stages</option>`+ACCT_STAGES.map(s=>`<option value="${esc(s.k)}" ${s.k===callFilter.stage?'selected':''}>${esc(s.l||s.k)}</option>`).join("");
   document.getElementById("cfClear").style.display=active?"":"none";
   document.getElementById("cfN").textContent=active?`${n} of ${calls.length} calls`:"";
 }
@@ -1732,16 +1733,17 @@ function fillCallFields(p){
   if(p.type){fillSelect(document.getElementById("cType"),CALL_TYPES,p.type);filled.push("type");}
   if(p.themes&&p.themes.length){draftCallThemes=p.themes.slice();renderCallThemes();filled.push(p.themes.length+" theme"+(p.themes.length>1?"s":""));}
   if(p.pain)fillSelect(document.getElementById("cPain"),PAINS,p.pain);
-  const st=inferStage(p);if(st){fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),st);syncStageHint();filled.push("stage");}
+  const st=inferStage(p);if(st){fillStageSelect(st);syncStageHint();filled.push("stage");}
   if(p.prio)fillSelect(document.getElementById("cPrio"),PRIOS,p.prio);
   if(p.sentiment)fillSelect(document.getElementById("cSentiment"),SENTIMENTS,p.sentiment);
   return filled;
 }
 function inferStage(p){
   const t=((p.customer||"")+" "+(p.insight||"")+" "+(p._title||"")).toLowerCase();
-  if(/renewal|renew\b|retention|upsell|expansion|contract extension/.test(t))return "Retention & renewal";
+  if(/renewal|renew\b|contract extension/.test(t))return "Renewal";
+  if(/retention|upsell|expansion|quarterly review|\bqbr\b|health check/.test(t))return "Retention";
   if(/onboard|kick-?off|go-?live|training session|user training/.test(t))return "Onboarding";
-  if(/\bpilot\b|proof of concept|\bpoc\b|baseline|data gap|data review|data shared|shared (?:the|their) data|data template/.test(t))return "Pilot";
+  if(/\bpilot\b|proof of concept|\bpoc\b|baseline|data gap|data review|data shared|shared (?:the|their) data|data template/.test(t))return "Data & baseline";
   const a=p.customer&&accountList().find(x=>sameAccount(x.name,p.customer));
   return a&&a.stage!=="Parked"?a.stage:"";
 }
@@ -1871,7 +1873,7 @@ function renderCallThemes(){
     b.classList.toggle("on");}));
 }
 let draftAreas=[];
-function renderCallStage(){fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),document.getElementById("cStage").value||"Discovery");}
+function fillStageSelect(v){document.getElementById("cStage").innerHTML=ACCT_STAGES.map(s=>`<option value="${esc(s.k)}" ${s.k===v?"selected":""}>${esc(s.l||s.k)}</option>`).join("");}
 function renderAreas(){
   const box=document.getElementById("cAreaPick");
   box.innerHTML=LEARN_AREAS.map(t=>`<button type="button" data-t="${esc(t)}" class="${draftAreas.includes(t)?'on':''}">${esc(t)}</button>`).join("");
@@ -1881,8 +1883,8 @@ function syncStageHint(){const disc=document.getElementById("cStage").value==="D
 function openCall(id,pre){
   editingCall=id;const c=calls.find(x=>x.id===id);
   const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:"",...(pre||{})};
-  if(!c&&pre&&pre.customer){const prev=calls.find(x=>sameAccount(x.customer,pre.customer));if(prev&&!d.industry)d.industry=prev.industry||"";if(d.stage&&d.stage!=="Discovery")d.type={"Retention & renewal":"Renewal","Live":"Support"}[d.stage]||"Onboarding";}
-  fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),callStage(d));draftAreas=(d.areas||[]).slice();renderAreas();syncStageHint();
+  if(!c&&pre&&pre.customer){const prev=calls.find(x=>sameAccount(x.customer,pre.customer));if(prev&&!d.industry)d.industry=prev.industry||"";if(d.stage&&d.stage!=="Discovery")d.type={"Renewal":"Renewal","Retention":"Support","Live":"Support"}[d.stage]||"Onboarding";}
+  fillStageSelect(callStage(d));draftAreas=(d.areas||[]).slice();renderAreas();syncStageHint();
   document.getElementById("custList").innerHTML=accountList().map(a=>`<option value="${esc(a.name)}">`).join("");
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
   document.getElementById("delCallBtn").style.display=c?"block":"none";
