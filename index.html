@@ -544,7 +544,7 @@ nav.tabs button{white-space:nowrap}
 .acct-panel{min-width:0}
 .stage-pill{--sc:#8f88a8;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap;padding:2px 8px;border-radius:20px;background:color-mix(in srgb,var(--sc) 14%,#fff);color:color-mix(in srgb,var(--sc) 85%,#000)}
 .stage-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sc)}
-.ac-row{grid-template-columns:minmax(150px,1.3fr) 230px 1.4fr 80px 60px 14px}
+.ac-row{grid-template-columns:minmax(150px,1.3fr) 250px 1.4fr 80px 60px 14px}
 .ac-stage{display:flex;align-items:center;gap:10px}
 .steps{display:flex;gap:3px}
 .steps .st{width:14px;height:5px;border-radius:3px;background:var(--panel-3)}
@@ -1438,12 +1438,13 @@ function renderDemandPanel(){
   el.querySelectorAll("[data-th]").forEach(b=>b.addEventListener("click",()=>setCallFilter({theme:b.getAttribute("data-th"),industry:""},true)));
 }
 /* --- customer accounts: every call with a customer in one place, the stage they're at with us, shared files --- */
-const ACCT_STAGES=[{k:"Discovery",c:"#8f88a8"},{k:"Data & baseline",c:"#A06A00"},{k:"Pilot",c:"#C4551F"},{k:"Onboarding",c:"#7A2FB8"},{k:"Live",c:"#018A65"}];
+const ACCT_STAGES=[{k:"Discovery",c:"#8f88a8",d:"First conversations, demos"},{k:"Pilot",c:"#C4551F",d:"Paid or unpaid — includes the free data collection & baseline"},{k:"Onboarding",c:"#7A2FB8",d:"Signed, setting up"},{k:"Live",c:"#018A65",d:"Using the platform"},{k:"Retention & renewal",c:"#2F6FB5",d:"Expanding or renewing a live account"}];
+const STAGE_ALIAS={"Data & baseline":"Pilot","Renewal":"Retention & renewal","Retention":"Retention & renewal"}; // older labels
 const ACCT_PARKED={k:"Parked",c:"#b9b3cc"};
 const LEARN_AREAS=["Data collection","Data gaps","Onboarding","Motivation / drivers","Stakeholders","Product feedback","Commercials"];
-function stageIdx(k){return ACCT_STAGES.findIndex(s=>s.k===k);}
-function stageMeta(k){return ACCT_STAGES.find(s=>s.k===k)||(k==="Parked"?ACCT_PARKED:ACCT_STAGES[0]);}
-function callStage(c){return (c&&c.stage&&(stageIdx(c.stage)>=0))?c.stage:"Discovery";}
+function stageIdx(k){k=STAGE_ALIAS[k]||k;return ACCT_STAGES.findIndex(s=>s.k===k);}
+function stageMeta(k){k=STAGE_ALIAS[k]||k;return ACCT_STAGES.find(s=>s.k===k)||(k==="Parked"?ACCT_PARKED:ACCT_STAGES[0]);}
+function callStage(c){return (c&&c.stage&&(stageIdx(c.stage)>=0))?(STAGE_ALIAS[c.stage]||c.stage):"Discovery";}
 function discoveryCalls(){return calls.filter(c=>callStage(c)==="Discovery");} // pain themes, pull & roadmap gaps read discovery calls only
 function stagePill(k){const m=stageMeta(k);return `<span class="stage-pill" style="--sc:${m.c}">${esc(m.k)}</span>`;}
 function acctRecord(name){return accounts.find(a=>sameAccount(a.name,name));}
@@ -1454,7 +1455,7 @@ function accountList(){
   accounts.forEach(r=>{let a=find(r.name);if(!a){a={name:r.name,calls:[]};map.push(a);}a.name=r.name;a.rec=r;});
   map.forEach(a=>{
     const furthest=a.calls.reduce((m,c)=>Math.max(m,stageIdx(callStage(c))),0);
-    a.stage=(a.rec&&a.rec.stage)||ACCT_STAGES[furthest].k;
+    a.stage=(a.rec&&a.rec.stage)?(STAGE_ALIAS[a.rec.stage]||a.rec.stage):ACCT_STAGES[furthest].k;
     a.last=a.calls[0]?a.calls[0].date:"";
     a.ind=a.calls[0]?callInd(a.calls[0]):indCanon("",a.name);
     a.files=(a.rec&&a.rec.files)||[];
@@ -1509,7 +1510,7 @@ function openAcct(name){
 }
 function renderAcctStage(){
   const box=document.getElementById("aStagePick");
-  box.innerHTML=[...ACCT_STAGES,ACCT_PARKED].map(s=>`<button type="button" data-s="${esc(s.k)}" class="${s.k===acctDraft.stage?"on":""}" style="--sc:${s.c}"><span class="d"></span>${esc(s.k)}</button>`).join("");
+  box.innerHTML=[...ACCT_STAGES,ACCT_PARKED].map(s=>`<button type="button" data-s="${esc(s.k)}" class="${s.k===acctDraft.stage?"on":""}" style="--sc:${s.c}" title="${esc(s.d||"No active work right now")}"><span class="d"></span>${esc(s.k)}</button>`).join("");
   box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{acctDraft.stage=b.getAttribute("data-s");acctDraft.touched=true;renderAcctStage();}));
 }
 function renderAcctFiles(){
@@ -1738,9 +1739,9 @@ function fillCallFields(p){
 }
 function inferStage(p){
   const t=((p.customer||"")+" "+(p.insight||"")+" "+(p._title||"")).toLowerCase();
-  if(/\bpilot\b|proof of concept|\bpoc\b/.test(t))return "Pilot";
+  if(/renewal|renew\b|retention|upsell|expansion|contract extension/.test(t))return "Retention & renewal";
   if(/onboard|kick-?off|go-?live|training session|user training/.test(t))return "Onboarding";
-  if(/baseline|data gap|data review|data shared|shared (?:the|their) data|data template/.test(t))return "Data & baseline";
+  if(/\bpilot\b|proof of concept|\bpoc\b|baseline|data gap|data review|data shared|shared (?:the|their) data|data template/.test(t))return "Pilot";
   const a=p.customer&&accountList().find(x=>sameAccount(x.name,p.customer));
   return a&&a.stage!=="Parked"?a.stage:"";
 }
@@ -1880,7 +1881,7 @@ function syncStageHint(){const disc=document.getElementById("cStage").value==="D
 function openCall(id,pre){
   editingCall=id;const c=calls.find(x=>x.id===id);
   const d=c?{...c}:{date:new Date().toISOString().slice(0,10),type:"Discovery",themes:[],pain:"Medium",prio:"P1",sentiment:"Neutral",industry:"",link:"",...(pre||{})};
-  if(!c&&pre&&pre.customer){const prev=calls.find(x=>sameAccount(x.customer,pre.customer));if(prev&&!d.industry)d.industry=prev.industry||"";if(d.stage&&d.stage!=="Discovery")d.type="Onboarding";}
+  if(!c&&pre&&pre.customer){const prev=calls.find(x=>sameAccount(x.customer,pre.customer));if(prev&&!d.industry)d.industry=prev.industry||"";if(d.stage&&d.stage!=="Discovery")d.type={"Retention & renewal":"Renewal","Live":"Support"}[d.stage]||"Onboarding";}
   fillSelect(document.getElementById("cStage"),ACCT_STAGES.map(s=>s.k),callStage(d));draftAreas=(d.areas||[]).slice();renderAreas();syncStageHint();
   document.getElementById("custList").innerHTML=accountList().map(a=>`<option value="${esc(a.name)}">`).join("");
   document.getElementById("callTitle").textContent=c?"Edit call":"Log a call";
