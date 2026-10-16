@@ -1,17 +1,41 @@
 {
- "generatedAt": "2026-10-15T11:21:29+00:00",
- "snapshotLabel": "30 Sep 2026, 11:30 IST",
+ "generatedAt": "2026-10-16T11:16:32+00:00",
+ "snapshotLabel": "16 Oct 2026, 14:00 IST",
  "source": "https://gtm-september.climes.io/",
  "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
  "funnel": {
-  "contacted": 2379,
-  "replied": 24,
-  "call": 12,
-  "proposal": 1,
+  "contacted": 2891,
+  "replied": 25,
+  "call": 14,
+  "proposal": 3,
   "won": 0
  },
- "accountsParsed": 142,
+ "accountsParsed": 143,
  "byIndustry": {
+  "Banking & Finance": {
+   "reached": 17,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 1,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 5.0,
+   "pullAdj": 1.213
+  },
+  "Electrical Equipment": {
+   "reached": 3,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 1,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 5.0,
+   "pullAdj": 2.887
+  },
   "Membership & Events": {
    "reached": 1,
    "engaged": 1,
@@ -23,18 +47,6 @@
    "cold": 0,
    "pull": 7.5,
    "pullAdj": 7.5
-  },
-  "Aviation": {
-   "reached": 2,
-   "engaged": 1,
-   "calls": 1,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 0,
-   "pull": 3.0,
-   "pullAdj": 2.121
   },
   "Paper & Packaging": {
    "reached": 5,
@@ -60,6 +72,18 @@
    "pull": 11.5,
    "pullAdj": 2.002
   },
+  "Logistics & Shipping": {
+   "reached": 4,
+   "engaged": 3,
+   "calls": 2,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 2,
+   "pull": 5.0,
+   "pullAdj": 2.5
+  },
   "Industrial Equipment": {
    "reached": 1,
    "engaged": 1,
@@ -72,29 +96,17 @@
    "pull": 1.5,
    "pullAdj": 1.5
   },
-  "Banking & Finance": {
-   "reached": 17,
+  "Unmapped": {
+   "reached": 1,
    "engaged": 1,
    "calls": 1,
    "proposals": 0,
    "won": 0,
    "inbound": 0,
-   "hot": 1,
+   "hot": 0,
    "cold": 0,
-   "pull": 4.5,
-   "pullAdj": 1.091
-  },
-  "Logistics & Shipping": {
-   "reached": 4,
-   "engaged": 3,
-   "calls": 2,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 1,
-   "cold": 2,
-   "pull": 7.1,
-   "pullAdj": 3.55
+   "pull": 3.0,
+   "pullAdj": 3.0
   },
   "Textiles & Apparel": {
    "reached": 8,
@@ -103,22 +115,22 @@
    "proposals": 0,
    "won": 0,
    "inbound": 0,
-   "hot": 1,
-   "cold": 0,
-   "pull": 4.2,
-   "pullAdj": 1.485
-  },
-  "Electrical Equipment": {
-   "reached": 3,
-   "engaged": 1,
-   "calls": 0,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 1,
    "hot": 0,
    "cold": 0,
+   "pull": 3.0,
+   "pullAdj": 1.061
+  },
+  "Aviation": {
+   "reached": 2,
+   "engaged": 1,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 1,
    "pull": 1.5,
-   "pullAdj": 0.866
+   "pullAdj": 1.061
   },
   "Agriculture": {
    "reached": 4,
@@ -255,6 +267,24 @@
  },
  "accounts": [
   {
+   "name": "BRAC Bank",
+   "industry": "Banking & Finance",
+   "framework": "Financed (PCAF)",
+   "country": "BD",
+   "stage": "PROPOSAL",
+   "pull": 5.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Ensto India",
+   "industry": "Electrical Equipment",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "PROPOSAL",
+   "pull": 5.0,
+   "temp": "warm"
+  },
+  {
    "name": "YPO Bangalore",
    "industry": "Membership & Events",
    "framework": "Carbon neutral",
@@ -262,15 +292,6 @@
    "stage": "PROPOSAL",
    "pull": 7.5,
    "temp": "hot"
-  },
-  {
-   "name": "LATAM Airlines",
-   "industry": "Aviation",
-   "framework": "GHG",
-   "country": "INTL",
-   "stage": "CALL",
-   "pull": 3.0,
-   "temp": "warm"
   },
   {
    "name": "Pakka",
@@ -291,15 +312,6 @@
    "temp": "warm"
   },
   {
-   "name": "Tega Industries",
-   "industry": "Industrial Equipment",
-   "framework": "CBAM",
-   "country": "IN",
-   "stage": "CALL",
-   "pull": 1.5,
-   "temp": "cold"
-  },
-  {
    "name": "Gulf Extrusions",
    "industry": "Metals",
    "framework": "CBAM",
@@ -309,23 +321,13 @@
    "temp": "cold"
   },
   {
-   "name": "BRAC Bank",
-   "industry": "Banking & Finance",
-   "framework": "Financed (PCAF)",
-   "country": "BD",
-   "stage": "CALL",
-   "pull": 4.5,
-   "temp": "hot"
-  },
-  {
    "name": "TR FVLS (trfvlsl.com)",
    "industry": "Logistics & Shipping",
    "framework": "PCF",
    "country": "IN",
    "stage": "CALL",
-   "pull": 5.1,
-   "temp": "hot",
-   "rating": 8.5
+   "pull": 3.0,
+   "temp": "warm"
   },
   {
    "name": "Peekay Steels",
@@ -348,6 +350,24 @@
    "rating": 5.0
   },
   {
+   "name": "Tega Industries",
+   "industry": "Industrial Equipment",
+   "framework": "CBAM",
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
+  },
+  {
+   "name": "Solmaz (Merkez Solmaz Gumruk Musavirligi)",
+   "industry": "Unmapped",
+   "framework": "GHG",
+   "country": "TR",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
+  },
+  {
    "name": "Balearia",
    "industry": "Logistics & Shipping",
    "framework": "GHG",
@@ -362,9 +382,17 @@
    "framework": "PCF",
    "country": "IN",
    "stage": "CALL",
-   "pull": 4.2,
-   "temp": "hot",
-   "rating": 7.0
+   "pull": 3.0,
+   "temp": "warm"
+  },
+  {
+   "name": "LATAM Airlines",
+   "industry": "Aviation",
+   "framework": "GHG",
+   "country": "INTL",
+   "stage": "CALL",
+   "pull": 1.5,
+   "temp": "cold"
   },
   {
    "name": "Bansal Wire",
@@ -373,16 +401,6 @@
    "country": "IN",
    "stage": "REPLIED",
    "pull": 1.0,
-   "temp": "warm"
-  },
-  {
-   "name": "Ensto India",
-   "industry": "Electrical Equipment",
-   "framework": "CBAM",
-   "country": "IN",
-   "stage": "REPLIED",
-   "pull": 1.5,
-   "inbound": true,
    "temp": "warm"
   },
   {
@@ -950,10 +968,10 @@
    "pull": 0.0
   },
   {
-   "name": "Everest Industries",
-   "industry": "Cement & Building Materials",
-   "framework": "EPD",
-   "country": "IN",
+   "name": "First Abu Dhabi Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
+   "country": "AE",
    "stage": "SENT",
    "pull": 0.0
   },
@@ -982,26 +1000,10 @@
    "pull": 0.0
   },
   {
-   "name": "First Abu Dhabi Bank",
-   "industry": "Banking & Finance",
-   "framework": "PCAF",
-   "country": "AE",
-   "stage": "SENT",
-   "pull": 0.0
-  },
-  {
-   "name": "TVS Motor",
-   "industry": "Automotive",
-   "framework": "SBTi",
+   "name": "Everest Industries",
+   "industry": "Cement & Building Materials",
+   "framework": "EPD",
    "country": "IN",
-   "stage": "SENT",
-   "pull": 0.0
-  },
-  {
-   "name": "SABIC Agri-Nutrients",
-   "industry": "Chemicals",
-   "framework": "CBAM",
-   "country": "SA",
    "stage": "SENT",
    "pull": 0.0
   },
@@ -1022,18 +1024,18 @@
    "pull": 0.0
   },
   {
-   "name": "Maharashtra Seamless",
-   "industry": "Metals",
-   "framework": "CBAM",
+   "name": "TVS Motor",
+   "industry": "Automotive",
+   "framework": "SBTi",
    "country": "IN",
    "stage": "SENT",
    "pull": 0.0
   },
   {
-   "name": "Emirates Steel Arkan",
-   "industry": "Metals",
+   "name": "SABIC Agri-Nutrients",
+   "industry": "Chemicals",
    "framework": "CBAM",
-   "country": "AE",
+   "country": "SA",
    "stage": "SENT",
    "pull": 0.0
   },
@@ -1042,6 +1044,14 @@
    "industry": "Metals",
    "framework": "CBAM",
    "country": "SA",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Emirates Steel Arkan",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "AE",
    "stage": "SENT",
    "pull": 0.0
   },
@@ -1070,25 +1080,17 @@
    "pull": 0.0
   },
   {
-   "name": "Shyam Metalics & Energy",
+   "name": "Maharashtra Seamless",
    "industry": "Metals",
-   "framework": "CCTS",
+   "framework": "CBAM",
    "country": "IN",
    "stage": "SENT",
    "pull": 0.0
   },
   {
-   "name": "Emirates Global Aluminium",
+   "name": "Shyam Metalics & Energy",
    "industry": "Metals",
-   "framework": "CBAM",
-   "country": "AE",
-   "stage": "SENT",
-   "pull": 0.0
-  },
-  {
-   "name": "Axis Bank",
-   "industry": "Banking & Finance",
-   "framework": "PCAF",
+   "framework": "CCTS",
    "country": "IN",
    "stage": "SENT",
    "pull": 0.0
@@ -1118,9 +1120,25 @@
    "pull": 0.0
   },
   {
+   "name": "Emirates Global Aluminium",
+   "industry": "Metals",
+   "framework": "CBAM",
+   "country": "AE",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
    "name": "Shree Renuka Sugars",
    "industry": "Agriculture",
    "framework": "EUDR",
+   "country": "IN",
+   "stage": "SENT",
+   "pull": 0.0
+  },
+  {
+   "name": "Axis Bank",
+   "industry": "Banking & Finance",
+   "framework": "PCAF",
    "country": "IN",
    "stage": "SENT",
    "pull": 0.0
@@ -1326,7 +1344,7 @@
    "pull": 0.0
   },
   {
-   "name": "Hindalco Industries",
+   "name": "Vedanta Aluminium",
    "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
@@ -1334,7 +1352,7 @@
    "pull": 0.0
   },
   {
-   "name": "Vedanta Aluminium",
+   "name": "Hindalco Industries",
    "industry": "Metals",
    "framework": "CBAM",
    "country": "IN",
