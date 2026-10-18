@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-17T10:35:52+00:00",
+ "generatedAt": "2026-10-18T10:58:28+00:00",
  "snapshotLabel": "16 Oct 2026, 14:00 IST",
  "source": "https://gtm-september.climes.io/",
  "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
