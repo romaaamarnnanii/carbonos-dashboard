@@ -1,40 +1,40 @@
 {
- "generatedAt": "2026-10-20T11:29:32+00:00",
+ "generatedAt": "2026-10-21T11:41:59+00:00",
  "snapshotLabel": "16 Oct 2026, 14:00 IST",
  "source": "https://gtm-september.climes.io/",
  "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
  "funnel": {
   "contacted": 2891,
-  "replied": 26,
-  "call": 14,
+  "replied": 29,
+  "call": 16,
   "proposal": 3,
   "won": 0
  },
- "accountsParsed": 144,
+ "accountsParsed": 147,
  "byIndustry": {
-  "Banking & Finance": {
-   "reached": 17,
-   "engaged": 1,
-   "calls": 1,
-   "proposals": 1,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 0,
-   "pull": 5.0,
-   "pullAdj": 1.213
-  },
   "Electrical Equipment": {
-   "reached": 3,
-   "engaged": 1,
+   "reached": 4,
+   "engaged": 2,
    "calls": 1,
    "proposals": 1,
    "won": 0,
    "inbound": 0,
    "hot": 0,
    "cold": 0,
-   "pull": 5.0,
-   "pullAdj": 2.887
+   "pull": 6.0,
+   "pullAdj": 3.0
+  },
+  "Banking & Finance": {
+   "reached": 18,
+   "engaged": 2,
+   "calls": 2,
+   "proposals": 1,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 8.0,
+   "pullAdj": 1.886
   },
   "Membership & Events": {
    "reached": 1,
@@ -96,6 +96,18 @@
    "pull": 6.0,
    "pullAdj": 2.683
   },
+  "Healthcare": {
+   "reached": 6,
+   "engaged": 2,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 4.0,
+   "pullAdj": 1.633
+  },
   "Paper & Packaging": {
    "reached": 5,
    "engaged": 3,
@@ -143,18 +155,6 @@
    "cold": 0,
    "pull": 1.0,
    "pullAdj": 0.258
-  },
-  "Healthcare": {
-   "reached": 5,
-   "engaged": 1,
-   "calls": 0,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 0,
-   "pull": 1.0,
-   "pullAdj": 0.447
   },
   "Energy": {
    "reached": 2,
@@ -267,19 +267,19 @@
  },
  "accounts": [
   {
-   "name": "BRAC Bank",
-   "industry": "Banking & Finance",
-   "framework": "Financed (PCAF)",
-   "country": "BD",
+   "name": "Ensto India",
+   "industry": "Electrical Equipment",
+   "framework": "CBAM",
+   "country": "IN",
    "stage": "PROPOSAL",
    "pull": 5.0,
    "temp": "warm"
   },
   {
-   "name": "Ensto India",
-   "industry": "Electrical Equipment",
-   "framework": "CBAM",
-   "country": "IN",
+   "name": "BRAC Bank",
+   "industry": "Banking & Finance",
+   "framework": "Financed (PCAF)",
+   "country": "BD",
    "stage": "PROPOSAL",
    "pull": 5.0,
    "temp": "warm"
@@ -328,6 +328,24 @@
    "stage": "CALL",
    "pull": 1.5,
    "temp": "cold"
+  },
+  {
+   "name": "Axis Max Life Insurance",
+   "industry": "Banking & Finance",
+   "framework": "BRSR",
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Aster DM Healthcare",
+   "industry": "Healthcare",
+   "framework": "GHG",
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
   },
   {
    "name": "Pakka",
@@ -480,6 +498,15 @@
    "name": "SD Cortex Exports Pvt Ltd",
    "industry": "Logistics & Shipping",
    "framework": "CCTS",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.0,
+   "temp": "warm"
+  },
+  {
+   "name": "Paramount Cables",
+   "industry": "Electrical Equipment",
+   "framework": "PCF",
    "country": "IN",
    "stage": "REPLIED",
    "pull": 1.0,
