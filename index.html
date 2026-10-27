@@ -549,11 +549,14 @@ nav.tabs button{white-space:nowrap}
 .steps{display:flex;gap:3px}
 .steps .st{width:14px;height:5px;border-radius:3px;background:var(--panel-3)}
 .steps .st.on{background:var(--sc)}
-.ac-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 12px}
-.ac-seg{display:inline-flex;flex-wrap:wrap;margin:0}
-.ac-search{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px;color:var(--ink);flex:1;min-width:200px;max-width:300px}
-.ac-search::placeholder{color:var(--ink-faint)}
-@media(max-width:620px){.ac-search{max-width:none;width:100%}}
+.ac-seg{display:inline-flex;flex-wrap:wrap;margin:0 0 12px}
+.learn-search{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:9px 14px;margin:0 0 16px;box-shadow:0 1px 2px rgba(12,8,39,.04)}
+.learn-search:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(12,8,39,.06)}
+.learn-search .lq-ic{width:17px;height:17px;color:var(--ink-faint);flex:none}
+.learn-search input{flex:1;border:0;background:transparent;font-size:14px;color:var(--ink);outline:none;min-width:0}
+.learn-search input::placeholder{color:var(--ink-faint)}
+.learn-search .lq-n{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.learn-search .lq-clear{flex:none;padding:5px 10px;font-size:12px}
 .ac-empty{padding:18px 8px;color:var(--ink-faint);font-size:12.5px}
 .ac-sub{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--ink-faint)}
 .ac-pick button{--sc:#8f88a8}
@@ -664,8 +667,14 @@ nav.tabs button{white-space:nowrap}
 <section class="view" id="view-learnings">
   <div class="strip" id="learnStrip"></div>
   <div class="learn-wrap">
+    <div class="learn-search" id="learnSearch">
+      <svg class="lq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="search" id="lq" placeholder="Search everything — customer, quote, insight, theme, notes…">
+      <span class="lq-n" id="lqN"></span>
+      <button class="btn lq-clear" id="lqClear" hidden>Clear</button>
+    </div>
     <div class="acct-panel" id="acctPanel"></div>
-    <div class="signal-row">
+    <div class="signal-row" id="signalRow">
       <div class="theme-panel" id="themePanel"></div>
       <div class="pain-panel" id="painPanel"></div>
     </div>
@@ -1467,20 +1476,19 @@ function accountList(){
   });
   return map;
 }
-let acctFilter="all",acctQ="",editingAcct=null,acctDraft=null;
+let acctFilter="all",learnQ="",editingAcct=null,acctDraft=null;
 const acctText=a=>[a.name,a.ind,(a.rec&&a.rec.notes)||"",...a.calls.map(c=>[c.customer,c.attendees,c.quote,c.insight,callThemes(c).join(" "),(c.areas||[]).join(" ")].join(" "))].join(" ").toLowerCase();
 function renderAccountsPanel(){
   const el=document.getElementById("acctPanel");if(!el)return;
-  const ae=document.activeElement,qWasFocused=ae&&ae.id==="acctQ",qCaret=qWasFocused?ae.selectionStart:null;
   const all=accountList();if(!all.length){el.innerHTML="";return;}
   const rank=a=>a.stage==="Parked"?-1:stageIdx(a.stage);
   all.sort((a,b)=>rank(b)-rank(a)||(b.last||"").localeCompare(a.last||""));
   const counts={};all.forEach(a=>counts[a.stage]=(counts[a.stage]||0)+1);
-  const q=acctQ.trim().toLowerCase();
+  const q=learnQ.trim().toLowerCase();
   let rows=acctFilter==="all"?all:all.filter(a=>a.stage===acctFilter);
   if(q)rows=rows.filter(a=>acctText(a).includes(q));
   if(sigOpen.acct===undefined){sigOpen.acct=new Set();sigAll.acct=false;}
-  const list=sigAll.acct?rows:rows.slice(0,SIG_TOP);
+  const list=(sigAll.acct||q)?rows:rows.slice(0,SIG_TOP);
   const seg=[["all",`All ${all.length}`],...[...ACCT_STAGES,ACCT_PARKED].filter(s=>counts[s.k]).map(s=>[s.k,`${s.l||s.k} ${counts[s.k]}`])];
   const body=list.map(a=>{
     const si=stageIdx(a.stage),parked=a.stage==="Parked";
@@ -1497,19 +1505,11 @@ function renderAccountsPanel(){
   el.innerHTML=`<div class="sig-card">
     <div class="sig-head"><div><div class="sig-kick">Accounts</div><h2>Customers</h2></div><button class="btn" id="addAcctBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Add customer</button></div>
     <p class="sig-lede">Every call with a customer in one place, the stage they're at with us, and the files we've shared. Open a customer to see their timeline.</p>
-    <div class="ac-controls">
-      <div class="seg mini ac-seg" id="acctSeg">${seg.map(([k,l])=>`<button data-af="${esc(k)}" class="${acctFilter===k?"on":""}">${esc(l)}</button>`).join("")}</div>
-      <input type="search" id="acctQ" class="ac-search" placeholder="Search customers — name, notes, quotes…" value="${esc(acctQ)}">
-    </div>
+    <div class="seg mini ac-seg" id="acctSeg">${seg.map(([k,l])=>`<button data-af="${esc(k)}" class="${acctFilter===k?"on":""}">${esc(l)}</button>`).join("")}</div>
     <div class="sig-cols ac-row"><span>Customer</span><span>Stage</span><span>Calls</span><span>Last call</span><span>Files</span><span></span></div>
-    <div class="sig-list">${body||`<div class="ac-empty">${q?`No customers match “${esc(acctQ.trim())}”.`:"No customers at this stage."}</div>`}</div>
-    ${sigMore("acct",rows.length)}
+    <div class="sig-list">${body||`<div class="ac-empty">${q?`No customers match “${esc(learnQ.trim())}”.`:"No customers at this stage."}</div>`}</div>
+    ${q?"":sigMore("acct",rows.length)}
   </div>`;
-  const qi=document.getElementById("acctQ");
-  if(qi){
-    qi.addEventListener("input",e=>{acctQ=e.target.value;sigAll.acct=false;renderAccountsPanel();});
-    if(qWasFocused){qi.focus();const p=qCaret==null?qi.value.length:qCaret;try{qi.setSelectionRange(p,p);}catch(_){}}
-  }
   el.querySelectorAll("[data-acct]").forEach(r=>r.addEventListener("click",()=>openAcct(r.getAttribute("data-acct"))));
   el.querySelectorAll("[data-af]").forEach(b=>b.addEventListener("click",()=>{acctFilter=b.getAttribute("data-af");sigAll.acct=false;renderAccountsPanel();}));
   el.querySelectorAll("[data-more]").forEach(b=>b.addEventListener("click",()=>{sigAll.acct=!sigAll.acct;renderAccountsPanel();}));
@@ -1569,25 +1569,24 @@ function logCallForAcct(){if(!acctDraft)return;const pre={customer:acctDraft.nam
 function setCallFilter(p,scroll){Object.assign(callFilter,p);renderLearnings();
   if(scroll){const t=document.getElementById("callLogTitle");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}}
 function filteredCalls(){
-  const q=callFilter.q.trim().toLowerCase();
+  const q=learnQ.trim().toLowerCase();
   return calls.filter(c=>(!callFilter.theme||callThemes(c).includes(callFilter.theme)||(callFilter.theme==="Other"&&!callThemes(c).length))
     &&(!callFilter.industry||callInd(c)===callFilter.industry)
     &&(!callFilter.stage||callStage(c)===callFilter.stage)
-    &&(!q||[c.customer,c.industry,c.attendees,c.quote,c.insight,callThemes(c).join(" ")].join(" ").toLowerCase().includes(q)));
+    &&(!q||[c.customer,c.industry,c.attendees,c.quote,c.insight,callThemes(c).join(" "),(c.areas||[]).join(" ")].join(" ").toLowerCase().includes(q)));
 }
 function renderCallFilters(n){
   const el=document.getElementById("callFilters");if(!el)return;
   const themes=[...new Set(calls.flatMap(c=>callThemes(c).length?callThemes(c):["Other"]))].sort();
   const inds=[...new Set(calls.map(callInd))].sort();
-  const active=callFilter.q||callFilter.theme||callFilter.industry||callFilter.stage;
+  const active=learnQ||callFilter.theme||callFilter.industry||callFilter.stage;
   if(!el.dataset.built){
-    el.innerHTML=`<input type="search" id="cfQ" placeholder="Search calls — customer, quote, insight…"><select id="cfStage"></select><select id="cfTheme"></select><select id="cfInd"></select><button class="btn" id="cfClear">Clear</button><span class="cf-n" id="cfN"></span>`;
+    el.innerHTML=`<select id="cfStage"></select><select id="cfTheme"></select><select id="cfInd"></select><button class="btn" id="cfClear">Clear</button><span class="cf-n" id="cfN"></span>`;
     el.dataset.built="1";
-    document.getElementById("cfQ").addEventListener("input",e=>{callFilter.q=e.target.value;renderLearnings();});
     document.getElementById("cfTheme").addEventListener("change",e=>setCallFilter({theme:e.target.value}));
     document.getElementById("cfInd").addEventListener("change",e=>setCallFilter({industry:e.target.value}));
     document.getElementById("cfStage").addEventListener("change",e=>setCallFilter({stage:e.target.value}));
-    document.getElementById("cfClear").addEventListener("click",()=>{document.getElementById("cfQ").value="";setCallFilter({q:"",theme:"",industry:"",stage:""});});
+    document.getElementById("cfClear").addEventListener("click",()=>{setLearnQ("");setCallFilter({theme:"",industry:"",stage:""});});
   }
   document.getElementById("cfTheme").innerHTML=`<option value="">All themes</option>`+themes.map(t=>`<option ${t===callFilter.theme?'selected':''}>${esc(t)}</option>`).join("");
   document.getElementById("cfInd").innerHTML=`<option value="">All industries</option>`+inds.map(t=>`<option ${t===callFilter.industry?'selected':''}>${esc(t)}</option>`).join("");
@@ -1606,11 +1605,17 @@ function renderCallTable(sorted){
     if(card){card.scrollIntoView({behavior:"smooth",block:"center"});card.classList.add("flash");setTimeout(()=>card.classList.remove("flash"),1400);}
   }));
 }
+function setLearnQ(v){learnQ=v;const i=document.getElementById("lq");if(i&&i.value!==v)i.value=v;sigAll.acct=false;renderLearnings();}
 function renderLearnings(){
   renderLearnStrip();renderAccountsPanel();renderPullPanel();renderThemePanel();renderDemandPanel();
+  const q=learnQ.trim();
+  const sr=document.getElementById("signalRow"),dp=document.getElementById("demandPanel"),cl=document.getElementById("lqClear");
+  if(sr)sr.hidden=!!q;if(dp)dp.hidden=!!q;if(cl)cl.hidden=!q;
   const grid=document.getElementById("callGrid"),wrap=document.getElementById("callTableWrap");
   const list=filteredCalls();
   document.getElementById("callCnt").textContent=list.length===calls.length?calls.length:`${list.length}/${calls.length}`;
+  const matchedAccts=q?accountList().filter(a=>acctText(a).includes(q.toLowerCase())).length:0;
+  const lqN=document.getElementById("lqN");if(lqN)lqN.textContent=q?`${matchedAccts} customer${matchedAccts===1?"":"s"} · ${list.length} call${list.length===1?"":"s"}`:"";
   renderCallFilters(list.length);
   if(!calls.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls logged yet</h3><div>Capture your first customer conversation.</div></div>`;return;}
   if(!list.length){if(wrap)wrap.innerHTML="";grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>No calls match</h3><div>Clear the filters to see all ${calls.length}.</div></div>`;return;}
@@ -1990,6 +1995,8 @@ function wire(){
   document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>switchView(b.getAttribute("data-v"))));
   document.getElementById("addBtn").addEventListener("click",()=>{if(window._view==="learnings")openCall(null);else if(window._view==="methodology")openMeth(null);else if(window._view==="standups")openStandup(null);else openEdit(null);});
   document.getElementById("addCallBtn").addEventListener("click",()=>openCall(null));
+  document.getElementById("lq").addEventListener("input",e=>{learnQ=e.target.value;sigAll.acct=false;renderLearnings();});
+  document.getElementById("lqClear").addEventListener("click",()=>{setLearnQ("");document.getElementById("lq").focus();});
   document.getElementById("addStandupBtn").addEventListener("click",()=>openStandup(null));
   document.getElementById("closeStandup").addEventListener("click",closeStandup);document.getElementById("cancelStandup").addEventListener("click",closeStandup);document.getElementById("scrim4").addEventListener("click",closeStandup);
   document.getElementById("saveStandup").addEventListener("click",saveStandup);document.getElementById("delStandupBtn").addEventListener("click",deleteStandup);
