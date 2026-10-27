@@ -549,7 +549,11 @@ nav.tabs button{white-space:nowrap}
 .steps{display:flex;gap:3px}
 .steps .st{width:14px;height:5px;border-radius:3px;background:var(--panel-3)}
 .steps .st.on{background:var(--sc)}
-.ac-seg{display:inline-flex;flex-wrap:wrap;margin:0 0 12px}
+.ac-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.ac-seg{display:inline-flex;flex-wrap:wrap;margin:0}
+.ac-search{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px;color:var(--ink);flex:1;min-width:200px;max-width:300px}
+.ac-search::placeholder{color:var(--ink-faint)}
+@media(max-width:620px){.ac-search{max-width:none;width:100%}}
 .ac-empty{padding:18px 8px;color:var(--ink-faint);font-size:12.5px}
 .ac-sub{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--ink-faint)}
 .ac-pick button{--sc:#8f88a8}
@@ -1463,14 +1467,18 @@ function accountList(){
   });
   return map;
 }
-let acctFilter="all",editingAcct=null,acctDraft=null;
+let acctFilter="all",acctQ="",editingAcct=null,acctDraft=null;
+const acctText=a=>[a.name,a.ind,(a.rec&&a.rec.notes)||"",...a.calls.map(c=>[c.customer,c.attendees,c.quote,c.insight,callThemes(c).join(" "),(c.areas||[]).join(" ")].join(" "))].join(" ").toLowerCase();
 function renderAccountsPanel(){
   const el=document.getElementById("acctPanel");if(!el)return;
+  const ae=document.activeElement,qWasFocused=ae&&ae.id==="acctQ",qCaret=qWasFocused?ae.selectionStart:null;
   const all=accountList();if(!all.length){el.innerHTML="";return;}
   const rank=a=>a.stage==="Parked"?-1:stageIdx(a.stage);
   all.sort((a,b)=>rank(b)-rank(a)||(b.last||"").localeCompare(a.last||""));
   const counts={};all.forEach(a=>counts[a.stage]=(counts[a.stage]||0)+1);
-  const rows=acctFilter==="all"?all:all.filter(a=>a.stage===acctFilter);
+  const q=acctQ.trim().toLowerCase();
+  let rows=acctFilter==="all"?all:all.filter(a=>a.stage===acctFilter);
+  if(q)rows=rows.filter(a=>acctText(a).includes(q));
   if(sigOpen.acct===undefined){sigOpen.acct=new Set();sigAll.acct=false;}
   const list=sigAll.acct?rows:rows.slice(0,SIG_TOP);
   const seg=[["all",`All ${all.length}`],...[...ACCT_STAGES,ACCT_PARKED].filter(s=>counts[s.k]).map(s=>[s.k,`${s.l||s.k} ${counts[s.k]}`])];
@@ -1489,11 +1497,19 @@ function renderAccountsPanel(){
   el.innerHTML=`<div class="sig-card">
     <div class="sig-head"><div><div class="sig-kick">Accounts</div><h2>Customers</h2></div><button class="btn" id="addAcctBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>Add customer</button></div>
     <p class="sig-lede">Every call with a customer in one place, the stage they're at with us, and the files we've shared. Open a customer to see their timeline.</p>
-    <div class="seg mini ac-seg" id="acctSeg">${seg.map(([k,l])=>`<button data-af="${esc(k)}" class="${acctFilter===k?"on":""}">${esc(l)}</button>`).join("")}</div>
+    <div class="ac-controls">
+      <div class="seg mini ac-seg" id="acctSeg">${seg.map(([k,l])=>`<button data-af="${esc(k)}" class="${acctFilter===k?"on":""}">${esc(l)}</button>`).join("")}</div>
+      <input type="search" id="acctQ" class="ac-search" placeholder="Search customers — name, notes, quotes…" value="${esc(acctQ)}">
+    </div>
     <div class="sig-cols ac-row"><span>Customer</span><span>Stage</span><span>Calls</span><span>Last call</span><span>Files</span><span></span></div>
-    <div class="sig-list">${body||`<div class="ac-empty">No customers at this stage.</div>`}</div>
+    <div class="sig-list">${body||`<div class="ac-empty">${q?`No customers match “${esc(acctQ.trim())}”.`:"No customers at this stage."}</div>`}</div>
     ${sigMore("acct",rows.length)}
   </div>`;
+  const qi=document.getElementById("acctQ");
+  if(qi){
+    qi.addEventListener("input",e=>{acctQ=e.target.value;sigAll.acct=false;renderAccountsPanel();});
+    if(qWasFocused){qi.focus();const p=qCaret==null?qi.value.length:qCaret;try{qi.setSelectionRange(p,p);}catch(_){}}
+  }
   el.querySelectorAll("[data-acct]").forEach(r=>r.addEventListener("click",()=>openAcct(r.getAttribute("data-acct"))));
   el.querySelectorAll("[data-af]").forEach(b=>b.addEventListener("click",()=>{acctFilter=b.getAttribute("data-af");sigAll.acct=false;renderAccountsPanel();}));
   el.querySelectorAll("[data-more]").forEach(b=>b.addEventListener("click",()=>{sigAll.acct=!sigAll.acct;renderAccountsPanel();}));
