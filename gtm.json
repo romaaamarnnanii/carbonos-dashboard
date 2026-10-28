@@ -1,16 +1,16 @@
 {
- "generatedAt": "2026-10-27T12:04:01+00:00",
+ "generatedAt": "2026-10-28T12:44:12+00:00",
  "snapshotLabel": "16 Oct 2026, 14:00 IST",
  "source": "https://gtm-september.climes.io/",
  "model": "v2: engaged-only, depth x temperature x inbound; pullAdj = pull/sqrt(reached)",
  "funnel": {
   "contacted": 2891,
-  "replied": 29,
+  "replied": 30,
   "call": 16,
-  "proposal": 3,
+  "proposal": 4,
   "won": 0
  },
- "accountsParsed": 147,
+ "accountsParsed": 148,
  "byIndustry": {
   "Electrical Equipment": {
    "reached": 4,
@@ -35,6 +35,18 @@
    "cold": 0,
    "pull": 8.0,
    "pullAdj": 1.886
+  },
+  "Logistics & Shipping": {
+   "reached": 6,
+   "engaged": 5,
+   "calls": 2,
+   "proposals": 1,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 2,
+   "pull": 9.0,
+   "pullAdj": 3.674
   },
   "Membership & Events": {
    "reached": 1,
@@ -84,30 +96,6 @@
    "pull": 3.0,
    "pullAdj": 1.061
   },
-  "Logistics & Shipping": {
-   "reached": 5,
-   "engaged": 4,
-   "calls": 2,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 2,
-   "pull": 6.0,
-   "pullAdj": 2.683
-  },
-  "Healthcare": {
-   "reached": 6,
-   "engaged": 2,
-   "calls": 1,
-   "proposals": 0,
-   "won": 0,
-   "inbound": 0,
-   "hot": 0,
-   "cold": 0,
-   "pull": 4.0,
-   "pullAdj": 1.633
-  },
   "Paper & Packaging": {
    "reached": 5,
    "engaged": 3,
@@ -131,6 +119,18 @@
    "cold": 3,
    "pull": 11.5,
    "pullAdj": 2.002
+  },
+  "Healthcare": {
+   "reached": 6,
+   "engaged": 2,
+   "calls": 1,
+   "proposals": 0,
+   "won": 0,
+   "inbound": 0,
+   "hot": 0,
+   "cold": 0,
+   "pull": 4.0,
+   "pullAdj": 1.633
   },
   "Industrial Equipment": {
    "reached": 1,
@@ -285,6 +285,15 @@
    "temp": "warm"
   },
   {
+   "name": "TR FVLS (trfvlsl.com)",
+   "industry": "Logistics & Shipping",
+   "framework": "PCF",
+   "country": "IN",
+   "stage": "PROPOSAL",
+   "pull": 5.0,
+   "temp": "warm"
+  },
+  {
    "name": "YPO Bangalore",
    "industry": "Membership & Events",
    "framework": "Carbon neutral",
@@ -339,15 +348,6 @@
    "temp": "warm"
   },
   {
-   "name": "Aster DM Healthcare",
-   "industry": "Healthcare",
-   "framework": "GHG",
-   "country": "IN",
-   "stage": "CALL",
-   "pull": 3.0,
-   "temp": "warm"
-  },
-  {
    "name": "Pakka",
    "industry": "Paper & Packaging",
    "framework": "PCF",
@@ -366,6 +366,15 @@
    "temp": "warm"
   },
   {
+   "name": "Aster DM Healthcare",
+   "industry": "Healthcare",
+   "framework": "GHG",
+   "country": "IN",
+   "stage": "CALL",
+   "pull": 3.0,
+   "temp": "warm"
+  },
+  {
    "name": "Gulf Extrusions",
    "industry": "Metals",
    "framework": "CBAM",
@@ -373,15 +382,6 @@
    "stage": "CALL",
    "pull": 1.5,
    "temp": "cold"
-  },
-  {
-   "name": "TR FVLS (trfvlsl.com)",
-   "industry": "Logistics & Shipping",
-   "framework": "PCF",
-   "country": "IN",
-   "stage": "CALL",
-   "pull": 3.0,
-   "temp": "warm"
   },
   {
    "name": "Peekay Steels",
@@ -529,6 +529,15 @@
    "stage": "REPLIED",
    "pull": 1.5,
    "inbound": true,
+   "temp": "warm"
+  },
+  {
+   "name": "Shree Vasu Logistics",
+   "industry": "Logistics & Shipping",
+   "framework": "GHG",
+   "country": "IN",
+   "stage": "REPLIED",
+   "pull": 1.0,
    "temp": "warm"
   },
   {
